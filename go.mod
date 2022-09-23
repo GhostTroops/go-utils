@@ -1,6 +1,6 @@
 module github.com/hktalent/go-utils
 
-go 1.19
+go 1.18
 
 require (
 	github.com/apex/log v1.9.0
