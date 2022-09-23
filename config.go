@@ -37,7 +37,7 @@ type Config4scanAllModel struct {
 
 var Config4scanAll = Config4scanAllModel{}
 
-// 配置缓存
+// 所有配置信息，内存缓存
 var mData = map[string]interface{}{}
 var (
 	UrlPrecise      = "UrlPrecise"
@@ -213,7 +213,7 @@ func RandStringRunes(n int) string {
 }
 
 // 初始化配置文件信息，这个必须先执行
-func Init2() {
+func InitConfigFile() {
 	pwd, _ := os.Getwd()
 	SzPwd = pwd
 	var ConfigName = "config/config.json"
@@ -382,10 +382,10 @@ func Init1(config *embed.FS) {
 				}
 			}
 		} else {
-			log.Println("Init2:", err)
+			log.Println("InitConfigFile:", err)
 		}
 	}
-	Init2()
+	InitConfigFile()
 	log.Println("init config files is over .")
 }
 
@@ -487,6 +487,10 @@ var fnInit []func()
 func RegInitFunc(cbk func()) {
 	fnInit = append(fnInit, cbk)
 }
+
+// 初始化
+//  1、读取配置文件
+//  2、驱动执行 其他初始化注册的func
 func DoInit(config *embed.FS) {
 	Init1(config)
 	rand.Seed(time.Now().UnixNano())
@@ -494,6 +498,14 @@ func DoInit(config *embed.FS) {
 		x()
 	}
 	fnInit = nil
+}
+
+// 拷贝配置信息到o中
+func CopyConfig(o interface{}) {
+	data, err := json.Marshal(mData)
+	if nil == err {
+		json.Unmarshal(data, o)
+	}
 }
 
 func RemoveDuplication_map(arr []string) []string {
