@@ -24,23 +24,23 @@ func Close() {
 
 // 初始化模型
 func InitModle(x ...interface{}) {
-	for _, i := range x {
-		dbCC.Table(GetTableName(i)).Model(&i).AutoMigrate(i)
-	}
+	dbCC.AutoMigrate(x...)
 }
 
+// 初始化数据库对象，默认文件数据库
 // go - 交叉编译go-sqlite3 https://www.modb.pro/db/329524
 // ./tools/Check_CVE_2020_26134 -config="/Users/51pwn/MyWork/mybugbounty/allDomains.txt"
 // 获取Gorm db连接、操作对象
-func GetDb(dst ...interface{}) *gorm.DB {
+func Init(dbName string, dialector *gorm.Dialector, config *gorm.Config, dst ...interface{}) *gorm.DB {
 	if nil != dbCC {
 		log.Println("dbCC not is nil, DbName = ", DbName)
 		return dbCC
 	}
 	szDf := DbName
-	if 1 < len(dst) {
-		szDf = dst[1].(string)
+	if "" != dbName {
+		szDf = dbName
 	}
+
 	s1 := os.Getenv("DbName")
 	if "" != s1 {
 		szDf = s1
@@ -50,8 +50,14 @@ func GetDb(dst ...interface{}) *gorm.DB {
 		Mkdirs(s1)
 	}
 	log.Println("DbName ", szDf)
-	xx01 := sqlite.Open("file:" + szDf + ".db?cache=shared&mode=rwc&_journal_mode=WAL&Synchronous=Off&temp_store=memory&mmap_size=30000000000")
-	db, err := gorm.Open(xx01, &gorm.Config{PrepareStmt: true, Logger: logger.Default.LogMode(logger.Silent)})
+	if nil == dialector {
+		x1 := sqlite.Open("file:" + szDf + ".db?cache=shared&mode=rwc&_journal_mode=WAL&Synchronous=Off&temp_store=memory&mmap_size=30000000000")
+		dialector = &x1
+	}
+	if nil == config {
+		config = &gorm.Config{PrepareStmt: true, Logger: logger.Default.LogMode(logger.Silent)}
+	}
+	db, err := gorm.Open(*dialector, config)
 	if err == nil { // no error
 		db1, _ := db.DB()
 		if err := db1.Ping(); nil == err {
@@ -60,7 +66,7 @@ func GetDb(dst ...interface{}) *gorm.DB {
 			db1.SetMaxIdleConns(GetValAsInt("MaxIdleConns", 100))
 			db1.SetMaxOpenConns(GetValAsInt("MaxOpenConns", 200))
 			if nil != dst && 0 < len(dst) {
-				db.AutoMigrate(dst[0])
+				db.AutoMigrate(dst...)
 			}
 		} else {
 			log.Println("sqlite db init Connection failed", err)

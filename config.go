@@ -265,7 +265,6 @@ func Init2() {
 	//}
 	//config.Unmarshal(&mData)
 	viper.Set("Verbose", false)
-	initEs()
 	EnableHoneyportDetection = GetValAsBool("EnableHoneyportDetection")
 
 	configure := ccache.Configure()

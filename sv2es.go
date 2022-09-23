@@ -28,14 +28,16 @@ const (
 	Subfinder ESaveType = "subfinder"
 )
 
-func initEs() {
-	enableEsSv = GetValAsBool("enableEsSv")
-	EsUrl = GetValByDefault("EsUrl", "http://127.0.0.1:9200/%s_index/_doc/%s")
-	if enableEsSv {
-		n1 = GetValAsInt("esthread", 4)
-		log.Printf("es 初始化线程数 = %d, EsUrl = %s", n1, EsUrl)
-		nThreads = make(chan struct{}, n1)
-	}
+func init() {
+	RegInitFunc(func() {
+		enableEsSv = GetValAsBool("enableEsSv")
+		EsUrl = GetValByDefault("EsUrl", "http://127.0.0.1:9200/%s_index/_doc/%s")
+		if enableEsSv {
+			n1 = GetValAsInt("esthread", 4)
+			log.Printf("es 初始化线程数 = %d, EsUrl = %s", n1, EsUrl)
+			nThreads = make(chan struct{}, n1)
+		}
+	})
 }
 
 func Log(v ...any) {
