@@ -41,29 +41,33 @@ func TestIp2Int(t *testing.T) {
 	}
 }
 
-//
-//func TestAny2Hex(t *testing.T) {
-//	type args struct {
-//		n interface{}
-//	}
-//	tests1 := []struct {
-//		name string
-//		args args
-//		want string
-//	}{
-//		struct {
-//			name string
-//			args args
-//			want string
-//		}{name: "int to hex", args: args{
-//			n: big.NewInt(int64(42540766452641154071740215577757643572)),
-//			want: ""},
-//	}
-//	for _, tt := range tests1 {
-//		t.Run(tt.name, func(t *testing.T) {
-//			if got := Any2Hex(tt.args.n); got != tt.want {
-//				t.Errorf("Int2Hex() = %v, want %v", got, tt.want)
-//			}
-//		})
-//	}
-//}
+func TestAny2Hex(t *testing.T) {
+	type args struct {
+		n interface{}
+	}
+	tests1 := []struct {
+		name string
+		args args
+		want string
+	}{
+		struct {
+			name string
+			args args
+			want string
+		}{name: "int to hex", args: args{
+			n: Str2BigInt("42540766452641154071740215577757643572", 0),
+		}, want: "3432353430373636343532363431313534303731373430323135353737373537363433353732"}}
+	for _, tt := range tests1 {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := Any2Hex(tt.args.n); got != tt.want {
+				t.Errorf("Int2Hex() = %v, want %v", got, tt.want)
+			} else {
+				x1 := BigInt2Hex(tt.args.n.(*big.Int), 16)
+				x2 := "20010db885a3000000008a2e03707334"
+				if x1 != x2 {
+					t.Errorf("BigInt2Hex() = %v, want %v", x1, x2)
+				}
+			}
+		})
+	}
+}

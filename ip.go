@@ -83,7 +83,7 @@ func IntToIpv6Str(intipv6 *big.Int) string {
 
 // big int to hex, base is 16
 func BigInt2Hex(v *big.Int, base int) string {
-	return v.Text(16)
+	return v.Text(base)
 }
 
 // int to hex string
