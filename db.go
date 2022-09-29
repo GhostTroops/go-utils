@@ -27,6 +27,13 @@ func InitModle(x ...interface{}) {
 	dbCC.AutoMigrate(x...)
 }
 
+func GetDb() *gorm.DB {
+	if nil != dbCC {
+		return dbCC
+	}
+	return Init(DbName, nil, nil)
+}
+
 // 初始化数据库对象，默认文件数据库
 // go - 交叉编译go-sqlite3 https://www.modb.pro/db/329524
 // ./tools/Check_CVE_2020_26134 -config="/Users/51pwn/MyWork/mybugbounty/allDomains.txt"
