@@ -175,14 +175,23 @@ func FileExists(s string) bool {
 	return false
 }
 
+func ReadFile(s string) []byte {
+	b, err := ioutil.ReadFile(s)
+	if nil == err && 0 < len(b) {
+		return b
+	} else {
+		log.Println("read config file error: ", err)
+	}
+	return nil
+}
+
 // 读区配置中的字典文件
 func GetVal4File(key, szDefault string) string {
 	s := GetVal(key)
 	if "" != s && FileExists(s) {
 		//log.Println("start read config file ", s)
-		b, err := ioutil.ReadFile(s)
-		if nil == err && 0 < len(b) {
-			//log.Println("read config file ok: ", s)
+		b := ReadFile(s)
+		if nil == b && 0 < len(b) {
 			return string(b)
 		}
 	}
