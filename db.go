@@ -13,6 +13,13 @@ import (
 var dbCC *gorm.DB
 var DbName = "config/scan4all_db"
 
+type DbUtil struct {
+	Migrator gorm.Migrator
+}
+
+// 单实例提高效率
+var GDbUtil = DbUtil{}
+
 // 关闭数据库连接
 func Close() {
 	if nil != dbCC {
@@ -24,7 +31,7 @@ func Close() {
 
 // 初始化模型
 func InitModle(x ...interface{}) {
-	dbCC.AutoMigrate(x...)
+	GDbUtil.Migrator.AutoMigrate(x...)
 }
 
 func GetDb() *gorm.DB {
@@ -39,6 +46,9 @@ func GetDb() *gorm.DB {
 // ./tools/Check_CVE_2020_26134 -config="/Users/51pwn/MyWork/mybugbounty/allDomains.txt"
 // 获取Gorm db连接、操作对象
 func Init(dbName string, dialector *gorm.Dialector, config *gorm.Config, dst ...interface{}) *gorm.DB {
+	defer func() {
+		GDbUtil.Migrator = dbCC.Migrator()
+	}()
 	if nil != dbCC {
 		log.Println("dbCC not is nil, DbName = ", DbName)
 		return dbCC
@@ -102,7 +112,7 @@ func GetTableName[T any](mod T) string {
 func Update[T any](mod T, id interface{}) int64 {
 	var t1 *T = &mod
 	xxxD := dbCC.Table(GetTableName(mod)).Model(&t1)
-	xxxD.AutoMigrate(t1)
+	InitModle(t1)
 	rst := xxxD.Where("id = ?", id).Updates(mod)
 	xxxD.Commit()
 	if 0 >= rst.RowsAffected {
@@ -114,7 +124,7 @@ func Update[T any](mod T, id interface{}) int64 {
 // 通用,insert
 func Create[T any](mod *T) int64 {
 	xxxD := dbCC.Table(GetTableName(*mod)).Model(mod)
-	xxxD.AutoMigrate(mod)
+	InitModle(mod)
 	rst := xxxD.Create(mod)
 	rst.Commit()
 	if 0 >= rst.RowsAffected {
@@ -144,7 +154,7 @@ func GetOne[T any](rst *T, args ...interface{}) *T {
 		rst = new(T)
 	}
 	xxxD := dbCC.Table(GetTableName(rst)).Model(rst)
-	xxxD.AutoMigrate(rst)
+	InitModle(rst)
 	rst1 := xxxD.First(rst, args...)
 	if 0 == rst1.RowsAffected && nil != rst1.Error {
 		//log.Println(rst1.Error)
