@@ -45,6 +45,10 @@ var (
 	EnableSubfinder = "EnableSubfinder"
 )
 
+func GetAllConfigData() *map[string]interface{} {
+	return &mData
+}
+
 // 判断对象是否为struct
 func IsStruct(i interface{}) bool {
 	return reflect.ValueOf(i).Type().Kind() == reflect.Struct

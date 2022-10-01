@@ -6,6 +6,7 @@ import (
 )
 
 func main() {
+	util.DoInitAll()
 	n := util.GetValAsInt64("UploadFileMaxSize", 888)
 	log.Println(n)
 
