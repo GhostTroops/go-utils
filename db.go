@@ -1,6 +1,7 @@
 package go_utils
 
 import (
+	"gorm.io/driver/mysql"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
@@ -37,6 +38,17 @@ func InitModle(x ...interface{}) {
 func GetDb() *gorm.DB {
 	if nil != dbCC {
 		return dbCC
+	}
+	// https://gorm.io/docs/connecting_to_the_database.html
+	if GetValAsBool("UseMysql") {
+		var dbO gorm.Dialector
+		var dsn string
+		dsn = GetVal("DbUrl")
+		if GetValAsBool("Debug") {
+			dsn = GetVal("DebugDbUrl")
+		}
+		dbO = mysql.Open(dsn)
+		return Init(DbName, &dbO, nil)
 	}
 	return Init(DbName, nil, nil)
 }
