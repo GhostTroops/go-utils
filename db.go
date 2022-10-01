@@ -62,7 +62,12 @@ func Init(dbName string, dialector *gorm.Dialector, config *gorm.Config, dst ...
 		dialector = &x1
 	}
 	if nil == config {
-		config = &gorm.Config{PrepareStmt: true, Logger: logger.Default.LogMode(logger.Silent)}
+		config = &gorm.Config{PrepareStmt: true}
+	}
+	if GetVal("ProductMod") == "release" {
+		config.Logger = logger.Default.LogMode(logger.Silent)
+	} else {
+		config.Logger = logger.Default.LogMode(logger.Info)
 	}
 	db, err := gorm.Open(*dialector, config)
 	if err == nil { // no error
