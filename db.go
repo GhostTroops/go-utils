@@ -1,6 +1,7 @@
 package go_utils
 
 import (
+	"context"
 	"gorm.io/driver/mysql"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
@@ -119,19 +120,48 @@ func GetTableName[T any](mod T) string {
 	return stmt.Schema.Table
 }
 
+// go tool pprof -seconds=120 -http=:9999 http://65.49.202.211:8080/debug/pprof/heap
+func CloseCur(xx1 *gorm.DB) {
+	//if nil != xx1 {
+	//	if r, err := xx1.Rows(); nil == err {
+	//		r.Close()
+	//	} else if nil != xx1.Statement {
+	//		if r, err := xx1.Statement.Rows(); nil == err {
+	//			r.Close()
+	//		}
+	//	}
+	//}
+}
+
 // 通用,update
 // 指定id更新T类型mod数据
-func Update[T any](mod T, id interface{}) int64 {
-	var t1 *T = &mod
-	xxxD := dbCC.Table(GetTableName(mod)).Model(&t1)
-	InitModle(t1)
-	rst := xxxD.Where("id = ?", id).Updates(mod)
-	xxxD.Commit()
-	if 0 >= rst.RowsAffected {
+// 通用,update
+// 指定id更新T类型mod数据
+func Update[T any](mod *T, id interface{}, idName string) int64 {
+	xxxD := GetSession().Table(GetTableName(*mod)).Model(mod)
+	InitModle(mod)
+	if "" == idName {
+		idName = "id"
+	}
+	rst := xxxD.Where(idName+" = ?", id).Updates(mod)
+	if 0 >= rst.RowsAffected && nil != rst.Error {
 		log.Println(rst.Error)
 	}
+	defer CloseCur(rst)
 	return rst.RowsAffected
 }
+
+//func Update[T any](mod T, id interface{}) int64 {
+//	var t1 *T = &mod
+//	xxxD := dbCC.Table(GetTableName(mod)).Model(&t1)
+//	InitModle(t1)
+//	rst := xxxD.Where("id = ?", id).Updates(mod)
+//	xxxD.Commit()
+//	if 0 >= rst.RowsAffected {
+//		log.Println(rst.Error)
+//	}
+//	return rst.RowsAffected
+//}
 
 // 通用,insert
 func Create[T any](mod *T) int64 {
@@ -194,4 +224,15 @@ func GetSubQueryLists[T1, T2 any](mode T1, preLd string, aRst []T2, nPageSize in
 // 以及其他查询条件conds
 func GetSubQueryList[T1, T2, T3 any](mode T1, preLd T3, aRst []T2, nPageSize int, Offset int, conds ...interface{}) *[]T2 {
 	return GetSubQueryLists(mode, GetTableName(preLd), aRst, nPageSize, Offset, conds...)
+}
+
+func GetSession() *gorm.DB {
+	return dbCC.WithContext(context.Background()).Session(&gorm.Session{PrepareStmt: true})
+}
+
+// 执行自定义查询
+func DoSelectSql(oRst interface{}, szSql string, args ...interface{}) interface{} {
+	xx1 := GetSession().Raw(szSql, args...)
+	x1 := xx1.Scan(oRst)
+	return x1
 }
