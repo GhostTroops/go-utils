@@ -10,8 +10,10 @@ require (
 	github.com/corpix/uarand v0.2.0
 	github.com/dgraph-io/badger v1.6.2
 	github.com/fsnotify/fsnotify v1.5.4
+	github.com/gin-gonic/gin v1.8.1
 	github.com/hbakhtiyor/strsim v0.0.0-20190107154042-4d2bbb273edf
 	github.com/hktalent/PipelineHttp v0.0.0-20221004080931-279351b9fb96
+	github.com/hktalent/websocket v0.0.0-20220908204337-b4a81b861976
 	github.com/karlseguin/ccache v2.0.3+incompatible
 	github.com/pkg/errors v0.9.1
 	github.com/projectdiscovery/dnsx v1.0.7-0.20210927160546-05f957862698
@@ -34,8 +36,13 @@ require (
 	github.com/dgraph-io/ristretto v0.1.0 // indirect
 	github.com/dsnet/compress v0.0.1 // indirect
 	github.com/dustin/go-humanize v1.0.0 // indirect
+	github.com/gin-contrib/sse v0.1.0 // indirect
 	github.com/go-ole/go-ole v1.2.6 // indirect
+	github.com/go-playground/locales v0.14.0 // indirect
+	github.com/go-playground/universal-translator v0.18.0 // indirect
+	github.com/go-playground/validator/v10 v10.10.0 // indirect
 	github.com/go-sql-driver/mysql v1.6.0 // indirect
+	github.com/goccy/go-json v0.9.7 // indirect
 	github.com/gogo/protobuf v1.3.2 // indirect
 	github.com/golang/glog v1.0.0 // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
@@ -53,6 +60,7 @@ require (
 	github.com/karlseguin/expect v1.0.8 // indirect
 	github.com/klauspost/compress v1.15.11 // indirect
 	github.com/klauspost/pgzip v1.2.5 // indirect
+	github.com/leodido/go-urn v1.2.1 // indirect
 	github.com/logrusorgru/aurora v2.0.3+incompatible // indirect
 	github.com/lufia/plan9stats v0.0.0-20220913051719-115f729f3c8c // indirect
 	github.com/magiconair/properties v1.8.6 // indirect
@@ -81,8 +89,10 @@ require (
 	github.com/subosito/gotenv v1.4.1 // indirect
 	github.com/tklauser/go-sysconf v0.3.10 // indirect
 	github.com/tklauser/numcpus v0.5.0 // indirect
+	github.com/ugorji/go/codec v1.2.7 // indirect
 	github.com/ulikunitz/xz v0.5.10 // indirect
 	github.com/yusufpapurcu/wmi v1.2.2 // indirect
+	golang.org/x/crypto v0.0.0-20220411220226-7b82a4e95df4 // indirect
 	golang.org/x/mod v0.6.0-dev.0.20220106191415-9b9b3d81d5e3 // indirect
 	golang.org/x/net v0.0.0-20221002022538-bcab6841153b // indirect
 	golang.org/x/sys v0.0.0-20220928140112-f11e5e49a4ec // indirect
