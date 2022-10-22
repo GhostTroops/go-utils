@@ -110,6 +110,20 @@ func GetValAsInt(key string, nDefault int) int {
 	}
 	return nDefault
 }
+
+func GetValAsArrString(key string) []string {
+	if o := GetAsAny(key); nil != o {
+		var a []string
+		if o1, ok := o.([]interface{}); ok {
+			for _, x := range o1 {
+				a = append(a, fmt.Sprintf("%v", x))
+			}
+		}
+		return a
+	}
+	return nil
+}
+
 func GetValAsFloat64(key string, nDefault float64) float64 {
 	s := GetAsAny(key)
 	if reflect.ValueOf(s).Kind() == reflect.Float64 {
