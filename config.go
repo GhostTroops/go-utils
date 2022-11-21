@@ -4,8 +4,9 @@ import (
 	"bytes"
 	"crypto/sha1"
 	"embed"
-	"encoding/json"
+	"encoding/hex"
 	"fmt"
+	jsoniter "github.com/json-iterator/go"
 	"github.com/karlseguin/ccache"
 	"github.com/spf13/viper"
 	"io/fs"
@@ -21,6 +22,8 @@ import (
 	"strings"
 	"time"
 )
+
+var json = jsoniter.ConfigCompatibleWithStandardLibrary
 
 // 字符串包含关系，且大小写不敏感
 func StrContains(s1, s2 string) bool {
@@ -428,11 +431,15 @@ func Mkdirs(s string) {
 // 获取 Sha1
 func GetSha1(a ...interface{}) string {
 	h := sha1.New()
-	for _, x := range a {
-		h.Write([]byte(fmt.Sprintf("%v", x)))
+	if data, err := json.Marshal(a); nil == err {
+		h.Write(data)
+	} else {
+		for _, x := range a {
+			h.Write([]byte(fmt.Sprintf("%v", x)))
+		}
 	}
 	bs := h.Sum(nil)
-	return fmt.Sprintf("%x", bs)
+	return hex.EncodeToString(bs) // fmt.Sprintf("%x", bs)
 }
 
 var Abs404 = "/scan4all404"
