@@ -403,22 +403,22 @@ func Init1(config *embed.FS) {
   - "dos"`), os.ModePerm)
 		}
 	}
-	szPath := "config"
-	log.Println("wait for init config files ... ")
+	//szPath := "config"
+	//log.Println("wait for init config files ... ")
 	// 释放config目录到本地
-	if nil != config {
-		if x1, err := config.ReadDir(szPath); nil == err {
-			for _, x2 := range x1 {
-				if x2.IsDir() {
-					doDir(config, x2, szPath)
-				} else {
-					doFile(config, x2, szPath)
-				}
-			}
-		} else {
-			log.Println("Init1:", err)
-		}
-	}
+	//if nil != config {
+	//	if x1, err := config.ReadDir(szPath); nil == err {
+	//		for _, x2 := range x1 {
+	//			if x2.IsDir() {
+	//				doDir(config, x2, szPath)
+	//			} else {
+	//				doFile(config, x2, szPath)
+	//			}
+	//		}
+	//	} else {
+	//		log.Println("Init1:", err)
+	//	}
+	//}
 	InitConfigFile()
 	Init2()
 	log.Println("init config files is over .")
