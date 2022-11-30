@@ -20,13 +20,13 @@ const (
 var pipE = PipelineHttp.NewPipelineHttp()
 
 // 发送通讯信号
-func SignalCandidate(addr string, c *webrtc.ICECandidate) error {
+func SignalCandidate(addr string, c *webrtc.ICECandidate, kv ...string) error {
 	payload := []byte(c.ToJSON().Candidate)
 	SendE2eData(addr, payload)
 	return nil
 }
 
-func SendE2eData(addr string, data []byte) {
+func SendE2eData(addr string, data []byte, kv ...string) {
 	pipE.DoGetWithClient4SetHd(
 		nil,
 		addr,
@@ -35,7 +35,13 @@ func SendE2eData(addr string, data []byte) {
 		func(resp *http.Response, err error, szU string) {
 
 		}, func() map[string]string {
-			return map[string]string{"Content-Type": "application/json; charset=utf-8"}
+			var m1 = map[string]string{"Content-Type": "application/json; charset=utf-8"}
+			if nil != kv && 0 < len(kv) {
+				for i := 0; i < len(kv); i += 2 {
+					m1[kv[i]] = kv[i+1]
+				}
+			}
+			return m1
 		}, true)
 
 }
