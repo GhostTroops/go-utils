@@ -5,6 +5,7 @@ import (
 	"compress/gzip"
 	"encoding/base64"
 	"fmt"
+	"github.com/hktalent/PipelineHttp"
 	"github.com/pion/webrtc/v3"
 	"io/ioutil"
 	"log"
@@ -17,24 +18,30 @@ const (
 	compress = true
 )
 
+var pipE = PipelineHttp.NewPipelineHttp()
+
 // 发送通讯信号
 func SignalCandidate(addr string, c *webrtc.ICECandidate) error {
 	payload := []byte(c.ToJSON().Candidate)
-	resp, err := http.Post(fmt.Sprintf("http://%s%s", addr, E2ePath), // nolint:noctx
-		"application/json; charset=utf-8", bytes.NewReader(payload))
-	if err != nil {
-		return err
-	}
+	pipE.DoGetWithClient4SetHd(
+		nil,
+		fmt.Sprintf("https://%s%s", addr, E2ePath),
+		"POST",
+		bytes.NewReader(payload),
+		func(resp *http.Response, err error, szU string) {
 
-	if closeErr := resp.Body.Close(); closeErr != nil {
-		return closeErr
-	}
+		}, func() map[string]string {
+			return map[string]string{"Content-Type": "application/json; charset=utf-8"}
+		}, true)
 
 	return nil
 }
 
-func GetPeerConnection() *webrtc.PeerConnection {
+// key 标识不同用户，对等的p2p
+func GetPeerConnection(key string, certificates *[]webrtc.Certificate) *webrtc.PeerConnection {
 	config := webrtc.Configuration{
+		PeerIdentity: key,
+		Certificates: *certificates,
 		ICEServers: []webrtc.ICEServer{
 			{
 				URLs: []string{"stun:stun.l.google.com:19302"},
