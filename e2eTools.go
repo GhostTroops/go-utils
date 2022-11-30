@@ -43,13 +43,17 @@ func SendE2eData(addr string, data []byte) {
 // key 标识不同用户，对等的p2p
 func GetPeerConnection(key string, certificates *[]webrtc.Certificate) *webrtc.PeerConnection {
 	config := webrtc.Configuration{
-		PeerIdentity: key,
-		Certificates: *certificates,
 		ICEServers: []webrtc.ICEServer{
 			{
 				URLs: []string{"stun:stun.l.google.com:19302"},
 			},
 		},
+	}
+	if nil != certificates && 0 < len(*certificates) {
+		config.Certificates = *certificates
+	}
+	if 0 < len(key) {
+		config.PeerIdentity = key
 	}
 
 	// Create a new RTCPeerConnection
