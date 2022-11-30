@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"compress/gzip"
 	"encoding/base64"
-	"fmt"
 	"github.com/hktalent/PipelineHttp"
 	"github.com/pion/webrtc/v3"
 	"io/ioutil"
@@ -30,7 +29,7 @@ func SignalCandidate(addr string, c *webrtc.ICECandidate) error {
 func SendE2eData(addr string, data []byte) {
 	pipE.DoGetWithClient4SetHd(
 		nil,
-		fmt.Sprintf("https://%s%s", addr, E2ePath),
+		addr,
 		"POST",
 		bytes.NewReader(data),
 		func(resp *http.Response, err error, szU string) {
