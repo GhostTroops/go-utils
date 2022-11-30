@@ -23,18 +23,22 @@ var pipE = PipelineHttp.NewPipelineHttp()
 // 发送通讯信号
 func SignalCandidate(addr string, c *webrtc.ICECandidate) error {
 	payload := []byte(c.ToJSON().Candidate)
+	SendE2eData(addr, payload)
+	return nil
+}
+
+func SendE2eData(addr string, data []byte) {
 	pipE.DoGetWithClient4SetHd(
 		nil,
 		fmt.Sprintf("https://%s%s", addr, E2ePath),
 		"POST",
-		bytes.NewReader(payload),
+		bytes.NewReader(data),
 		func(resp *http.Response, err error, szU string) {
 
 		}, func() map[string]string {
 			return map[string]string{"Content-Type": "application/json; charset=utf-8"}
 		}, true)
 
-	return nil
 }
 
 // key 标识不同用户，对等的p2p
