@@ -567,6 +567,26 @@ func CopyConfig(o interface{}) {
 	}
 }
 
+func RemoveDuplication_mapNoEmpy(arr []string) []string {
+	set := make(map[string]struct{}, len(arr))
+	j := 0
+	for _, v := range arr {
+		v = strings.TrimSpace(v)
+		if v == "" {
+			continue
+		}
+		_, ok := set[v]
+		if ok {
+			continue
+		}
+		set[v] = struct{}{}
+		arr[j] = v
+		j++
+	}
+
+	return arr[:j]
+}
+
 func RemoveDuplication_map(arr []string) []string {
 	set := make(map[string]struct{}, len(arr))
 	j := 0
