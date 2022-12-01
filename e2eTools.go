@@ -20,22 +20,22 @@ const (
 var pipE = PipelineHttp.NewPipelineHttp()
 
 // 发送通讯信号
-func SignalCandidate(addr string, c *webrtc.ICECandidate, kv ...string) error {
+func SignalCandidate(addr string, c *webrtc.ICECandidate, hd map[string]string, cbk func(resp *http.Response, err error, szU string), kv ...string) {
 	payload := []byte(c.ToJSON().Candidate)
-	SendE2eData(addr, payload)
-	return nil
+	SendE2eData(addr, payload, hd, cbk, kv...)
 }
 
-func SendE2eData(addr string, data []byte, kv ...string) {
+func SendE2eData(addr string, data []byte, hd map[string]string, cbk func(resp *http.Response, err error, szU string), kv ...string) {
 	pipE.DoGetWithClient4SetHd(
 		nil,
 		addr,
 		"POST",
 		bytes.NewReader(data),
-		func(resp *http.Response, err error, szU string) {
-
-		}, func() map[string]string {
+		cbk, func() map[string]string {
 			var m1 = map[string]string{"Content-Type": "application/json; charset=utf-8"}
+			for k, v := range hd {
+				m1[k] = v
+			}
 			if nil != kv && 0 < len(kv) {
 				for i := 0; i < len(kv); i += 2 {
 					m1[kv[i]] = kv[i+1]
