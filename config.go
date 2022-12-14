@@ -602,3 +602,21 @@ func RemoveDuplication_map(arr []string) []string {
 
 	return arr[:j]
 }
+
+func RemoveDuplication_map4Any(arr []interface{}) []string {
+	set := make(map[string]struct{}, len(arr))
+	j := 0
+	var aR = make([]string, len(arr))
+	for _, v1 := range arr {
+		v := fmt.Sprintf("%v", v1)
+		_, ok := set[v]
+		if ok {
+			continue
+		}
+		set[v] = struct{}{}
+		aR[j] = v
+		j++
+	}
+
+	return aR[:j]
+}
