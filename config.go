@@ -591,7 +591,7 @@ func RemoveDuplication_map(arr []string) []string {
 	set := make(map[string]struct{}, len(arr))
 	j := 0
 	for _, v := range arr {
-		if _, ok := set[v]; ok {
+		if _, ok := set[v]; ok || 0 == len(strings.TrimSpace(v)) {
 			continue
 		}
 		set[v] = struct{}{}

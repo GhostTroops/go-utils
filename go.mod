@@ -15,6 +15,7 @@ require (
 	github.com/hktalent/websocket v0.0.0-20220908204337-b4a81b861976
 	github.com/json-iterator/go v1.1.12
 	github.com/karlseguin/ccache v2.0.3+incompatible
+	github.com/matrix-org/gomatrix v0.0.0-20220926102614-ceba4d9f7530
 	github.com/pion/webrtc/v3 v3.1.49
 	github.com/pkg/errors v0.9.1
 	github.com/projectdiscovery/dnsx v1.0.7-0.20210927160546-05f957862698
