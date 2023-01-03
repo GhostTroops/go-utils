@@ -162,7 +162,7 @@ github.com/hbakhtiyor/strsim
 # github.com/hktalent/PipelineHttp v0.0.0-20221209043918-65a9cff9f6ea
 ## explicit; go 1.18
 github.com/hktalent/PipelineHttp
-# github.com/hktalent/go-update v0.0.0-20230103082908-f3a2c331e13f
+# github.com/hktalent/go-update v0.0.0-20230103083610-b2d1a1455f93
 ## explicit; go 1.18
 github.com/hktalent/go-update
 github.com/hktalent/go-update/progress
