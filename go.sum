@@ -130,7 +130,6 @@ github.com/go-playground/universal-translator v0.18.0 h1:82dyy6p4OuJq4/CByFNOn/j
 github.com/go-playground/universal-translator v0.18.0/go.mod h1:UvRDBj+xPUEGrFYl+lu/H90nyDXpg0fqeB/AQUGNTVA=
 github.com/go-playground/validator/v10 v10.10.0 h1:I7mrTYv78z8k8VXa/qJlOlEXn/nBh+BF8dHX5nt/dr0=
 github.com/go-playground/validator/v10 v10.10.0/go.mod h1:74x4gJWsvQexRdW8Pn3dXSGrTK4nAUsbPlLADvpJkos=
-github.com/go-sql-driver/mysql v1.6.0/go.mod h1:DCzpHaOWr8IXmIStZouvnhqoel9Qv2LBy8hT2VhHyBg=
 github.com/go-sql-driver/mysql v1.7.0 h1:ueSltNNllEqE3qcWBTD0iQd3IpL/6U+mJxLkazJ7YPc=
 github.com/go-sql-driver/mysql v1.7.0/go.mod h1:OXbVy3sEdcQ2Doequ6Z5BW6fXNQTmx+9S1MCJN5yJMI=
 github.com/go-task/slim-sprig v0.0.0-20210107165309-348f09dbbbc0 h1:p104kn46Q8WdvHunIJ9dAyjPVtrBPhSr3KT2yUst43I=
@@ -239,6 +238,8 @@ github.com/hbakhtiyor/strsim v0.0.0-20190107154042-4d2bbb273edf h1:umfGUaWdFP2s6
 github.com/hbakhtiyor/strsim v0.0.0-20190107154042-4d2bbb273edf/go.mod h1:V99KdStnMHZsvVOwIvhfcUzYgYkRZeQWUtumtL+SKxA=
 github.com/hktalent/PipelineHttp v0.0.0-20221209043918-65a9cff9f6ea h1:due85tODOvzW5eXGBvsl9oD+RFKjD8+vEkKVlgH7pSQ=
 github.com/hktalent/PipelineHttp v0.0.0-20221209043918-65a9cff9f6ea/go.mod h1:kPhxh65InNTmbOw3jtdPkH/yQ4E9LVfb5nHE3WqwRvY=
+github.com/hktalent/go-update v0.0.0-20230103082908-f3a2c331e13f h1:1yGcib/EURTF9B6loKmPJpu5TnQTV2r/wnzQkMhKp68=
+github.com/hktalent/go-update v0.0.0-20230103082908-f3a2c331e13f/go.mod h1:hmpVHJZPSxHaw7St4f7eYTSBMG8dz8pnTQ4N6mOmTfE=
 github.com/hktalent/websocket v0.0.0-20220908204337-b4a81b861976 h1:oGE7u0adRuzpamtAkkOy65hevwyEtrszTAVz+USJz/k=
 github.com/hktalent/websocket v0.0.0-20220908204337-b4a81b861976/go.mod h1:bYeGvW6UTlOOHQSEjdwwDSF2e5OFA4qQtgHRitu5LSQ=
 github.com/hooklift/assert v0.1.0 h1:UZzFxx5dSb9aBtvMHTtnPuvFnBvcEhHTPb9+0+jpEjs=
@@ -516,8 +517,6 @@ github.com/tj/go-buffer v1.1.0/go.mod h1:iyiJpfFcR2B9sXu7KvjbT9fpM4mOelRSDTbntVj
 github.com/tj/go-elastic v0.0.0-20171221160941-36157cbbebc2/go.mod h1:WjeM0Oo1eNAjXGDx2yma7uG2XoyRZTq1uv3M/o7imD0=
 github.com/tj/go-kinesis v0.0.0-20171128231115-08b17f58cb1b/go.mod h1:/yhzCV0xPfx6jb1bBgRFjl5lytqVqZXEaeqWP8lTEao=
 github.com/tj/go-spin v1.1.0/go.mod h1:Mg1mzmePZm4dva8Qz60H2lHwmJ2loum4VIrLgVnKwh4=
-github.com/tj/go-update v2.2.5-0.20200519121640-62b4b798fd68+incompatible h1:guTq1YxwB8XSILkI9q4IrOmrCOS6Hc1L3hmOhi4Swcs=
-github.com/tj/go-update v2.2.5-0.20200519121640-62b4b798fd68+incompatible/go.mod h1:waFwwyiAhGey2e+dNoYQ/iLhIcFqhCW7zL/+vDU1WLo=
 github.com/tklauser/go-sysconf v0.3.11 h1:89WgdJhk5SNwJfu+GKyYveZ4IaJ7xAkecBo+KdJV0CM=
 github.com/tklauser/go-sysconf v0.3.11/go.mod h1:GqXfhXY3kiPa0nAXPDIQIWzJbMCB7AmcWpGR8lSZfqI=
 github.com/tklauser/numcpus v0.6.0 h1:kebhY2Qt+3U6RNK7UqpYNA+tJ23IBEGKkB7JQBfDYms=
@@ -943,14 +942,14 @@ gopkg.in/yaml.v3 v3.0.0-20200605160147-a5ece683394c/go.mod h1:K4uyk7z7BCEPqu6E+C
 gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b/go.mod h1:K4uyk7z7BCEPqu6E+C64Yfv1cQ7kz7rIZviUmN+EgEM=
 gopkg.in/yaml.v3 v3.0.1 h1:fxVm/GzAzEWqLHuvctI91KS9hhNmmWOoWu0XTYJS7CA=
 gopkg.in/yaml.v3 v3.0.1/go.mod h1:K4uyk7z7BCEPqu6E+C64Yfv1cQ7kz7rIZviUmN+EgEM=
-gorm.io/driver/mysql v1.4.4 h1:MX0K9Qvy0Na4o7qSC/YI7XxqUw5KDw01umqgID+svdQ=
-gorm.io/driver/mysql v1.4.4/go.mod h1:BCg8cKI+R0j/rZRQxeKis/forqRwRSYOR8OM3Wo6hOM=
-gorm.io/driver/sqlite v1.4.3 h1:HBBcZSDnWi5BW3B3rwvVTc510KGkBkexlOg0QrmLUuU=
-gorm.io/driver/sqlite v1.4.3/go.mod h1:0Aq3iPO+v9ZKbcdiz8gLWRw5VOPcBOPUQJFLq5e2ecI=
+gorm.io/driver/mysql v1.4.5 h1:u1lytId4+o9dDaNcPCFzNv7h6wvmc92UjNk3z8enSBU=
+gorm.io/driver/mysql v1.4.5/go.mod h1:SxzItlnT1cb6e1e4ZRpgJN2VYtcqJgqnHxWr4wsP8oc=
+gorm.io/driver/sqlite v1.4.4 h1:gIufGoR0dQzjkyqDyYSCvsYR6fba1Gw5YKDqKeChxFc=
+gorm.io/driver/sqlite v1.4.4/go.mod h1:0Aq3iPO+v9ZKbcdiz8gLWRw5VOPcBOPUQJFLq5e2ecI=
 gorm.io/gorm v1.23.8/go.mod h1:l2lP/RyAtc1ynaTjFksBde/O8v9oOGIApu2/xRitmZk=
 gorm.io/gorm v1.24.0/go.mod h1:DVrVomtaYTbqs7gB/x2uVvqnXzv0nqjB396B8cG4dBA=
-gorm.io/gorm v1.24.2 h1:9wR6CFD+G8nOusLdvkZelOEhpJVwwHzpQOUM+REd6U0=
-gorm.io/gorm v1.24.2/go.mod h1:DVrVomtaYTbqs7gB/x2uVvqnXzv0nqjB396B8cG4dBA=
+gorm.io/gorm v1.24.3 h1:WL2ifUmzR/SLp85CSURAfybcHnGZ+yLSGSxgYXlFBHg=
+gorm.io/gorm v1.24.3/go.mod h1:DVrVomtaYTbqs7gB/x2uVvqnXzv0nqjB396B8cG4dBA=
 honnef.co/go/tools v0.0.0-20190102054323-c2f93a96b099/go.mod h1:rf3lG4BRIbNafJWhAfAdb/ePZxsR/4RtNHQocxwk9r4=
 honnef.co/go/tools v0.0.0-20190106161140-3f1c8253044a/go.mod h1:rf3lG4BRIbNafJWhAfAdb/ePZxsR/4RtNHQocxwk9r4=
 honnef.co/go/tools v0.0.0-20190418001031-e561f6794a2a/go.mod h1:rf3lG4BRIbNafJWhAfAdb/ePZxsR/4RtNHQocxwk9r4=

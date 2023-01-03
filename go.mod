@@ -12,6 +12,7 @@ require (
 	github.com/gin-gonic/gin v1.8.1
 	github.com/hbakhtiyor/strsim v0.0.0-20190107154042-4d2bbb273edf
 	github.com/hktalent/PipelineHttp v0.0.0-20221209043918-65a9cff9f6ea
+	github.com/hktalent/go-update v0.0.0-20230103082908-f3a2c331e13f
 	github.com/hktalent/websocket v0.0.0-20220908204337-b4a81b861976
 	github.com/json-iterator/go v1.1.12
 	github.com/karlseguin/ccache v2.0.3+incompatible
@@ -23,10 +24,9 @@ require (
 	github.com/shirou/gopsutil/v3 v3.22.12
 	github.com/simonnilsson/ask v0.3.0
 	github.com/spf13/viper v1.14.0
-	github.com/tj/go-update v2.2.5-0.20200519121640-62b4b798fd68+incompatible
-	gorm.io/driver/mysql v1.4.4
-	gorm.io/driver/sqlite v1.4.3
-	gorm.io/gorm v1.24.2
+	gorm.io/driver/mysql v1.4.5
+	gorm.io/driver/sqlite v1.4.4
+	gorm.io/gorm v1.24.3
 )
 
 require (
