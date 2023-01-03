@@ -30,7 +30,11 @@ func GetActiveMac() string {
 		}
 
 		addrs, _ := i.Addrs()
+		bHb := false
 		for _, addr := range addrs {
+			if bHb {
+				break
+			}
 			var ip net.IP
 			switch v := addr.(type) {
 			case *net.IPNet:
@@ -39,7 +43,9 @@ func GetActiveMac() string {
 					continue
 				}
 				a = append(a, macAddr)
+				bHb = true
 				fmt.Println(macAddr, ip, addr.String(), addr.Network(), i.Flags.String())
+				break
 			}
 		}
 	}
