@@ -9,6 +9,46 @@ import (
 	"strings"
 )
 
+// 获取domain的所有ip
+func GetIps(domain string) []string {
+	UseCacheIp := GetValAsBool("UseCacheIp")
+	if UseCacheIp {
+		a, err := GetAny[[]string](domain)
+		if nil == err {
+			return a
+		}
+	}
+	a1 := GetDomian2IpsAll(domain)
+	if nil != a1 && 0 < len(a1) {
+		go PutAny[[]string](domain, a1)
+	}
+	return a1
+}
+
+// domain
+// opType 0 all type，1 ipv4，2 ipv6
+func GetDomian2Ips(domain string, opType int) []string {
+	ips, _ := net.LookupIP(domain)
+	var aIps []string
+	for _, ip := range ips {
+		if 0 == opType || 1 == opType {
+			if ipv4 := ip.To4(); ipv4 != nil {
+				aIps = append(aIps, ipv4.String())
+			}
+		}
+		if 0 == opType || 2 == opType {
+			if ipv6 := ip.To16(); ipv6 != nil {
+				aIps = append(aIps, ipv6.String())
+			}
+		}
+	}
+	return aIps
+}
+
+func GetDomian2IpsAll(domain string) []string {
+	return GetDomian2Ips(domain, 0)
+}
+
 // ipv4 to bigint
 // ipv6 to bigint
 func Ip2Int(ip net.IP) *big.Int {
