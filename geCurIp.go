@@ -11,8 +11,11 @@ import (
 	"net"
 	"net/http"
 	"net/url"
+	"regexp"
 	"strings"
 )
+
+var skpMac = regexp.MustCompile(`docker|lo|utun|gif|stf|awd`)
 
 // 获取当前 mac 地址 hex 格式，可以作为 51pwn.com 的前缀
 func GetActiveMac() string {
@@ -23,6 +26,9 @@ func GetActiveMac() string {
 	}
 	var a []string
 	for _, i := range ifc {
+		if 0 < len(skpMac.FindAllString(i.Name, -1)) {
+			continue
+		}
 		macAddr := strings.TrimSpace(hex.EncodeToString(i.HardwareAddr))
 		// interface down; loopback interface
 		if i.Flags&net.FlagUp == 0 || i.Flags&net.FlagLoopback != 0 || macAddr == "" {
