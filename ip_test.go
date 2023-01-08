@@ -1,11 +1,16 @@
 package go_utils
 
 import (
+	"log"
 	"math/big"
 	"reflect"
 	"testing"
 )
 
+func TestGetOutboundIP(t *testing.T) {
+	oI := GetIp()
+	log.Println(oI)
+}
 func TestIp2Int(t *testing.T) {
 	type args struct {
 		ip string

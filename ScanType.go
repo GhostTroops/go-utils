@@ -104,3 +104,20 @@ var ScanType2Str = map[uint64]string{
 	ScanType_RustScan:        "rustscan",        //rustscan
 	ScanType_Wappalyzer:      "wappalyzer",      // Wappalyzer,包含在httpx中
 }
+
+// 扫描目标，非存储，chan时用
+type Target4Chan struct {
+	TaskId     string `json:"task_id"`     // 任务id
+	ScanWeb    string `json:"scan_web"`    // base64解码后
+	ScanType   uint64 `json:"scan_type"`   // 扫描类型,多种ScanType叠加
+	ScanConfig string `json:"scan_config"` // 本次任务的若干细节配置，json格式的string
+}
+
+// 事件数据
+type EventData struct {
+	EventType uint64        // 类型：masscan、nmap
+	EventData []interface{} // func，parms
+	Task      *Target4Chan  // 当前task任务数据
+	//Ips            []string                                         // 当前任务相关的ip
+	//SubDomains2Ips *map[string]map[string]map[int]map[string]string // 所有子域名 -> ip ->port -> port info
+}

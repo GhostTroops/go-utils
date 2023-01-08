@@ -91,7 +91,7 @@ func Pack32BinaryIP4(ip4Address string) string {
 
 var PubIp *map[string]interface{}
 
-// 当前ip
+// 当前ip,自动跳过socks proxy
 func GetIp() *map[string]interface{} {
 	if nil != PubIp && 0 < len(*PubIp) {
 		return PubIp
