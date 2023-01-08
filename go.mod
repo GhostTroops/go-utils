@@ -17,6 +17,7 @@ require (
 	github.com/json-iterator/go v1.1.12
 	github.com/karlseguin/ccache v2.0.3+incompatible
 	github.com/matrix-org/gomatrix v0.0.0-20220926102614-ceba4d9f7530
+	github.com/pion/stun v0.3.5
 	github.com/pion/webrtc/v3 v3.1.50
 	github.com/pkg/errors v0.9.1
 	github.com/projectdiscovery/dnsx v1.0.7-0.20210927160546-05f957862698
@@ -100,7 +101,6 @@ require (
 	github.com/pion/sctp v1.8.5 // indirect
 	github.com/pion/sdp/v3 v3.0.6 // indirect
 	github.com/pion/srtp/v2 v2.0.10 // indirect
-	github.com/pion/stun v0.3.5 // indirect
 	github.com/pion/transport v0.14.1 // indirect
 	github.com/pion/turn/v2 v2.0.9 // indirect
 	github.com/pion/udp v0.1.1 // indirect
