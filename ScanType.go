@@ -79,6 +79,27 @@ func GetTypeName(n uint64) string {
 	return string(Scan4all)
 }
 
+// 获取 a 类型，并合并到 nSrc 返回
+func GetType4Name(nSrc uint64, a ...string) uint64 {
+	for _, x := range a {
+		if t, ok := ScanType4Int[x]; ok {
+			nSrc = nSrc | t
+		}
+	}
+	return nSrc
+}
+
+var ScanType4Int = map[string]uint64{}
+
+// 初始化
+func init() {
+	RegInitFunc(func() {
+		for k, v := range ScanType2Str {
+			ScanType4Int[v] = k
+		}
+	})
+}
+
 var ScanType2Str = map[uint64]string{
 	ScanType_SSLInfo:         "sslInfo",         // 01- SSL信息分析，并对域名信息进行收集、进入下一步流程
 	ScanType_SubDomain:       "subdomain",       // 02- 子域名爆破，新域名回归 到:  1 <-- -> 2，做去重处理
