@@ -32,7 +32,6 @@ const (
 	ScanType_Katana                              // katana
 	ScanType_Nuclei                              // nuclei  漏洞扫描：nuclei 8.4k，https://github.com/projectdiscovery/nuclei
 	ScanType_Gobuster                            // Gobuster, 服务、目录发现：gobuster 6k,https://github.com/OJ/gobuster// gobuster dns -d google.com -w ~/wordlists/subdomains.txt
-	ScanType_Subdomain                           // Subdomain
 	ScanType_RustScan                            // 端口扫描工具：RustScan 6.3k,https://github.com/RustScan/RustScan
 	ScanType_Wappalyzer                          // 指纹:wappalyzer 7.5k, https://github.com/wappalyzer/wappalyzer
 	ScanType_Scan4all                            // all scan
@@ -77,6 +76,16 @@ func GetTypeName(n uint64) string {
 		return s
 	}
 	return string(Scan4all)
+}
+
+func GetTypeNames(n uint64) []string {
+	var a []string
+	for k, v := range ScanType2Str {
+		if n&k == k {
+			a = append(a, v)
+		}
+	}
+	return a
 }
 
 // 获取 a 类型，并合并到 nSrc 返回
@@ -130,7 +139,6 @@ var ScanType2Str = map[uint64]string{
 	ScanType_Katana:          "katana",          // katana
 	ScanType_Nuclei:          "nuclei",          // nuclei
 	ScanType_Gobuster:        "gobuster",        // Gobuster
-	ScanType_Subdomain:       "subdomain",       //subdomain
 	ScanType_RustScan:        "rustscan",        //rustscan
 	ScanType_Wappalyzer:      "wappalyzer",      // Wappalyzer,包含在httpx中
 	ScanType_Scan4all:        "scan4all",        // all scan
