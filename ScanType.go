@@ -35,6 +35,7 @@ const (
 	ScanType_Subdomain                           // Subdomain
 	ScanType_RustScan                            // 端口扫描工具：RustScan 6.3k,https://github.com/RustScan/RustScan
 	ScanType_Wappalyzer                          // 指纹:wappalyzer 7.5k, https://github.com/wappalyzer/wappalyzer
+	ScanType_Scan4all                            // all scan
 )
 
 const (
@@ -103,6 +104,7 @@ var ScanType2Str = map[uint64]string{
 	ScanType_Subdomain:       "subdomain",       //subdomain
 	ScanType_RustScan:        "rustscan",        //rustscan
 	ScanType_Wappalyzer:      "wappalyzer",      // Wappalyzer,包含在httpx中
+	ScanType_Scan4all:        "scan4all",        // all scan
 }
 
 // 扫描目标，非存储，chan时用
