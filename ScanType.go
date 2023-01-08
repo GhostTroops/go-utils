@@ -71,6 +71,14 @@ const (
 
 )
 
+// 获取类型
+func GetTypeName(n uint64) string {
+	if s, ok := ScanType2Str[n]; ok {
+		return s
+	}
+	return string(Scan4all)
+}
+
 var ScanType2Str = map[uint64]string{
 	ScanType_SSLInfo:         "sslInfo",         // 01- SSL信息分析，并对域名信息进行收集、进入下一步流程
 	ScanType_SubDomain:       "subdomain",       // 02- 子域名爆破，新域名回归 到:  1 <-- -> 2，做去重处理
