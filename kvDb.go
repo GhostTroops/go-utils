@@ -7,6 +7,7 @@ import (
 	"log"
 	"os"
 	"runtime"
+	"time"
 )
 
 // https://colobu.com/2017/10/11/badger-a-performant-k-v-store/
@@ -129,6 +130,20 @@ func GetAny[T any](key string) (T, error) {
 		return t1, nil
 	}
 	return t1, err
+}
+
+// r.DbConn.RunValueLogGC()
+func (r *KvCachedb) PutWithTTL(key string, data []byte, ttl time.Duration) {
+	err := r.DbConn.Update(func(txn *badger.Txn) error {
+		e := badger.NewEntry([]byte(key), data).WithMeta(byte(1)).WithTTL(ttl)
+		err := txn.SetEntry(e)
+		if err == badger.ErrTxnTooBig {
+			_ = txn.Commit()
+		}
+		return err
+	})
+	if err != nil {
+	}
 }
 
 func (r *KvCachedb) Put(key string, data []byte) {
