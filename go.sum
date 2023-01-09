@@ -239,6 +239,8 @@ github.com/hbakhtiyor/strsim v0.0.0-20190107154042-4d2bbb273edf h1:umfGUaWdFP2s6
 github.com/hbakhtiyor/strsim v0.0.0-20190107154042-4d2bbb273edf/go.mod h1:V99KdStnMHZsvVOwIvhfcUzYgYkRZeQWUtumtL+SKxA=
 github.com/hktalent/PipelineHttp v0.0.0-20221209043918-65a9cff9f6ea h1:due85tODOvzW5eXGBvsl9oD+RFKjD8+vEkKVlgH7pSQ=
 github.com/hktalent/PipelineHttp v0.0.0-20221209043918-65a9cff9f6ea/go.mod h1:kPhxh65InNTmbOw3jtdPkH/yQ4E9LVfb5nHE3WqwRvY=
+github.com/hktalent/PipelineHttp v0.0.0-20230109152946-8bfa7ce4cf68 h1:WgLs/t2FPkuZIwdTBvierevCFvmkCrvNvEIAncew03M=
+github.com/hktalent/PipelineHttp v0.0.0-20230109152946-8bfa7ce4cf68/go.mod h1:a+ULWr8IICgZ0dlpwynIam3C8h6HalWEdDWW2m2WolI=
 github.com/hktalent/go-update v0.0.0-20230103083644-512a71e58edc h1:hC7hMvIpvwmMqC5aEIyWUwn8ITpDfbKC4jJciLXARgY=
 github.com/hktalent/go-update v0.0.0-20230103083644-512a71e58edc/go.mod h1:hmpVHJZPSxHaw7St4f7eYTSBMG8dz8pnTQ4N6mOmTfE=
 github.com/hktalent/websocket v0.0.0-20220908204337-b4a81b861976 h1:oGE7u0adRuzpamtAkkOy65hevwyEtrszTAVz+USJz/k=

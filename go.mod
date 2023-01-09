@@ -11,7 +11,7 @@ require (
 	github.com/dgraph-io/badger v1.6.2
 	github.com/gin-gonic/gin v1.8.1
 	github.com/hbakhtiyor/strsim v0.0.0-20190107154042-4d2bbb273edf
-	github.com/hktalent/PipelineHttp v0.0.0-20221209043918-65a9cff9f6ea
+	github.com/hktalent/PipelineHttp v0.0.0-20230109152946-8bfa7ce4cf68
 	github.com/hktalent/go-update v0.0.0-20230103083644-512a71e58edc
 	github.com/hktalent/websocket v0.0.0-20220908204337-b4a81b861976
 	github.com/json-iterator/go v1.1.12
