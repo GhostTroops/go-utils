@@ -548,8 +548,9 @@ func RegInitFunc(cbk func()) {
 }
 
 // 初始化
-//  1、读取配置文件
-//  2、驱动执行 其他初始化注册的func
+//
+//	1、读取配置文件
+//	2、驱动执行 其他初始化注册的func
 func DoInit(config *embed.FS) {
 	Init1(config)
 	rand.Seed(time.Now().UnixNano())
@@ -557,6 +558,7 @@ func DoInit(config *embed.FS) {
 		x()
 	}
 	fnInit = nil
+	//PrintCaller()
 }
 
 // 拷贝配置信息到o中
