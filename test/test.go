@@ -12,4 +12,5 @@ func main() {
 
 	util.Wg.Wait()
 	util.CloseAll()
+	log.Println("exit ok")
 }

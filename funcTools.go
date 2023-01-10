@@ -6,6 +6,15 @@ import (
 	"strings"
 )
 
+// Catch Panic
+//
+//	in your func: defer CatchPanic()
+func CatchPanic() {
+	if o := recover(); nil != o {
+		log.Println(o)
+	}
+}
+
 // 将该方法放到方法中运行，就可以打印出所有调用该方法的链路出来
 func PrintCaller() {
 	var i = 0
