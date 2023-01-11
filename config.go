@@ -168,9 +168,9 @@ func GetTempFile(t string) *os.File {
 // 从配置json中读取naabu、httpx、nuclei等的细化配置
 func ParseOption[T any](key string, opt *T) *T {
 	m1 := GetVal4Any[map[string]interface{}](key)
-	bA, err := json.Marshal(m1)
+	bA, err := Json.Marshal(m1)
 	if nil == err && 0 < len(bA) {
-		json.Unmarshal(bA, opt)
+		Json.Unmarshal(bA, opt)
 	}
 	return opt
 }
@@ -431,7 +431,7 @@ func Mkdirs(s string) {
 // 获取 Sha1
 func GetSha1(a ...interface{}) string {
 	h := sha1.New()
-	if data, err := json.Marshal(a); nil == err {
+	if data, err := Json.Marshal(a); nil == err {
 		h.Write(data)
 	} else {
 		for _, x := range a {
@@ -563,9 +563,9 @@ func DoInit(config *embed.FS) {
 
 // 拷贝配置信息到o中
 func CopyConfig(o interface{}) {
-	data, err := json.Marshal(mData)
+	data, err := Json.Marshal(mData)
 	if nil == err {
-		json.Unmarshal(data, o)
+		Json.Unmarshal(data, o)
 	}
 }
 

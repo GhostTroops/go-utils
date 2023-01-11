@@ -1,7 +1,6 @@
 package lib
 
 import (
-	"encoding/json"
 	"errors"
 	"fmt"
 	util "github.com/hktalent/go-utils"
@@ -35,13 +34,13 @@ func DoLog(szT string, err error, client *Client) {
 func CvtData[T any](i interface{}, client *Client) *T {
 	var t1 T
 	//var fzfx = reflect.New(reflect.TypeOf(t1))
-	data, err := json.Marshal(i)
+	data, err := util.Json.Marshal(i)
 	if nil != err {
 		DoLog("json.Marshal event data", err, client)
 		return nil
 	}
 
-	if err := json.Unmarshal(data, &t1); nil != err {
+	if err := util.Json.Unmarshal(data, &t1); nil != err {
 		return nil
 	}
 	return &t1

@@ -2,7 +2,7 @@ package lib
 
 import (
 	"bytes"
-	"encoding/json"
+	utils "github.com/hktalent/go-utils"
 	"github.com/hktalent/websocket"
 	"log"
 	"time"
@@ -49,7 +49,7 @@ func (c *Client) readPump() {
 		}
 		message = bytes.TrimSpace(message)
 		var ed = EventData{}
-		if err := json.Unmarshal(message, &ed); nil != err {
+		if err := utils.Json.Unmarshal(message, &ed); nil != err {
 			DoLog("json.Unmarshal", err, c)
 			continue
 		}
@@ -79,13 +79,13 @@ func (c *Client) writePump() {
 				log.Print(err)
 				return
 			}
-			data, _ := json.Marshal(message)
+			data, _ := utils.Json.Marshal(message)
 			w.Write(data)
 
 			// Add queued chat messages to the current websocket message.
 			n := len(c.send)
 			for i := 0; i < n; i++ {
-				data, _ = json.Marshal(<-c.send)
+				data, _ = utils.Json.Marshal(<-c.send)
 				w.Write(data)
 			}
 			if EnableClose {
