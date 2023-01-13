@@ -17,6 +17,7 @@ require (
 	github.com/json-iterator/go v1.1.12
 	github.com/karlseguin/ccache v2.0.3+incompatible
 	github.com/matrix-org/gomatrix v0.0.0-20220926102614-ceba4d9f7530
+	github.com/panjf2000/ants/v2 v2.7.1
 	github.com/pion/stun v0.3.5
 	github.com/pion/webrtc/v3 v3.1.50
 	github.com/pkg/errors v0.9.1

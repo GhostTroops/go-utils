@@ -542,6 +542,11 @@ func TestIs404Page(szUrl string) (page *Page, r01 *Response, err error, ok bool)
 }
 
 var fnInit []func()
+var fnInitHd []func()
+
+func RegInitFunc4Hd(cbk func()) {
+	fnInitHd = append(fnInitHd, cbk)
+}
 
 func RegInitFunc(cbk func()) {
 	fnInit = append(fnInit, cbk)
@@ -554,6 +559,7 @@ func RegInitFunc(cbk func()) {
 func DoInit(config *embed.FS) {
 	Init1(config)
 	rand.Seed(time.Now().UnixNano())
+	fnInit = append(fnInitHd, fnInit...)
 	for _, x := range fnInit {
 		x()
 	}
