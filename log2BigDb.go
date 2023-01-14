@@ -6,7 +6,7 @@ func SendEsLog(m1 interface{}) {
 		return
 	}
 	szId := "xxx"
-	SendReq(&m1, szId, "ksubdomain")
+	SendReq(&m1, szId, ESaveType(GetVal("toolType")))
 
 }
 
