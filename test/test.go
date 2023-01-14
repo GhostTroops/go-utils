@@ -2,15 +2,28 @@ package main
 
 import (
 	util "github.com/hktalent/go-utils"
-	"log"
 )
 
 func main() {
 	util.DoInitAll()
-	n := util.GetValAsInt64("UploadFileMaxSize", 888)
-	log.Println(n)
-
+	go util.DoRunning()
+	out := util.GetSimpleInput()
+	for x := range out {
+		if "" != *x {
+			func(s1 string) {
+				util.DefaultPool.Submit(func() {
+					if m1 := util.GetUrlInfo(s1); nil != m1 {
+						m1.Set("tools", "httpHeader")
+						m1.Set("tags", "httpHeader,http")
+						util.PushLog(&m1)
+					}
+				})
+			}(*x)
+		} else {
+			break
+		}
+	}
 	util.Wg.Wait()
 	util.CloseAll()
-	log.Println("exit ok")
+	util.CloseLogBigDb()
 }
