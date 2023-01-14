@@ -46,5 +46,6 @@ func DoRunning() {
 }
 
 func CloseLogBigDb() {
+	DoSaves()
 	close(bOk)
 }
