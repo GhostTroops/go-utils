@@ -6,6 +6,27 @@ import (
 	"strings"
 )
 
+type RegFuncs struct {
+	FuncList []func()
+}
+
+// 注册
+func (r *RegFuncs) RegFunc(fn func()) {
+	r.FuncList = append(r.FuncList, fn)
+	CloseAll()
+}
+
+// tick 检测
+var TickFunc = new(RegFuncs)
+var ReleaseFunc = new(RegFuncs)
+
+// 串行tick
+func (r *RegFuncs) DoFunc() {
+	for _, c := range r.FuncList {
+		c()
+	}
+}
+
 // Catch Panic
 //
 //	in your func: defer CatchPanic()

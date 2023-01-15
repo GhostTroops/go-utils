@@ -48,4 +48,8 @@ func DoRunning() {
 func CloseLogBigDb() {
 	DoSaves()
 	close(bOk)
+	defer func() {
+		close(bDo)
+		close(oR)
+	}()
 }
