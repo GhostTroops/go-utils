@@ -13,7 +13,6 @@ type RegFuncs struct {
 // 注册
 func (r *RegFuncs) RegFunc(fn func()) {
 	r.FuncList = append(r.FuncList, fn)
-	CloseAll()
 }
 
 // tick 检测
