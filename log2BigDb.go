@@ -1,5 +1,7 @@
 package go_utils
 
+import "log"
+
 // 记录日志到 大数据搜索引擎
 func SendEsLog(m1 interface{}) {
 	if 0 == len(EsUrl) {
@@ -23,6 +25,7 @@ func DoSaves() {
 	}
 	DoSyncFunc(func() {
 		SendEsLog(&oS)
+		log.Println("DoSaves", n)
 	})
 }
 
