@@ -74,6 +74,7 @@ func (r *KvCachedb) init(szDb string) error {
 	return nil
 }
 
+// 遍历所有数据
 func (r *KvCachedb) ScanAllData(f func(k string, value []byte)) {
 	Cache1.DbConn.View(func(txn *badger.Txn) error {
 		opts := badger.DefaultIteratorOptions

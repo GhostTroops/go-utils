@@ -13,7 +13,7 @@ func SendEsLog(m1 interface{}) {
 }
 
 var bOk = make(chan struct{})
-var bDo = make(chan struct{})
+var bDo = make(chan struct{}, 1)
 var oR = make(chan interface{}, 5000)
 
 func DoSaves() {
