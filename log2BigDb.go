@@ -9,7 +9,6 @@ func SendEsLog(m1 interface{}) {
 	}
 	szId := "xxx"
 	SendReq(&m1, szId, ESaveType(GetVal("toolType")))
-
 }
 
 var bOk = make(chan struct{})
