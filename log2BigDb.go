@@ -33,15 +33,16 @@ func DoSaves() {
 
 func PushLog(o interface{}) {
 	oR <- o
-	if 5000 <= len(oR) {
-		bDo <- struct{}{}
-	}
 }
 
 func DoRunning() {
 	defer DoSaves()
 	for {
 		select {
+		case <-oR:
+			if 5000 <= len(oR) {
+				bDo <- struct{}{}
+			}
 		case <-bOk:
 			return
 		case <-bDo:
@@ -55,6 +56,5 @@ func CloseLogBigDb() {
 	close(bOk)
 	defer func() {
 		close(bDo)
-		close(oR)
 	}()
 }
