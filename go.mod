@@ -15,6 +15,7 @@ require (
 	github.com/hbakhtiyor/strsim v0.0.0-20190107154042-4d2bbb273edf
 	github.com/hktalent/PipelineHttp v0.0.0-20230218041433-381be673770a
 	github.com/hktalent/go-update v0.0.0-20230103083644-512a71e58edc
+	github.com/hktalent/htmlquery v0.0.0-20230303073607-1fbec5a16112
 	github.com/hktalent/websocket v0.0.0-20220908204337-b4a81b861976
 	github.com/json-iterator/go v1.1.12
 	github.com/karlseguin/ccache v2.0.3+incompatible
@@ -39,6 +40,7 @@ require (
 	github.com/AndreasBriese/bbloom v0.0.0-20190825152654-46b345b51c96 // indirect
 	github.com/Mzack9999/go-http-digest-auth-client v0.6.1-0.20220414142836-eb8883508809 // indirect
 	github.com/RoaringBitmap/roaring v0.9.4 // indirect
+	github.com/antchfx/xpath v1.2.4 // indirect
 	github.com/aymerick/douceur v0.2.0 // indirect
 	github.com/bits-and-blooms/bitset v1.2.0 // indirect
 	github.com/blevesearch/geo v0.1.16 // indirect
@@ -72,6 +74,7 @@ require (
 	github.com/gogo/protobuf v1.3.2 // indirect
 	github.com/golang/geo v0.0.0-20210211234256-740aa86cb551 // indirect
 	github.com/golang/glog v1.0.0 // indirect
+	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
 	github.com/golang/mock v1.6.0 // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/golang/snappy v0.0.4 // indirect

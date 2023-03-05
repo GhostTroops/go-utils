@@ -26,7 +26,7 @@ https://www.socks-proxy.net
 */
 const TimeOut = 5 * time.Second
 
-type CheckFunc func(szIp, szPort string, ctx context.Context, bOk chan bool, wg sync.WaitGroup)
+type CheckFunc func(szIp, szPort string, ctx context.Context, bOk chan bool, wg *sync.WaitGroup)
 
 func GetConn(szIp, szPort string, ctx context.Context) (conn net.Conn, err error) {
 	dialer := &net.Dialer{
@@ -42,7 +42,7 @@ func GetConn(szIp, szPort string, ctx context.Context) (conn net.Conn, err error
 }
 
 // Check for KCP server
-func CheckKcp(szIp, szPort string, ctx context.Context, bOk chan bool, wg sync.WaitGroup) {
+func CheckKcp(szIp, szPort string, ctx context.Context, bOk chan bool, wg *sync.WaitGroup) {
 	defer wg.Done()
 	conn, err := kcp.Dial(szIp + ":" + szPort)
 	if err == nil {
@@ -52,7 +52,7 @@ func CheckKcp(szIp, szPort string, ctx context.Context, bOk chan bool, wg sync.W
 	}
 	bOk <- false
 }
-func CheckHttsProxy(szIp, szPort string, ctx context.Context, bOk chan bool, wg sync.WaitGroup) {
+func CheckHttsProxy(szIp, szPort string, ctx context.Context, bOk chan bool, wg *sync.WaitGroup) {
 	defer wg.Done()
 	// 发送 CONNECT 请求并尝试建立 TLS 连接
 	config := &tls.Config{InsecureSkipVerify: true}
@@ -87,7 +87,7 @@ func CheckHttsProxy(szIp, szPort string, ctx context.Context, bOk chan bool, wg 
 }
 
 // Check for HTTP proxy
-func CheckHttProxy(szIp, szPort string, ctx context.Context, bOk chan bool, wg sync.WaitGroup) {
+func CheckHttProxy(szIp, szPort string, ctx context.Context, bOk chan bool, wg *sync.WaitGroup) {
 	defer wg.Done()
 	conn, err := GetConn(szIp, szPort, ctx)
 	if err == nil {
@@ -104,7 +104,7 @@ func CheckHttProxy(szIp, szPort string, ctx context.Context, bOk chan bool, wg s
 }
 
 // Check for socks5 proxy
-func CheckSocks5Proxy(szIp, szPort string, ctx context.Context, bOk chan bool, wg sync.WaitGroup) {
+func CheckSocks5Proxy(szIp, szPort string, ctx context.Context, bOk chan bool, wg *sync.WaitGroup) {
 	defer wg.Done()
 	conn, err := GetConn(szIp, szPort, ctx)
 	if err == nil {
@@ -124,7 +124,7 @@ func CheckSocks5Proxy(szIp, szPort string, ctx context.Context, bOk chan bool, w
 }
 
 // Check for sockss proxy
-func CheckSocks4Proxy(szIp, szPort string, ctx context.Context, bOk chan bool, wg sync.WaitGroup) {
+func CheckSocks4Proxy(szIp, szPort string, ctx context.Context, bOk chan bool, wg *sync.WaitGroup) {
 	defer wg.Done()
 	conn, err := GetConn(szIp, szPort, ctx)
 	if err == nil {
@@ -185,7 +185,7 @@ func DetectProxy(szIp, szPort string) bool {
 		}
 	}()
 	for _, x := range aX {
-		go x(szIp, szPort, ctx, bOk, wg)
+		go x(szIp, szPort, ctx, bOk, &wg)
 	}
 	wg.Wait()
 	return bRst

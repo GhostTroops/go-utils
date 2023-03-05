@@ -5,6 +5,7 @@ import (
 	"encoding/binary"
 	"encoding/hex"
 	"fmt"
+	"github.com/hktalent/htmlquery"
 	"io/ioutil"
 	"log"
 	"math/big"
@@ -101,10 +102,11 @@ func GetIp() *map[string]interface{} {
 	c := GetClient(szUrl)
 	c.UseHttp2 = false
 	var m1 map[string]interface{}
-	c.DoGetWithClient4SetHd(c.GetClient(nil), szUrl, "POST", strings.NewReader("key="+url.QueryEscape("IVOBZ-QNW6P-SUKDY-LFQSE-LUFCJ-3CFUE")+"&sig=afebe5ad5227ec75a1f3d8b97f888cda"), func(r *http.Response, err1 error, szU string) {
+	p11 := c.GetClient(nil)
+	c.DoGetWithClient4SetHd(p11, szUrl, "POST", strings.NewReader("key="+url.QueryEscape("IVOBZ-QNW6P-SUKDY-LFQSE-LUFCJ-3CFUE")+"&sig=afebe5ad5227ec75a1f3d8b97f888cda"), func(r *http.Response, err1 error, szU string) {
 		defer r.Body.Close()
 		if data, err := ioutil.ReadAll(r.Body); nil == err {
-
+			log.Println(string(data))
 			if nil == Json.Unmarshal(data, &m1) {
 				log.Printf("%+v", m1)
 			}
@@ -114,6 +116,29 @@ func GetIp() *map[string]interface{} {
 	}, false)
 	if m2, ok := m1["result"]; ok {
 		m1 = m2.(map[string]interface{})
+	} else { // 失败，用其他方法获取
+		if doc, err := htmlquery.LoadURL("https://iplocation.com"); nil == err {
+			m1 = map[string]interface{}{}
+			if node, err := htmlquery.Query(doc, "body > div.top-container > div.bottom-container > div.rubber-container.result > div > table > tbody > tr:nth-child(1) > td > b"); nil == err {
+				m1["ip"] = node.Data
+			}
+			m2 := map[string]interface{}{}
+			m1["location"] = m2
+			if node, err := htmlquery.Query(doc, "body > div.top-container > div.bottom-container > div.rubber-container.result > div > table > tbody > tr:nth-child(2) > td"); nil == err {
+				m2["lat"] = node.Data
+			}
+			if node, err := htmlquery.Query(doc, "body > div.top-container > div.bottom-container > div.rubber-container.result > div > table > tbody > tr:nth-child(3) > td"); nil == err {
+				m2["lng"] = node.Data
+			}
+			m3 := map[string]interface{}{}
+			m1["ad_info"] = m3
+			if node, err := htmlquery.Query(doc, "body > div.top-container > div.bottom-container > div.rubber-container.result > div > table > tbody > tr:nth-child(6) > td"); nil == err {
+				m3["city"] = node.Data
+			}
+			if node, err := htmlquery.Query(doc, "body > div.top-container > div.bottom-container > div.rubber-container.result > div > table > tbody > tr:nth-child(4) > td > span"); nil == err {
+				m3["country"] = node.Data
+			}
+		}
 	}
 	PubIp = &m1
 	return PubIp

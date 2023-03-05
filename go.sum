@@ -46,6 +46,8 @@ github.com/OneOfOne/xxhash v1.2.2/go.mod h1:HSdplMjZKSmBqAxg5vPj2TmRDmfkzw+cTzAE
 github.com/RoaringBitmap/roaring v0.9.4 h1:ckvZSX5gwCRaJYBNe7syNawCU5oruY9gQmjXlp4riwo=
 github.com/RoaringBitmap/roaring v0.9.4/go.mod h1:icnadbWcNyfEHlYdr+tDlOTih1Bf/h+rzPpv4sbomAA=
 github.com/andres-erbsen/clock v0.0.0-20160526145045-9e14626cd129/go.mod h1:rFgpPQZYZ8vdbc+48xibu8ALc3yeyd64IhHS+PU6Yyg=
+github.com/antchfx/xpath v1.2.4 h1:dW1HB/JxKvGtJ9WyVGJ0sIoEcqftV3SqIstujI+B9XY=
+github.com/antchfx/xpath v1.2.4/go.mod h1:i54GszH55fYfBmoZXapTHN8T8tkcHfRgLyVwwqzXNcs=
 github.com/apex/log v1.9.0 h1:FHtw/xuaM8AgmvDDTI9fiwoAL25Sq2cxojnZICUU8l0=
 github.com/apex/log v1.9.0/go.mod h1:m82fZlWIuiWzWP04XCTXmnX0xRkYYbCdYn8jbJeLBEA=
 github.com/apex/logs v1.0.0/go.mod h1:XzxuLZ5myVHDy9SAmYpamKKRNApGj54PfYLcFrXqDwo=
@@ -183,6 +185,8 @@ github.com/golang/glog v1.0.0/go.mod h1:EWib/APOK0SL3dFbYqvxE3UYd8E6s1ouQ7iEp/0L
 github.com/golang/groupcache v0.0.0-20190702054246-869f871628b6/go.mod h1:cIg4eruTrX1D+g88fzRXU5OdNfaM+9IcxsU14FzY7Hc=
 github.com/golang/groupcache v0.0.0-20191227052852-215e87163ea7/go.mod h1:cIg4eruTrX1D+g88fzRXU5OdNfaM+9IcxsU14FzY7Hc=
 github.com/golang/groupcache v0.0.0-20200121045136-8c9f03a8e57e/go.mod h1:cIg4eruTrX1D+g88fzRXU5OdNfaM+9IcxsU14FzY7Hc=
+github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da h1:oI5xCqsCo564l8iNU+DwB5epxmsaqB+rhGL0m5jtYqE=
+github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da/go.mod h1:cIg4eruTrX1D+g88fzRXU5OdNfaM+9IcxsU14FzY7Hc=
 github.com/golang/mock v1.1.1/go.mod h1:oTYuIxOrZwtPieC+H1uAHpcLFnEyAGVDL/k47Jfbm0A=
 github.com/golang/mock v1.2.0/go.mod h1:oTYuIxOrZwtPieC+H1uAHpcLFnEyAGVDL/k47Jfbm0A=
 github.com/golang/mock v1.3.1/go.mod h1:sBzyDLLjw3U8JLTeZvSv8jJB+tU5PVekmnlKIyFUx0Y=
@@ -280,6 +284,8 @@ github.com/hktalent/PipelineHttp v0.0.0-20230218041433-381be673770a h1:ErdY1wAc8
 github.com/hktalent/PipelineHttp v0.0.0-20230218041433-381be673770a/go.mod h1:QEoo/2hcZ9yRgkn+br4BaXJV3nTmgszQjO6kZ8i1k1c=
 github.com/hktalent/go-update v0.0.0-20230103083644-512a71e58edc h1:hC7hMvIpvwmMqC5aEIyWUwn8ITpDfbKC4jJciLXARgY=
 github.com/hktalent/go-update v0.0.0-20230103083644-512a71e58edc/go.mod h1:hmpVHJZPSxHaw7St4f7eYTSBMG8dz8pnTQ4N6mOmTfE=
+github.com/hktalent/htmlquery v0.0.0-20230303073607-1fbec5a16112 h1:60QrkBG37YipZbxv92uUZWhdp5ayJlIcveQHtgTbT24=
+github.com/hktalent/htmlquery v0.0.0-20230303073607-1fbec5a16112/go.mod h1:M8OJ9k8gWnndrlF3RtNhYAkF26xDKnvFm3ONrEg5l5c=
 github.com/hktalent/websocket v0.0.0-20220908204337-b4a81b861976 h1:oGE7u0adRuzpamtAkkOy65hevwyEtrszTAVz+USJz/k=
 github.com/hktalent/websocket v0.0.0-20220908204337-b4a81b861976/go.mod h1:bYeGvW6UTlOOHQSEjdwwDSF2e5OFA4qQtgHRitu5LSQ=
 github.com/hooklift/assert v0.1.0 h1:UZzFxx5dSb9aBtvMHTtnPuvFnBvcEhHTPb9+0+jpEjs=
