@@ -7,7 +7,6 @@ import (
 	"fmt"
 	"github.com/hktalent/htmlquery"
 	"io"
-	"io/ioutil"
 	"log"
 	"math/big"
 	"net"
@@ -200,11 +199,13 @@ func GetIp() *map[string]interface{} {
 	var m1 map[string]interface{}
 	p11 := c.GetClient(nil)
 	c.DoGetWithClient4SetHd(p11, szUrl, "POST", strings.NewReader("key="+url.QueryEscape("IVOBZ-QNW6P-SUKDY-LFQSE-LUFCJ-3CFUE")+"&sig=afebe5ad5227ec75a1f3d8b97f888cda"), func(r *http.Response, err1 error, szU string) {
-		defer r.Body.Close()
-		if data, err := ioutil.ReadAll(r.Body); nil == err {
-			log.Println(string(data))
-			if nil == Json.Unmarshal(data, &m1) {
-				log.Printf("%+v", m1)
+		if nil == err1 && nil != r {
+			defer r.Body.Close()
+			if data, err := io.ReadAll(r.Body); nil == err {
+				log.Println(string(data))
+				if nil == Json.Unmarshal(data, &m1) {
+					log.Printf("%+v", m1)
+				}
 			}
 		}
 	}, func() map[string]string {
