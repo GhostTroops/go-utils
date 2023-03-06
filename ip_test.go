@@ -8,7 +8,7 @@ import (
 )
 
 func TestGetOutboundIP(t *testing.T) {
-	oI := GetIp()
+	oI := *GetFromIplocation() // *GetFromIpapi() // GetIp()
 	log.Println(oI)
 }
 func TestIp2Int(t *testing.T) {
