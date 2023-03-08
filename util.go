@@ -374,5 +374,6 @@ func ReadStdIn(out chan *string) {
 			value := strings.TrimSpace(scanner.Text())
 			out <- &value
 		}
+		close(out)
 	}
 }
