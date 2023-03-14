@@ -206,9 +206,11 @@ github.com/golang/geo/r1
 github.com/golang/geo/r2
 github.com/golang/geo/r3
 github.com/golang/geo/s1
-# github.com/golang/glog v1.0.0
-## explicit; go 1.11
+# github.com/golang/glog v1.1.0
+## explicit; go 1.18
 github.com/golang/glog
+github.com/golang/glog/internal/logsink
+github.com/golang/glog/internal/stackdump
 # github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da
 ## explicit
 github.com/golang/groupcache/lru
@@ -216,7 +218,7 @@ github.com/golang/groupcache/lru
 ## explicit; go 1.11
 github.com/golang/mock/mockgen
 github.com/golang/mock/mockgen/model
-# github.com/golang/protobuf v1.5.2
+# github.com/golang/protobuf v1.5.3
 ## explicit; go 1.9
 github.com/golang/protobuf/proto
 # github.com/golang/snappy v0.0.4
@@ -228,7 +230,7 @@ github.com/google/go-github/github
 # github.com/google/go-querystring v1.1.0
 ## explicit; go 1.10
 github.com/google/go-querystring/query
-# github.com/google/pprof v0.0.0-20230228050547-1710fef4ab10
+# github.com/google/pprof v0.0.0-20230309165930-d61513b1440d
 ## explicit; go 1.19
 github.com/google/pprof/profile
 # github.com/google/uuid v1.3.0
@@ -265,7 +267,7 @@ github.com/hashicorp/hcl/json/token
 # github.com/hbakhtiyor/strsim v0.0.0-20190107154042-4d2bbb273edf
 ## explicit
 github.com/hbakhtiyor/strsim
-# github.com/hktalent/PipelineHttp v0.0.0-20230218041433-381be673770a
+# github.com/hktalent/PipelineHttp v0.0.0-20230307074415-42c90887bc98
 ## explicit; go 1.19
 github.com/hktalent/PipelineHttp
 # github.com/hktalent/go-update v0.0.0-20230103083644-512a71e58edc
@@ -377,7 +379,7 @@ github.com/mschoch/smat
 # github.com/nwaples/rardecode v1.1.3
 ## explicit
 github.com/nwaples/rardecode
-# github.com/onsi/ginkgo/v2 v2.8.4
+# github.com/onsi/ginkgo/v2 v2.9.0
 ## explicit; go 1.18
 github.com/onsi/ginkgo/v2/config
 github.com/onsi/ginkgo/v2/formatter
@@ -499,7 +501,7 @@ github.com/pion/turn/v2/internal/server
 ## explicit; go 1.14
 github.com/pion/udp/v2
 github.com/pion/udp/v2/pkg/sync
-# github.com/pion/webrtc/v3 v3.1.56
+# github.com/pion/webrtc/v3 v3.1.58
 ## explicit; go 1.13
 github.com/pion/webrtc/v3
 github.com/pion/webrtc/v3/internal/fmtp
@@ -563,7 +565,7 @@ github.com/shomali11/util/xhashes
 # github.com/simonnilsson/ask v0.3.0
 ## explicit; go 1.17
 github.com/simonnilsson/ask
-# github.com/spf13/afero v1.9.4
+# github.com/spf13/afero v1.9.5
 ## explicit; go 1.16
 github.com/spf13/afero
 github.com/spf13/afero/internal/common
@@ -629,7 +631,7 @@ github.com/yusufpapurcu/wmi
 # go.etcd.io/bbolt v1.3.5
 ## explicit; go 1.12
 go.etcd.io/bbolt
-# golang.org/x/crypto v0.6.0
+# golang.org/x/crypto v0.7.0
 ## explicit; go 1.17
 golang.org/x/crypto/blowfish
 golang.org/x/crypto/cast5
@@ -649,16 +651,16 @@ golang.org/x/crypto/sha3
 golang.org/x/crypto/tea
 golang.org/x/crypto/twofish
 golang.org/x/crypto/xtea
-# golang.org/x/exp v0.0.0-20230224173230-c95f2b4c22f2
+# golang.org/x/exp v0.0.0-20230310171629-522b1b587ee0
 ## explicit; go 1.18
 golang.org/x/exp/constraints
-# golang.org/x/mod v0.8.0
+# golang.org/x/mod v0.9.0
 ## explicit; go 1.17
 golang.org/x/mod/internal/lazyregexp
 golang.org/x/mod/modfile
 golang.org/x/mod/module
 golang.org/x/mod/semver
-# golang.org/x/net v0.7.0
+# golang.org/x/net v0.8.0
 ## explicit; go 1.17
 golang.org/x/net/bpf
 golang.org/x/net/dns/dnsmessage
@@ -678,7 +680,7 @@ golang.org/x/net/ipv4
 golang.org/x/net/ipv6
 golang.org/x/net/proxy
 golang.org/x/net/trace
-# golang.org/x/sys v0.5.0
+# golang.org/x/sys v0.6.0
 ## explicit; go 1.17
 golang.org/x/sys/cpu
 golang.org/x/sys/execabs
@@ -686,7 +688,7 @@ golang.org/x/sys/internal/unsafeheader
 golang.org/x/sys/unix
 golang.org/x/sys/windows
 golang.org/x/sys/windows/registry
-# golang.org/x/text v0.7.0
+# golang.org/x/text v0.8.0
 ## explicit; go 1.17
 golang.org/x/text/encoding
 golang.org/x/text/encoding/charmap
@@ -708,13 +710,14 @@ golang.org/x/text/secure/bidirule
 golang.org/x/text/transform
 golang.org/x/text/unicode/bidi
 golang.org/x/text/unicode/norm
-# golang.org/x/tools v0.6.0
+# golang.org/x/tools v0.7.0
 ## explicit; go 1.18
 golang.org/x/tools/go/ast/astutil
 golang.org/x/tools/go/ast/inspector
 golang.org/x/tools/go/gcexportdata
 golang.org/x/tools/go/internal/packagesdriver
 golang.org/x/tools/go/packages
+golang.org/x/tools/go/types/objectpath
 golang.org/x/tools/imports
 golang.org/x/tools/internal/event
 golang.org/x/tools/internal/event/core
@@ -730,7 +733,7 @@ golang.org/x/tools/internal/pkgbits
 golang.org/x/tools/internal/tokeninternal
 golang.org/x/tools/internal/typeparams
 golang.org/x/tools/internal/typesinternal
-# google.golang.org/protobuf v1.28.1
+# google.golang.org/protobuf v1.29.1
 ## explicit; go 1.11
 google.golang.org/protobuf/encoding/prototext
 google.golang.org/protobuf/encoding/protowire
