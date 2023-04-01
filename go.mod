@@ -11,9 +11,11 @@ require (
 	github.com/coreos/etcd v3.3.27+incompatible
 	github.com/corpix/uarand v0.2.0
 	github.com/dgraph-io/badger v1.6.2
+	github.com/gin-contrib/static v0.0.1
 	github.com/gin-gonic/gin v1.8.1
 	github.com/hbakhtiyor/strsim v0.0.0-20190107154042-4d2bbb273edf
 	github.com/hktalent/PipelineHttp v0.0.0-20230307074415-42c90887bc98
+	github.com/hktalent/bleve-mapping-ui v0.4.1
 	github.com/hktalent/go-update v0.0.0-20230103083644-512a71e58edc
 	github.com/hktalent/htmlquery v0.0.0-20230303073607-1fbec5a16112
 	github.com/hktalent/websocket v0.0.0-20220908204337-b4a81b861976
@@ -65,7 +67,6 @@ require (
 	github.com/elazarl/go-bindata-assetfs v1.0.0 // indirect
 	github.com/fsnotify/fsnotify v1.6.0 // indirect
 	github.com/gin-contrib/sse v0.1.0 // indirect
-	github.com/gin-contrib/static v0.0.1 // indirect
 	github.com/go-ole/go-ole v1.2.6 // indirect
 	github.com/go-playground/locales v0.14.0 // indirect
 	github.com/go-playground/universal-translator v0.18.0 // indirect
@@ -90,7 +91,6 @@ require (
 	github.com/hashicorp/errwrap v1.1.0 // indirect
 	github.com/hashicorp/go-multierror v1.1.1 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
-	github.com/hktalent/bleve-mapping-ui v0.4.1 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.5 // indirect
 	github.com/karlseguin/expect v1.0.8 // indirect
