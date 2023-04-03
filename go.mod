@@ -5,7 +5,7 @@ go 1.19
 require (
 	github.com/apex/log v1.9.0
 	github.com/asaskevich/govalidator v0.0.0-20210307081110-f21760c49a8d
-	github.com/blevesearch/bleve/v2 v2.3.6
+	github.com/blevesearch/bleve/v2 v2.3.7
 	github.com/blevesearch/bleve_index_api v1.0.5
 	github.com/codegangsta/inject v0.0.0-20150114235600-33e0aa1cb7c0
 	github.com/coreos/etcd v3.3.27+incompatible
@@ -45,22 +45,25 @@ require (
 	github.com/antchfx/xpath v1.2.4 // indirect
 	github.com/aymerick/douceur v0.2.0 // indirect
 	github.com/bits-and-blooms/bitset v1.2.0 // indirect
-	github.com/blevesearch/geo v0.1.16 // indirect
+	github.com/blevesearch/geo v0.1.17 // indirect
 	github.com/blevesearch/go-porterstemmer v1.0.3 // indirect
+	github.com/blevesearch/goleveldb v1.0.1 // indirect
 	github.com/blevesearch/gtreap v0.1.1 // indirect
 	github.com/blevesearch/mmap-go v1.0.4 // indirect
 	github.com/blevesearch/scorch_segment_api/v2 v2.1.4 // indirect
-	github.com/blevesearch/segment v0.9.0 // indirect
+	github.com/blevesearch/segment v0.9.1 // indirect
 	github.com/blevesearch/snowballstem v0.9.0 // indirect
-	github.com/blevesearch/upsidedown_store_api v1.0.1 // indirect
+	github.com/blevesearch/upsidedown_store_api v1.0.2 // indirect
 	github.com/blevesearch/vellum v1.0.9 // indirect
 	github.com/blevesearch/zapx/v11 v11.3.7 // indirect
 	github.com/blevesearch/zapx/v12 v12.3.7 // indirect
 	github.com/blevesearch/zapx/v13 v13.3.7 // indirect
 	github.com/blevesearch/zapx/v14 v14.3.7 // indirect
-	github.com/blevesearch/zapx/v15 v15.3.8 // indirect
+	github.com/blevesearch/zapx/v15 v15.3.9 // indirect
 	github.com/c4milo/unpackit v1.0.0 // indirect
 	github.com/cespare/xxhash/v2 v2.2.0 // indirect
+	github.com/couchbase/ghistogram v0.1.0 // indirect
+	github.com/couchbase/moss v0.2.0 // indirect
 	github.com/dgraph-io/ristretto v0.1.1 // indirect
 	github.com/dsnet/compress v0.0.1 // indirect
 	github.com/dustin/go-humanize v1.0.1 // indirect
@@ -86,6 +89,7 @@ require (
 	github.com/google/pprof v0.0.0-20230309165930-d61513b1440d // indirect
 	github.com/google/uuid v1.3.0 // indirect
 	github.com/gorilla/css v1.0.0 // indirect
+	github.com/gorilla/mux v1.7.4 // indirect
 	github.com/gosuri/uilive v0.0.4 // indirect
 	github.com/gosuri/uiprogress v0.0.1 // indirect
 	github.com/hashicorp/errwrap v1.1.0 // indirect
@@ -98,6 +102,7 @@ require (
 	github.com/klauspost/cpuid/v2 v2.2.4 // indirect
 	github.com/klauspost/pgzip v1.2.5 // indirect
 	github.com/klauspost/reedsolomon v1.11.7 // indirect
+	github.com/kr/pretty v0.3.1 // indirect
 	github.com/leodido/go-urn v1.2.1 // indirect
 	github.com/logrusorgru/aurora v2.0.3+incompatible // indirect
 	github.com/lucas-clemente/quic-go v0.31.1 // indirect
