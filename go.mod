@@ -138,14 +138,12 @@ require (
 	github.com/pion/srtp/v2 v2.0.15 // indirect
 	github.com/pion/transport/v2 v2.2.1 // indirect
 	github.com/pion/turn/v2 v2.1.0 // indirect
-	github.com/pion/udp/v2 v2.0.1 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/power-devops/perfstat v0.0.0-20221212215047-62379fc7944b // indirect
 	github.com/projectdiscovery/cdncheck v0.0.3 // indirect
 	github.com/projectdiscovery/retryabledns v1.0.21 // indirect
 	github.com/projectdiscovery/retryablehttp-go v1.0.14 // indirect
 	github.com/projectdiscovery/utils v0.0.19 // indirect
-	github.com/rogpeppe/go-internal v1.9.0 // indirect
 	github.com/saintfish/chardet v0.0.0-20230101081208-5e3ef4b5456d // indirect
 	github.com/shoenig/go-m1cpu v0.1.6 // indirect
 	github.com/spf13/afero v1.9.5 // indirect
