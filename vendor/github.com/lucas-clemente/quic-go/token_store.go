@@ -4,7 +4,7 @@ import (
 	"container/list"
 	"sync"
 
-	"github.com/quic-go/quic-go/internal/utils"
+	"github.com/lucas-clemente/quic-go/internal/utils"
 )
 
 type singleOriginTokenStore struct {

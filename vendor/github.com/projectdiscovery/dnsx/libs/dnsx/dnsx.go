@@ -1,18 +1,22 @@
 package dnsx
 
 import (
+	"encoding/json"
 	"errors"
+	"fmt"
 	"math"
 
 	miekgdns "github.com/miekg/dns"
-	"github.com/projectdiscovery/iputil"
+	"github.com/projectdiscovery/cdncheck"
 	retryabledns "github.com/projectdiscovery/retryabledns"
+	iputil "github.com/projectdiscovery/utils/ip"
 )
 
 // DNSX is structure to perform dns lookups
 type DNSX struct {
 	dnsClient *retryabledns.Client
 	Options   *Options
+	cdn       *cdncheck.Client
 }
 
 // Options contains configuration options
@@ -23,6 +27,30 @@ type Options struct {
 	Trace             bool
 	TraceMaxRecursion int
 	Hostsfile         bool
+	OutputCDN         bool
+}
+
+// ResponseData to show output result
+type ResponseData struct {
+	*retryabledns.DNSData
+	IsCDNIP bool         `json:"cdn,omitempty" csv:"cdn"`
+	CDNName string       `json:"cdn-name,omitempty" csv:"cdn-name"`
+	ASN     *AsnResponse `json:"asn,omitempty" csv:"asn"`
+}
+type AsnResponse struct {
+	AsNumber  string   `json:"as-number,omitempty" csv:"as_number"`
+	AsName    string   `json:"as-name,omitempty" csv:"as_name"`
+	AsCountry string   `json:"as-country,omitempty" csv:"as_country"`
+	AsRange   []string `json:"as-range,omitempty" csv:"as_range"`
+}
+
+func (o *AsnResponse) String() string {
+	return fmt.Sprintf("[%v, %v, %v]", o.AsNumber, o.AsName, o.AsCountry)
+}
+
+func (d *ResponseData) JSON() (string, error) {
+	b, err := json.Marshal(&d)
+	return string(b), err
 }
 
 // DefaultOptions contains the default configuration options
@@ -50,9 +78,20 @@ func New(options Options) (*DNSX, error) {
 		Hostsfile:     options.Hostsfile,
 	}
 
-	dnsClient := retryabledns.NewWithOptions(retryablednsOptions)
-
-	return &DNSX{dnsClient: dnsClient, Options: &options}, nil
+	dnsClient, err := retryabledns.NewWithOptions(retryablednsOptions)
+	if err != nil {
+		return nil, err
+	}
+	dnsClient.TCPFallback = true
+	dnsx := &DNSX{dnsClient: dnsClient, Options: &options}
+	if options.OutputCDN {
+		var err error
+		dnsx.cdn, err = cdncheck.NewWithCache()
+		if err != nil {
+			return nil, err
+		}
+	}
+	return dnsx, nil
 }
 
 // Lookup performs a DNS A question and returns corresponding IPs
@@ -86,4 +125,9 @@ func (d *DNSX) QueryMultiple(hostname string) (*retryabledns.DNSData, error) {
 // Trace performs a DNS trace of the specified types and returns raw responses
 func (d *DNSX) Trace(hostname string) (*retryabledns.TraceData, error) {
 	return d.dnsClient.Trace(hostname, d.Options.QuestionTypes[0], d.Options.TraceMaxRecursion)
+}
+
+// Trace performs a DNS trace of the specified types and returns raw responses
+func (d *DNSX) AXFR(hostname string) (*retryabledns.AXFRData, error) {
+	return d.dnsClient.AXFR(hostname)
 }
