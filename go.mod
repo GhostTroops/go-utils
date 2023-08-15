@@ -14,7 +14,7 @@ require (
 	github.com/gin-contrib/static v0.0.1
 	github.com/gin-gonic/gin v1.9.0
 	github.com/hbakhtiyor/strsim v0.0.0-20190107154042-4d2bbb273edf
-	github.com/hktalent/PipelineHttp v0.0.0-20230404011556-11bdccf551c8
+	github.com/hktalent/PipelineHttp v0.0.0-20230815034820-7ba060930550
 	github.com/hktalent/bleve-mapping-ui v0.4.1
 	github.com/hktalent/go-update v0.0.0-20230526022740-3a2ce0d34057
 	github.com/hktalent/htmlquery v0.0.0-20230303073607-1fbec5a16112
@@ -144,6 +144,9 @@ require (
 	github.com/projectdiscovery/retryabledns v1.0.21 // indirect
 	github.com/projectdiscovery/retryablehttp-go v1.0.14 // indirect
 	github.com/projectdiscovery/utils v0.0.19 // indirect
+	github.com/quic-go/qpack v0.4.0 // indirect
+	github.com/quic-go/qtls-go1-20 v0.3.1 // indirect
+	github.com/quic-go/quic-go v0.37.4 // indirect
 	github.com/saintfish/chardet v0.0.0-20230101081208-5e3ef4b5456d // indirect
 	github.com/shoenig/go-m1cpu v0.1.6 // indirect
 	github.com/spf13/afero v1.9.5 // indirect
