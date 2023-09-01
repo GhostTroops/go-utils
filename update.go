@@ -8,11 +8,13 @@ import (
 	githubUpdateStore "github.com/hktalent/go-update/stores/github"
 	"github.com/pkg/errors"
 	"github.com/projectdiscovery/gologger"
+	"os/exec"
+	"path/filepath"
 	"runtime"
 )
 
 // 更新到最新版本
-func UpdateScan4allVersionToLatest(verbose bool, u, t string) error {
+func UpdateScan4allVersionToLatest(verbose bool, u, t, dir string) error {
 	if verbose {
 		log.SetLevel(log.DebugLevel)
 	}
@@ -57,7 +59,15 @@ func UpdateScan4allVersionToLatest(verbose bool, u, t string) error {
 	if err != nil {
 		return errors.Wrap(err, "could not download latest release")
 	}
-	if err := m.Install(tarball); err != nil {
+	if "" == dir {
+		bin, err := exec.LookPath(m.Command)
+		if err != nil {
+			return errors.Wrapf(err, "looking up path of %q", m.Command)
+		}
+		dir = filepath.Dir(bin)
+	}
+
+	if err := m.InstallTo(tarball, dir); err != nil {
 		return errors.Wrap(err, "could not install latest release")
 	}
 	gologger.Info().Msgf("Successfully updated to %s\n", szLstVer)
