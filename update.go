@@ -16,7 +16,7 @@ var Version = `2.8.6`
 var MyName = "scan4all"
 
 // 更新到最新版本
-func UpdateScan4allVersionToLatest(verbose bool) error {
+func UpdateScan4allVersionToLatest(verbose bool, u, t string) error {
 	if verbose {
 		log.SetLevel(log.DebugLevel)
 	}
@@ -30,8 +30,8 @@ func UpdateScan4allVersionToLatest(verbose bool) error {
 	m := &update.Manager{
 		Command: command,
 		Store: &githubUpdateStore.Store{
-			Owner:   "hktalent",
-			Repo:    "scan4all",
+			Owner:   u,
+			Repo:    t,
 			Version: Version,
 		},
 	}
