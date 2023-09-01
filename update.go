@@ -11,10 +11,6 @@ import (
 	"runtime"
 )
 
-var Version = `2.8.6`
-
-var MyName = "scan4all"
-
 // 更新到最新版本
 func UpdateScan4allVersionToLatest(verbose bool, u, t string) error {
 	if verbose {
@@ -23,16 +19,16 @@ func UpdateScan4allVersionToLatest(verbose bool, u, t string) error {
 	var command string
 	switch runtime.GOOS {
 	case "windows":
-		command = MyName + ".exe"
+		command = t + ".exe"
 	default:
-		command = MyName
+		command = t
 	}
 	m := &update.Manager{
 		Command: command,
 		Store: &githubUpdateStore.Store{
 			Owner:   u,
 			Repo:    t,
-			Version: Version,
+			Version: `99.99.99`,
 		},
 	}
 	releases, err := m.LatestReleases()
