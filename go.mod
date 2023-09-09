@@ -45,7 +45,7 @@ require (
 	github.com/antchfx/xpath v1.2.4 // indirect
 	github.com/aymerick/douceur v0.2.0 // indirect
 	github.com/bits-and-blooms/bitset v1.8.0 // indirect
-	github.com/blevesearch/geo v0.1.18 // indirect
+	github.com/blevesearch/geo v0.1.17 // indirect
 	github.com/blevesearch/go-porterstemmer v1.0.3 // indirect
 	github.com/blevesearch/goleveldb v1.1.0 // indirect
 	github.com/blevesearch/gtreap v0.1.1 // indirect
