@@ -473,7 +473,7 @@ func TestRepeat4Save(key string, a ...interface{}) (interface{}, bool) {
 // 关闭cache
 func CloseCache() {
 	if nil != noRpt {
-		log.Println("start clear noRpt cache")
+		//log.Println("start clear noRpt cache")
 		noRpt.Clear()
 		noRpt.Stop()
 		noRpt = nil

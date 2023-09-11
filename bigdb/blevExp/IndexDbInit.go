@@ -29,12 +29,12 @@ func DoIndexDb(router *gin.Engine, staticDir embed.FS, DataDir *string, args ...
 	fnInitDb()
 	//}
 	// https://127.0.0.1:8081/initDb
-	router.GET("/initDb", func(c *gin.Context) {
-		go fnInitDb()
-	})
 	if nil == router {
 		return
 	}
+	router.GET("/initDb", func(c *gin.Context) {
+		go fnInitDb()
+	})
 	// 必须在上面初始化索引后
 	defer func() {
 		for i, fnCbk := range args {
