@@ -5,7 +5,7 @@ go 1.20
 require (
 	github.com/apex/log v1.9.0
 	github.com/asaskevich/govalidator v0.0.0-20230301143203-a9d515a09cc2
-	github.com/blevesearch/bleve/v2 v2.3.9
+	github.com/blevesearch/bleve/v2 v2.3.10
 	github.com/blevesearch/bleve_index_api v1.0.6
 	github.com/codegangsta/inject v0.0.0-20150114235600-33e0aa1cb7c0
 	github.com/coreos/etcd v3.3.27+incompatible
@@ -45,7 +45,7 @@ require (
 	github.com/antchfx/xpath v1.2.4 // indirect
 	github.com/aymerick/douceur v0.2.0 // indirect
 	github.com/bits-and-blooms/bitset v1.8.0 // indirect
-	github.com/blevesearch/geo v0.1.17 // indirect
+	github.com/blevesearch/geo v0.1.18 // indirect
 	github.com/blevesearch/go-porterstemmer v1.0.3 // indirect
 	github.com/blevesearch/goleveldb v1.1.0 // indirect
 	github.com/blevesearch/gtreap v0.1.1 // indirect
@@ -53,6 +53,7 @@ require (
 	github.com/blevesearch/scorch_segment_api/v2 v2.1.6 // indirect
 	github.com/blevesearch/segment v0.9.1 // indirect
 	github.com/blevesearch/snowballstem v0.9.0 // indirect
+	github.com/blevesearch/stempel v0.2.0 // indirect
 	github.com/blevesearch/upsidedown_store_api v1.0.2 // indirect
 	github.com/blevesearch/vellum v1.0.10 // indirect
 	github.com/blevesearch/zapx/v11 v11.3.10 // indirect
