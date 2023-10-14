@@ -41,7 +41,6 @@ require (
 
 require (
 	github.com/AndreasBriese/bbloom v0.0.0-20190825152654-46b345b51c96 // indirect
-	github.com/Mzack9999/go-http-digest-auth-client v0.6.1-0.20220414142836-eb8883508809 // indirect
 	github.com/RoaringBitmap/roaring v1.6.0 // indirect
 	github.com/antchfx/xpath v1.2.4 // indirect
 	github.com/aymerick/douceur v0.2.0 // indirect
@@ -143,7 +142,6 @@ require (
 	github.com/projectdiscovery/blackrock v0.0.1 // indirect
 	github.com/projectdiscovery/cdncheck v1.0.9 // indirect
 	github.com/projectdiscovery/retryabledns v1.0.38 // indirect
-	github.com/projectdiscovery/retryablehttp-go v1.0.30 // indirect
 	github.com/projectdiscovery/utils v0.0.57 // indirect
 	github.com/quic-go/qpack v0.4.0 // indirect
 	github.com/quic-go/qtls-go1-20 v0.3.4 // indirect
