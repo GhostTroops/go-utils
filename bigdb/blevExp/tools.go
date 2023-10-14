@@ -9,7 +9,6 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/hktalent/PipelineHttp"
 	util "github.com/hktalent/go-utils"
-	"github.com/simonnilsson/ask"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -103,17 +102,8 @@ func CreateHandle(getIndexHandler ServeHTTPFace) gin.HandlerFunc {
 	}
 }
 
-// 入参数不能传指针，否则无法正确获得结果
-func GetJson4Query(source interface{}, path string) interface{} {
-	res := ask.For(source, path)
-	if nil != res {
-		return res.Value()
-	}
-	return nil
-}
-
 func GetStrFromObj(o interface{}, path string) string {
-	return fmt.Sprintf("%v", GetJson4Query(o, path))
+	return fmt.Sprintf("%v", util.GetJson4Query(o, path))
 	return ""
 }
 
