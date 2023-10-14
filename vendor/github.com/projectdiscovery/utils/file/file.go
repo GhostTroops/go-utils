@@ -12,11 +12,13 @@ import (
 	"os"
 	"path/filepath"
 	"regexp"
+	"strconv"
 	"strings"
 	"time"
 
 	"github.com/asaskevich/govalidator"
 	"github.com/pkg/errors"
+	sliceutil "github.com/projectdiscovery/utils/slice"
 	stringsutil "github.com/projectdiscovery/utils/strings"
 	"gopkg.in/yaml.v3"
 )
@@ -31,6 +33,36 @@ func FileExists(filename string) bool {
 		return false
 	}
 	return !info.IsDir()
+}
+
+// FileExistsIn checks if the file exists in the allowed paths
+func FileExistsIn(file string, allowedPaths ...string) (string, error) {
+	fileAbsPath, err := filepath.Abs(file)
+	if err != nil {
+		return "", err
+	}
+
+	uniqAllowedPaths := sliceutil.Dedupe(allowedPaths)
+
+	for _, allowedPath := range uniqAllowedPaths {
+		allowedAbsPath, err := filepath.Abs(allowedPath)
+		if err != nil {
+			return "", err
+		}
+		// reject any path that for some reason was cleaned up and starts with .
+		if stringsutil.HasPrefixAny(allowedAbsPath, ".") {
+			return "", errors.New("invalid path")
+		}
+
+		allowedDirPath := allowedAbsPath
+		if filepath.Ext(allowedAbsPath) != "" {
+			allowedDirPath = filepath.Dir(allowedAbsPath)
+		}
+		if strings.HasPrefix(fileAbsPath, allowedDirPath) && FileExists(fileAbsPath) {
+			return allowedDirPath, nil
+		}
+	}
+	return "", errors.New("no allowed path found")
 }
 
 // FolderExists checks if the folder exists
@@ -453,4 +485,83 @@ func CountLinesWithOptions(reader io.Reader, separator []byte, filter func([]byt
 		}
 	}
 	return count, scanner.Err()
+}
+
+// SubstituteConfigFromEnvVars reads a config file and generates a reader with substituted config values from environment variables
+func SubstituteConfigFromEnvVars(filepath string) (io.Reader, error) {
+	var config strings.Builder
+
+	lines, err := ReadFile(filepath)
+	if err != nil {
+		return nil, err
+	}
+
+	for line := range lines {
+		config.WriteString(substituteEnvVars(string(line)))
+		config.WriteString("\n")
+	}
+
+	return strings.NewReader(config.String()), nil
+}
+
+// substituteEnvVars identifies environment variables declared inline and tries to replace them using os.Getenv
+func substituteEnvVars(line string) string {
+	for _, word := range strings.Fields(line) {
+		word = strings.Trim(word, `"`)
+		if strings.HasPrefix(word, "$") {
+			key := strings.TrimPrefix(word, "$")
+			substituteEnv := os.Getenv(key)
+			if substituteEnv != "" {
+				line = strings.Replace(line, word, substituteEnv, 1)
+			}
+		}
+	}
+	return line
+}
+
+// FileSizeToByteLen converts a file size with units(kb, mb, gb, tb) to byte length
+// e.g. 1kb -> 1024
+// If no unit is provided, it will fallback to mb. e.g: '2' will be converted to 2097152.
+func FileSizeToByteLen(fileSize string) (int, error) {
+	fileSize = strings.ToLower(fileSize)
+	// default to mb
+	if size, err := strconv.Atoi(fileSize); err == nil {
+		return size * 1024 * 1024, nil
+	}
+	if len(fileSize) < 3 {
+		return 0, errors.New("invalid size value")
+	}
+	sizeUnit := fileSize[len(fileSize)-2:]
+	size, err := strconv.Atoi(fileSize[:len(fileSize)-2])
+	if err != nil {
+		return 0, errors.New("parse error: " + err.Error())
+	}
+	if size < 0 {
+		return 0, errors.New("size cannot be negative")
+	}
+	if strings.EqualFold(sizeUnit, "kb") {
+		return size * 1024, nil
+	} else if strings.EqualFold(sizeUnit, "mb") {
+		return size * 1024 * 1024, nil
+	} else if strings.EqualFold(sizeUnit, "gb") {
+		return size * 1024 * 1024 * 1024, nil
+	} else if strings.EqualFold(sizeUnit, "tb") {
+		return size * 1024 * 1024 * 1024 * 1024, nil
+	}
+	return 0, errors.New("unsupported size unit")
+}
+
+// OpenOrCreate opens the named file for reading. If successful, methods on
+// the returned file can be used for reading; the associated file
+// descriptor has mode O_RDWR.
+// If there is an error, it'll create the named file with mode 0666.
+// If successful, methods on the returned File can be used for I/O;
+// the associated file descriptor has mode O_RDWR.
+// If there is an error, it will be of type *PathError.
+// Note: The file gets created only if the target directory exists
+func OpenOrCreateFile(name string) (*os.File, error) {
+	if FileExists(name) {
+		return os.OpenFile(name, os.O_RDWR, 0666)
+	}
+	return os.OpenFile(name, os.O_RDWR|os.O_CREATE, 0666)
 }

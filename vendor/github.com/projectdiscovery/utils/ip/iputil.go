@@ -9,6 +9,7 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/projectdiscovery/utils/consts"
 	osutil "github.com/projectdiscovery/utils/os"
@@ -264,9 +265,10 @@ func AsIPV6CIDR(IPV6 string) string {
 }
 
 // WhatsMyIP attempts to obtain the external ip through public api
-// Copied from https://github.com/projectdiscovery/naabu/blob/master/v2/pkg/scan/externalip.go
 func WhatsMyIP() (string, error) {
-	req, err := http.NewRequestWithContext(context.Background(), http.MethodGet, "https://api.ipify.org?format=text", nil)
+	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
+	defer cancel()
+	req, err := http.NewRequestWithContext(ctx, http.MethodGet, "https://checkip.amazonaws.com/", nil)
 	if err != nil {
 		return "", nil
 	}
@@ -286,7 +288,7 @@ func WhatsMyIP() (string, error) {
 		return "", err
 	}
 
-	return string(ip), nil
+	return strings.Trim(string(ip), "\n\r\t "), nil
 }
 
 // GetSourceIP gets the local ip based the destination ip

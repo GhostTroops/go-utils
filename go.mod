@@ -14,7 +14,7 @@ require (
 	github.com/gin-contrib/static v0.0.1
 	github.com/gin-gonic/gin v1.9.1
 	github.com/hbakhtiyor/strsim v0.0.0-20190107154042-4d2bbb273edf
-	github.com/hktalent/PipelineHttp v0.0.0-20230815034820-7ba060930550
+	github.com/hktalent/PipelineHttp v0.0.0-20231014092727-8b2ab330eb7e
 	github.com/hktalent/bleve-mapping-ui v0.4.1
 	github.com/hktalent/go-update v0.0.0-20230526022740-3a2ce0d34057
 	github.com/hktalent/htmlquery v0.0.0-20230303073607-1fbec5a16112
@@ -27,7 +27,7 @@ require (
 	github.com/pion/stun v0.6.1
 	github.com/pion/webrtc/v3 v3.2.21
 	github.com/pkg/errors v0.9.1
-	github.com/projectdiscovery/dnsx v1.1.3
+	github.com/projectdiscovery/dnsx v1.1.5
 	github.com/projectdiscovery/gologger v1.1.11
 	github.com/shirou/gopsutil/v3 v3.23.9
 	github.com/shomali11/util v0.0.0-20220717175126-f0771b70947f
@@ -42,10 +42,10 @@ require (
 require (
 	github.com/AndreasBriese/bbloom v0.0.0-20190825152654-46b345b51c96 // indirect
 	github.com/Mzack9999/go-http-digest-auth-client v0.6.1-0.20220414142836-eb8883508809 // indirect
-	github.com/RoaringBitmap/roaring v1.5.0 // indirect
+	github.com/RoaringBitmap/roaring v1.6.0 // indirect
 	github.com/antchfx/xpath v1.2.4 // indirect
 	github.com/aymerick/douceur v0.2.0 // indirect
-	github.com/bits-and-blooms/bitset v1.8.0 // indirect
+	github.com/bits-and-blooms/bitset v1.10.0 // indirect
 	github.com/blevesearch/geo v0.1.18 // indirect
 	github.com/blevesearch/go-porterstemmer v1.0.3 // indirect
 	github.com/blevesearch/goleveldb v1.1.0 // indirect
@@ -103,7 +103,7 @@ require (
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.5 // indirect
 	github.com/karlseguin/expect v1.0.8 // indirect
-	github.com/klauspost/compress v1.17.0 // indirect
+	github.com/klauspost/compress v1.17.1 // indirect
 	github.com/klauspost/cpuid/v2 v2.2.5 // indirect
 	github.com/klauspost/pgzip v1.2.6 // indirect
 	github.com/klauspost/reedsolomon v1.11.8 // indirect
@@ -114,8 +114,8 @@ require (
 	github.com/mattn/go-isatty v0.0.19 // indirect
 	github.com/mattn/go-sqlite3 v1.14.17 // indirect
 	github.com/mholt/archiver v3.1.1+incompatible // indirect
-	github.com/microcosm-cc/bluemonday v1.0.23 // indirect
-	github.com/miekg/dns v1.1.53 // indirect
+	github.com/microcosm-cc/bluemonday v1.0.26 // indirect
+	github.com/miekg/dns v1.1.56 // indirect
 	github.com/mitchellh/mapstructure v1.5.0 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.2 // indirect
@@ -140,10 +140,11 @@ require (
 	github.com/pion/turn/v2 v2.1.4 // indirect
 	github.com/pmezard/go-difflib v1.0.1-0.20181226105442-5d4384ee4fb2 // indirect
 	github.com/power-devops/perfstat v0.0.0-20221212215047-62379fc7944b // indirect
-	github.com/projectdiscovery/cdncheck v0.0.3 // indirect
-	github.com/projectdiscovery/retryabledns v1.0.21 // indirect
-	github.com/projectdiscovery/retryablehttp-go v1.0.14 // indirect
-	github.com/projectdiscovery/utils v0.0.19 // indirect
+	github.com/projectdiscovery/blackrock v0.0.1 // indirect
+	github.com/projectdiscovery/cdncheck v1.0.9 // indirect
+	github.com/projectdiscovery/retryabledns v1.0.38 // indirect
+	github.com/projectdiscovery/retryablehttp-go v1.0.30 // indirect
+	github.com/projectdiscovery/utils v0.0.57 // indirect
 	github.com/quic-go/qpack v0.4.0 // indirect
 	github.com/quic-go/qtls-go1-20 v0.3.4 // indirect
 	github.com/quic-go/quic-go v0.39.0 // indirect
@@ -165,6 +166,7 @@ require (
 	github.com/twitchyliquid64/golang-asm v0.15.1 // indirect
 	github.com/ugorji/go/codec v1.2.11 // indirect
 	github.com/ulikunitz/xz v0.5.11 // indirect
+	github.com/weppos/publicsuffix-go v0.30.1 // indirect
 	github.com/xi2/xz v0.0.0-20171230120015-48954b6210f8 // indirect
 	github.com/xtaci/lossyconn v0.0.0-20200209145036-adba10fffc37 // indirect
 	github.com/yl2chen/cidranger v1.0.2 // indirect

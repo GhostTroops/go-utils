@@ -48,8 +48,20 @@ func (o *AsnResponse) String() string {
 	return fmt.Sprintf("[%v, %v, %v]", o.AsNumber, o.AsName, o.AsCountry)
 }
 
-func (d *ResponseData) JSON() (string, error) {
-	b, err := json.Marshal(&d)
+type MarshalOption func(d *ResponseData)
+
+func WithoutAllRecords() MarshalOption {
+	return func(d *ResponseData) {
+		d.AllRecords = nil
+	}
+}
+
+func (d *ResponseData) JSON(options ...MarshalOption) (string, error) {
+	dataToMarshal := *d
+	for _, option := range options {
+		option(d)
+	}
+	b, err := json.Marshal(dataToMarshal)
 	return string(b), err
 }
 
@@ -85,11 +97,7 @@ func New(options Options) (*DNSX, error) {
 	dnsClient.TCPFallback = true
 	dnsx := &DNSX{dnsClient: dnsClient, Options: &options}
 	if options.OutputCDN {
-		var err error
-		dnsx.cdn, err = cdncheck.NewWithCache()
-		if err != nil {
-			return nil, err
-		}
+		dnsx.cdn = cdncheck.New()
 	}
 	return dnsx, nil
 }
