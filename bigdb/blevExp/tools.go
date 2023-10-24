@@ -43,7 +43,8 @@ func init() {
 // 获取body中的图片，并返回base64的编码
 func GetImg2Base64(szUrl string, s string) string {
 	szrst := ""
-	c01 := PpHttp.GetClient(nil)
+	c01 := PpHttp.GetClient4Http2()
+	PpHttp.UseHttp2 = true
 	c01.CheckRedirect = nil
 	PpHttp.DoGetWithClient4SetHd(c01, szUrl, "GET", nil, func(resp *http.Response, err error, szU string) {
 		if nil == err && nil != resp {
