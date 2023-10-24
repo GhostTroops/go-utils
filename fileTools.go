@@ -5,7 +5,15 @@ import (
 	"encoding/csv"
 	"log"
 	"os"
+	"path/filepath"
 )
+
+func DoDirs(szDir string, doFile func(s string)) {
+	filepath.WalkDir(szDir, func(s string, d os.DirEntry, e error) error {
+		doFile(s)
+		return nil
+	})
+}
 
 // 追加到文件中
 func AppendCsvFile(szFile string, a []string, f1 *os.File) *os.File {
