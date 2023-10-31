@@ -80,7 +80,7 @@ func GetIpaInfo(a []string) {
 			if 0 == len(a) {
 				continue
 			}
-			s := util.GetJson4Query(a[0], "location")
+			s := GetJson4Query(a[0], "location")
 			if "" == s {
 				continue
 			}
