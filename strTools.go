@@ -1,8 +1,12 @@
 package go_utils
 
 import (
+	"bytes"
+	"encoding/base64"
 	"fmt"
+	"github.com/andybalholm/brotli"
 	"hash/fnv"
+	"io"
 	"math/rand"
 	"strings"
 	"time"
@@ -14,6 +18,20 @@ var seededRand *rand.Rand = rand.New(rand.NewSource(time.Now().UnixNano()))
 
 func RandondStr(length int) string {
 	return StringWithCharset(length, "qwertyuiop[]\\asdfghjkl;'zxcvbnm,./`1234567890-=~!@#$%^&*()_QWERTYUIOP{}|ASDFGHJKL:\"ZXCVBNM<>")
+}
+
+func UnBrotli(s string) []byte {
+	if data, err := base64.StdEncoding.DecodeString(s); nil == err {
+		reader := brotli.NewReader(bytes.NewReader(data))
+		// 解压缩字符串
+		decompressStr, err := io.ReadAll(reader)
+		if err == nil {
+			return decompressStr
+		}
+		// 打印解压缩后的字符串
+		//fmt.Println(string(decompressStr))
+	}
+	return nil
 }
 
 func StringWithCharset(length int, charset string) string {

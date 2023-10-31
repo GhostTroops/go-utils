@@ -3,6 +3,8 @@ package go_utils
 import (
 	"bufio"
 	"encoding/csv"
+	"encoding/hex"
+	"fmt"
 	"log"
 	"os"
 	"path/filepath"
@@ -13,6 +15,20 @@ func DoDirs(szDir string, doFile func(s string)) {
 		doFile(s)
 		return nil
 	})
+}
+
+func File2HexStr(s string) string {
+	if data, err := os.ReadFile(s); nil == err {
+		return fmt.Sprintf("%x", data)
+	}
+	return ""
+}
+
+func HexStr2Bytes(s string) []byte {
+	if data, err := hex.DecodeString(s); nil == err {
+		return data
+	}
+	return nil
 }
 
 // 追加到文件中

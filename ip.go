@@ -1,16 +1,94 @@
 package go_utils
 
 import (
+	"bytes"
 	"encoding/hex"
 	"fmt"
 	"github.com/pion/stun"
+	"golang.org/x/text/encoding/simplifiedchinese"
+	"io"
 	"log"
 	"math/big"
 	"net"
+	"net/http"
 	"strings"
 )
 
 var szCurIp string
+
+func GBKToUTF8(s []byte) []byte {
+	utf8Str := simplifiedchinese.GBK.NewDecoder().Reader(bytes.NewReader(s))
+	if data, err := io.ReadAll(utf8Str); nil == err {
+		return data
+	}
+	return nil
+}
+
+// 通用的获取数据的方法
+func DoUrlCbk(szUrl string, data string, hd map[string]string, cbk func(resp *http.Response, szUrl string)) string {
+	szR := ""
+	data1 := []byte(data)
+	szM := "GET"
+	if 0 < len(data1) {
+		szM = "POST"
+	}
+	PipE.ErrCount = 0
+	PipE.ErrLimit = 999999999
+	PipE.DoGetWithClient4SetHd(PipE.Client, szUrl, szM, bytes.NewReader(data1), func(resp *http.Response, err error, szU string) {
+		if nil == err && nil != resp {
+			cbk(resp, szU)
+		} else {
+			fmt.Println(err)
+		}
+	}, func() map[string]string {
+		return hd
+	}, true)
+	return szR
+}
+
+// get ip location
+func GetIpLocation(x string) string {
+	if m1 := GetIpInfo(x); nil != m1 {
+		a := (*m1)["data"].([]interface{})
+		if 0 < len(a) {
+			s := GetJson4Query(a[0], "location")
+			return fmt.Sprintf("%v", s)
+		}
+	}
+	return ""
+}
+func GetIpInfo(s string) *map[string]interface{} {
+	var m = &map[string]interface{}{}
+	DoUrlCbk("https://opendata.baidu.com/api.php?query="+s+"&resource_id=6006&format=json", "", map[string]string{
+		"Cookie":          "BAIDUID=AD297683AEA2BE6DF0794437E0AE9E08:FG=1",
+		"User-Agent":      "VideoGo/1897687 CFNetwork/1410.0.3 Darwin/22.6.0",
+		"Accept-Language": "zh-CN,zh-Hans;q=0.9",
+		"Connection":      "close",
+	}, func(resp *http.Response, szUrl string) {
+		if data, err := io.ReadAll(resp.Body); nil == err {
+			if data1 := GBKToUTF8(data); 0 < len(data1) {
+				Json.Unmarshal(data1, m)
+			}
+		}
+	})
+	return m
+}
+func GetIpaInfo(a []string) {
+	for _, x := range a {
+		if m1 := GetIpInfo(x); nil != m1 {
+			a := (*m1)["data"].([]interface{})
+			if 0 == len(a) {
+				continue
+			}
+			s := util.GetJson4Query(a[0], "location")
+			if "" == s {
+				continue
+			}
+			fmt.Printf("%s\t%v\n", x, s)
+
+		}
+	}
+}
 
 // get your public ip
 // auto skip proxy

@@ -3,6 +3,7 @@ module github.com/hktalent/go-utils
 go 1.21
 
 require (
+	github.com/andybalholm/brotli v1.0.6
 	github.com/apex/log v1.9.0
 	github.com/asaskevich/govalidator v0.0.0-20230301143203-a9d515a09cc2
 	github.com/blevesearch/bleve/v2 v2.3.10
