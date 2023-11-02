@@ -57,38 +57,75 @@ func GetIpLocation(x string) string {
 	}
 	return ""
 }
-func GetIpInfo(s string) *map[string]interface{} {
-	var m = &map[string]interface{}{}
-	DoUrlCbk("https://opendata.baidu.com/api.php?query="+s+"&resource_id=6006&format=json", "", map[string]string{
-		"Cookie":          "BAIDUID=AD297683AEA2BE6DF0794437E0AE9E08:FG=1",
-		"User-Agent":      "VideoGo/1897687 CFNetwork/1410.0.3 Darwin/22.6.0",
-		"Accept-Language": "zh-CN,zh-Hans;q=0.9",
-		"Connection":      "close",
-	}, func(resp *http.Response, szUrl string) {
-		if data, err := io.ReadAll(resp.Body); nil == err {
-			if data1 := GBKToUTF8(data); 0 < len(data1) {
-				Json.Unmarshal(data1, m)
-			}
-		}
-	})
-	return m
-}
-func GetIpaInfo(a []string) {
-	for _, x := range a {
-		if m1 := GetIpInfo(x); nil != m1 {
-			a := (*m1)["data"].([]interface{})
-			if 0 == len(a) {
-				continue
-			}
-			s := GetJson4Query(a[0], "location")
-			if "" == s {
-				continue
-			}
-			fmt.Printf("%s\t%v\n", x, s)
+func GetIpInfo2(ip string) *map[string]interface{} {
+	var err error
+	req, err := http.NewRequest("GET", "http://ip-api.com/json/"+ip, nil)
+	if err == nil {
+		req.Header.Set("User-Agent", "curl/1.0")
+		req.Header.Add("Cache-Control", "no-cache")
+		// keep-alive
+		req.Header.Add("Connection", "close")
+		req.Close = true
 
+		resp, err := http.DefaultClient.Do(req)
+		if resp != nil {
+			defer resp.Body.Close() // resp 可能为 nil，不能读取 Body
+		}
+		if err != nil {
+			log.Println(err)
+			return nil
+		}
+		var ipInfo = map[string]interface{}{}
+		err = Json.NewDecoder(resp.Body).Decode(&ipInfo)
+		if nil == err {
+			return &ipInfo
 		}
 	}
+	if nil != err {
+		log.Println("GetIpInfo", err)
+	}
+	return nil
 }
+func GetIpInfo(s string) *map[string]interface{} {
+	m1 := func() *map[string]interface{} {
+		var m = &map[string]interface{}{}
+		DoUrlCbk("https://opendata.baidu.com/api.php?query="+s+"&resource_id=6006&format=json", "", map[string]string{
+			"Cookie":          "BAIDUID=AD297683AEA2BE6DF0794437E0AE9E08:FG=1",
+			"User-Agent":      "VideoGo/1897687 CFNetwork/1410.0.3 Darwin/22.6.0",
+			"Accept-Language": "zh-CN,zh-Hans;q=0.9",
+			"Connection":      "close",
+		}, func(resp *http.Response, szUrl string) {
+			if data, err := io.ReadAll(resp.Body); nil == err {
+				if data1 := GBKToUTF8(data); 0 < len(data1) {
+					Json.Unmarshal(data1, m)
+				}
+			}
+		})
+		return m
+	}()
+	if nil == m1 || 0 == len(*m1) {
+		if m1 = GetIpInfo2(s); nil != m1 {
+			(*m1)["location"] = fmt.Sprintf("%v %v", (*m1)["country"], (*m1)["city"])
+		}
+	}
+	return m1
+}
+
+//func GetIpaInfo(a []string) {
+//	for _, x := range a {
+//		if m1 := GetIpInfo(x); nil != m1 {
+//			a := (*m1)["data"].([]interface{})
+//			if 0 == len(a) {
+//				continue
+//			}
+//			s := GetJson4Query(a[0], "location")
+//			if "" == s {
+//				continue
+//			}
+//			fmt.Printf("%s\t%v\n", x, s)
+//		}
+//	}
+//}
 
 // get your public ip
 // auto skip proxy
