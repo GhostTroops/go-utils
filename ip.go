@@ -105,7 +105,7 @@ func GetIpInfo(s string) *map[string]interface{} {
 	}()
 	if nil == m1 || 0 == len(*m1) {
 		if m1 = GetIpInfo2(s); nil != m1 {
-			(*m1)["location"] = fmt.Sprintf("%v %v", (*m1)["country"], (*m1)["city"])
+			(*m1)["data"] = &map[string]interface{}{"location": fmt.Sprintf("%v %v", (*m1)["country"], (*m1)["city"])}
 		}
 	}
 	return m1
