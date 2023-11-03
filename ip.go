@@ -49,10 +49,11 @@ func DoUrlCbk(szUrl string, data string, hd map[string]string, cbk func(resp *ht
 // get ip location
 func GetIpLocation(x string) string {
 	if m1 := GetIpInfo(x); nil != m1 {
-		a := (*m1)["data"].([]interface{})
-		if 0 < len(a) {
-			s := GetJson4Query(a[0], "location")
-			return fmt.Sprintf("%v", s)
+		if a, ok := (*m1)["data"].([]interface{}); ok {
+			if 0 < len(a) {
+				s := GetJson4Query(a[0], "location")
+				return fmt.Sprintf("%v", s)
+			}
 		}
 	}
 	return ""
