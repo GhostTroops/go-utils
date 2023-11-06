@@ -20,6 +20,32 @@ func RandondStr(length int) string {
 	return StringWithCharset(length, "qwertyuiop[]\\asdfghjkl;'zxcvbnm,./`1234567890-=~!@#$%^&*()_QWERTYUIOP{}|ASDFGHJKL:\"ZXCVBNM<>")
 }
 
+/*
+使用 UnBrotli 解码
+*/
+func BrotliBase64(data []byte) string {
+	var buf bytes.Buffer
+	w := brotli.NewWriter(&buf)
+	// Check for errors when writing to the brotli writer
+	if _, err := w.Write(data); err != nil {
+		return ""
+	}
+
+	// Check for errors when flushing the brotli writer
+	if err := w.Flush(); err != nil {
+		return ""
+	}
+
+	// Close the brotli writer to free up resources
+	if err := w.Close(); err != nil {
+		return ""
+	}
+	return base64.StdEncoding.EncodeToString(buf.Bytes())
+}
+
+/*
+使用 BrotliBase64 编码
+*/
 func UnBrotli(s string) []byte {
 	if data, err := base64.StdEncoding.DecodeString(s); nil == err {
 		reader := brotli.NewReader(bytes.NewReader(data))
