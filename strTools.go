@@ -43,6 +43,13 @@ func BrotliBase64(data []byte) string {
 	return base64.StdEncoding.EncodeToString(buf.Bytes())
 }
 
+func B64_Brotli2Str(s string) string {
+	if o := UnBrotli(s); nil != o {
+		return string(o)
+	}
+	return ""
+}
+
 /*
 使用 BrotliBase64 编码
 */
