@@ -7,13 +7,13 @@ import (
 	"reflect"
 )
 
-func isPointer(x interface{}) bool {
+func IsPointer(x interface{}) bool {
 	return reflect.TypeOf(x).Kind() == reflect.Ptr
 }
 
 // for github.com/itchyny/gojq
 func GetJQ(source interface{}, path string) interface{} {
-	if isPointer(source) {
+	if IsPointer(source) {
 		source = reflect.ValueOf(source).Elem()
 	}
 	if ps, err := gojq.Parse(path); nil == err {
