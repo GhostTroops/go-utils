@@ -2,6 +2,7 @@ package go_utils
 
 import (
 	"bytes"
+	"crypto/md5"
 	"encoding/base64"
 	"fmt"
 	"github.com/andybalholm/brotli"
@@ -18,6 +19,14 @@ var seededRand *rand.Rand = rand.New(rand.NewSource(time.Now().UnixNano()))
 
 func RandondStr(length int) string {
 	return StringWithCharset(length, "qwertyuiop[]\\asdfghjkl;'zxcvbnm,./`1234567890-=~!@#$%^&*()_QWERTYUIOP{}|ASDFGHJKL:\"ZXCVBNM<>")
+}
+
+func GetMd5(data []byte) string {
+	// 创建一个新的 MD5 哈希器
+	h := md5.New()
+	h.Write(data)
+	sum := h.Sum(nil)
+	return fmt.Sprintf("%x", sum)
 }
 
 /*
