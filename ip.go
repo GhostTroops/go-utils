@@ -23,18 +23,16 @@ func GBKToUTF8(s []byte) []byte {
 	}
 	return nil
 }
-
-// 通用的获取数据的方法
-func DoUrlCbk(szUrl string, data string, hd map[string]string, cbk func(resp *http.Response, szUrl string)) string {
+func DoUrlCbk4byte(szUrl string, data []byte, hd map[string]string, cbk func(resp *http.Response, szUrl string)) string {
 	szR := ""
-	data1 := []byte(data)
+
 	szM := "GET"
-	if 0 < len(data1) {
+	if 0 < len(data) {
 		szM = "POST"
 	}
 	PipE.ErrCount = 0
 	PipE.ErrLimit = 999999999
-	PipE.DoGetWithClient4SetHd(PipE.Client, szUrl, szM, bytes.NewReader(data1), func(resp *http.Response, err error, szU string) {
+	PipE.DoGetWithClient4SetHd(PipE.Client, szUrl, szM, bytes.NewReader(data), func(resp *http.Response, err error, szU string) {
 		if nil == err && nil != resp {
 			cbk(resp, szU)
 		} else {
@@ -44,6 +42,11 @@ func DoUrlCbk(szUrl string, data string, hd map[string]string, cbk func(resp *ht
 		return hd
 	}, true)
 	return szR
+}
+
+// 通用的获取数据的方法
+func DoUrlCbk(szUrl string, data string, hd map[string]string, cbk func(resp *http.Response, szUrl string)) string {
+	return DoUrlCbk4byte(szUrl, []byte(data), hd, cbk)
 }
 
 // get ip location
