@@ -32,5 +32,15 @@ WhereCar("黄石市")
 */
 func WhereCar(s string) string {
 	s = strings.ToLower(s)
-	return ChePm[s]
+	var s1 string
+	if 2 <= len(s) {
+		for j := 2; j < len(s); j++ {
+			s1 = ChePm[s[0:j]]
+			if "" != s1 {
+				break
+			}
+		}
+
+	}
+	return s1
 }
