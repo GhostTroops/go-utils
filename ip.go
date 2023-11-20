@@ -23,6 +23,25 @@ func GBKToUTF8(s []byte) []byte {
 	}
 	return nil
 }
+
+// 通过cloudflare 获取自己当前互联网 ip
+func GetCurPubIp() string {
+	szRst := ""
+	szUrl := "https://www.cloudflare.com/cdn-cgi/trace"
+	DoUrlCbk(szUrl, "", nil, func(resp *http.Response, szUrl string) {
+		if data, err := io.ReadAll(resp.Body); nil == err {
+			s := string(data)
+			if a := strings.Split(s, "ip="); 2 == len(a) {
+				a = strings.Split(a[1], "\n")
+				if 1 < len(a) {
+					szRst = a[0]
+				}
+			}
+		}
+	})
+	return szRst
+}
+
 func DoUrlCbk4byte(szUrl string, data []byte, hd map[string]string, cbk func(resp *http.Response, szUrl string)) string {
 	szR := ""
 

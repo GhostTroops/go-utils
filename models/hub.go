@@ -80,6 +80,7 @@ func (h *Hub) run() {
 				}
 			}
 		}
+		time.Sleep(16 * time.Millisecond)
 	}
 }
 

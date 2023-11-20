@@ -55,6 +55,7 @@ func (c *Client) readPump() {
 		}
 		ed.Client = c
 		c.hub.ReceveEventData <- ed
+		time.Sleep(16 * time.Millisecond)
 	}
 }
 
@@ -99,5 +100,6 @@ func (c *Client) writePump() {
 				return
 			}
 		}
+		time.Sleep(16 * time.Millisecond)
 	}
 }
