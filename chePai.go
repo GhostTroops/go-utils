@@ -14,6 +14,9 @@ func init() {
 	for _, x := range a {
 		j := strings.Split(x, "\t")
 		if 2 <= len(j) {
+			if 4 == len(j) && j[2] == j[3] {
+				j = j[0:3]
+			}
 			s11 := strings.Join(j[1:], "")
 			j[0] = strings.ToLower(j[0])
 			ChePm[j[0]] = s11
