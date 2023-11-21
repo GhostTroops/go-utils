@@ -8,7 +8,11 @@ import (
 	"net/url"
 )
 
-func Fanyi4Youdao(sT string) {
+/*
+翻译中文
+*/
+func Fanyi4Youdao(sT string) string {
+	szRst := ""
 	x := "webdict"
 	v := sT
 	t := v + x
@@ -36,9 +40,10 @@ func Fanyi4Youdao(sT string) {
 		if data1, err := io.ReadAll(resp.Body); nil == err {
 			var m = map[string]interface{}{}
 			if Json.Unmarshal(data1, &m) == nil {
-				s = GetJQ2Str(m, ".fanyi.tran")
-				fmt.Println(s)
+				szRst = GetJQ2Str(m, ".fanyi.tran")
+				//fmt.Println(s)
 			}
 		}
 	})
+	return szRst
 }
