@@ -4,6 +4,7 @@ import "strings"
 
 type TCPPort int
 type UDPPort int
+type SCTPPort int
 
 func GetTCPPortName(n int) string {
 	return TcpPortNames[TCPPort(n)]
