@@ -3,19 +3,31 @@ package go_utils
 import "strings"
 
 type TCPPort int
+type UDPPort int
 
-func GetPortName(n int) string {
+func GetTCPPortName(n int) string {
 	return TcpPortNames[TCPPort(n)]
 }
-func GetPort4Name(s string) TCPPort {
+func GetTCPPort4Name(s string) TCPPort {
 	return TcpNamePort[strings.ToLower(s)]
 }
 
+func GetUdpPortName(n int) string {
+	return udpPortNames[UDPPort(n)]
+}
+func GetUdpPort4Name(s string) UDPPort {
+	return UdpNamePort[strings.ToLower(s)]
+}
+
 var TcpNamePort = map[string]TCPPort{}
+var UdpNamePort = map[string]UDPPort{}
 
 func init() {
 	for k, v := range TcpPortNames {
 		TcpNamePort[v] = k
+	}
+	for k, v := range udpPortNames {
+		UdpNamePort[v] = k
 	}
 }
 
