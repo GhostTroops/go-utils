@@ -9,18 +9,19 @@ import (
 )
 
 /*
-翻译中文
+le :en,fr,ko,ja
 */
-func Fanyi4Youdao(sT string) string {
+func Fanyi4YoudaoPars(sT string, le string) string {
 	szRst := ""
 	x := "webdict"
 	v := sT
 	t := v + x
 	time1 := len(v+x) % 10
 	s := fmt.Sprintf("%x", md5.Sum([]byte(t)))
-	s = "web" + v + fmt.Sprintf("%d", time1) + "Mk6hqtUp33DGGtoS63tTJbMUYjRrG1Lu" + s
+	tm1 := fmt.Sprintf("%d", time1)
+	s = "web" + v + tm1 + "Mk6hqtUp33DGGtoS63tTJbMUYjRrG1Lu" + s
 	s = fmt.Sprintf("%x", md5.Sum([]byte(s)))
-	data := []byte("q=" + url.QueryEscape(v) + "&le=en&t=2&client=web&sign=" + s + "&keyfrom=" + x)
+	data := []byte("q=" + url.QueryEscape(v) + "&le=" + le + "&t=" + tm1 + "&client=web&sign=" + s + "&keyfrom=" + x)
 	DoUrlCbk4byte("https://dict.youdao.com/jsonapi_s?doctype=json&jsonversion=4", data, map[string]string{
 		"Accept":             "application/json, text/plain, */*",
 		"Accept-Language":    "zh,en;q=0.9,zh-CN;q=0.8",
@@ -41,9 +42,37 @@ func Fanyi4Youdao(sT string) string {
 			var m = map[string]interface{}{}
 			if Json.Unmarshal(data1, &m) == nil {
 				szRst = GetJQ2Str(m, ".fanyi.tran")
-				//fmt.Println(s)
+				if "" == szRst {
+					if wt, ok := m["web_trans"]; ok {
+						if m1, ok := wt.(map[string]interface{}); ok {
+							wt2 := m1["web-translation"]
+							if a1, ok := wt2.([]interface{}); ok && 0 < len(a1) {
+								if m2, ok := a1[0].(map[string]interface{}); ok {
+									if a2, ok := m2["trans"]; ok {
+										if a3, ok := a2.([]interface{}); ok && 1 < len(a3) {
+											if m4, ok := a3[1].(map[string]interface{}); ok {
+												szRst = fmt.Sprintf("%s", m4["value"])
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+					//szRst = GetJQ2Str(m, ".web_trans.web-translation[0].trans[1].value")
+				}
+				//fmt.Println(string(data1))
 			}
+		} else {
+			fmt.Println(err)
 		}
 	})
 	return szRst
+}
+
+/*
+翻译中文
+*/
+func Fanyi4Youdao(sT string) string {
+	return Fanyi4YoudaoPars(sT, "en")
 }
