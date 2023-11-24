@@ -55,7 +55,7 @@ func DoUrlCbk4byte(szUrl string, data []byte, hd map[string]string, cbk func(res
 		if nil == err && nil != resp {
 			cbk(resp, szU)
 		} else {
-			fmt.Println(err, resp.StatusCode)
+			fmt.Println(err)
 		}
 	}, func() map[string]string {
 		return hd

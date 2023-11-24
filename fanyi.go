@@ -50,7 +50,7 @@ func Fanyi4YoudaoPars(sT string, le string) string {
 								if m2, ok := a1[0].(map[string]interface{}); ok {
 									if a2, ok := m2["trans"]; ok {
 										if a3, ok := a2.([]interface{}); ok && 1 < len(a3) {
-											if m4, ok := a3[1].(map[string]interface{}); ok {
+											if m4, ok := a3[0].(map[string]interface{}); ok {
 												szRst = fmt.Sprintf("%s", m4["value"])
 											}
 										}
