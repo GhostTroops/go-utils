@@ -53,6 +53,7 @@ func DoUrlCbk4byte(szUrl string, data []byte, hd map[string]string, cbk func(res
 	PipE.ErrLimit = 999999999
 	PipE.DoGetWithClient4SetHd(PipE.Client, szUrl, szM, bytes.NewReader(data), func(resp *http.Response, err error, szU string) {
 		if nil == err && nil != resp {
+			defer resp.Body.Close()
 			cbk(resp, szU)
 		} else {
 			fmt.Println(err)
