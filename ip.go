@@ -56,7 +56,7 @@ func DoUrlCbk4byte(szUrl string, data []byte, hd map[string]string, cbk func(res
 			defer resp.Body.Close()
 			cbk(resp, szU)
 		} else {
-			fmt.Println(err)
+			//log.Println(err)
 		}
 	}, func() map[string]string {
 		return hd
