@@ -81,33 +81,34 @@ func GetIpLocation(x string) string {
 	}
 	return ""
 }
+
+var ht1 = PipE.GetClient(nil)
+
 func GetIpInfo2(ip string) *map[string]interface{} {
 	var err error
-	req, err := http.NewRequest("GET", "http://ip-api.com/json/"+ip, nil)
-	if err == nil {
-		req.Header.Set("User-Agent", "curl/1.0")
-		req.Header.Add("Cache-Control", "no-cache")
-		// keep-alive
-		req.Header.Add("Connection", "close")
-		req.Close = true
-
-		resp, err := http.DefaultClient.Do(req)
+	var ipInfo = map[string]interface{}{}
+	PipE.DoGetWithClient4SetHd(ht1, "http://ip-api.com/json/"+ip, "GET", nil, func(resp *http.Response, err1 error, szU string) {
+		err = err1
 		if resp != nil {
 			defer resp.Body.Close() // resp 可能为 nil，不能读取 Body
 		}
 		if err != nil {
-			log.Println(err)
-			return nil
+			//log.Println(err)
+			return
 		}
-		var ipInfo = map[string]interface{}{}
 		err = Json.NewDecoder(resp.Body).Decode(&ipInfo)
-		if nil == err {
-			return &ipInfo
+	}, func() map[string]string {
+		return map[string]string{
+			"User-Agent":    "curl/1.0",
+			"Cache-Control": "no-cache",
+			"Connection":    "close",
 		}
+	}, true)
+
+	if nil == err {
+		return &ipInfo
 	}
-	if nil != err {
-		log.Println("GetIpInfo", err)
-	}
+
 	return nil
 }
 func GetIpInfo(s string) *map[string]interface{} {
