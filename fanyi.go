@@ -2,6 +2,7 @@ package go_utils
 
 import (
 	"crypto/md5"
+	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
@@ -12,6 +13,49 @@ import (
 le :en,fr,ko,ja
 */
 func Fanyi4YoudaoPars(sT string, le string) string {
+	szRst := ""
+	var mD = map[string]any{
+		"header": map[string]any{"fn": "auto_translation", "session": "", "user": ""},
+		"type":   "plain", "model_category": "normal", "text_domain": "",
+		"source": map[string]any{"lang": le, "text_list": []string{sT}}, "target": map[string]any{"lang": "zh"}}
+	var data []byte
+	if data1, err := json.Marshal(mD); nil == err {
+		data = data1
+	} else {
+		return sT
+	}
+	DoUrlCbk4byte("https://transmart.qq.com/api/imt", data, map[string]string{
+		"Accept":             "application/json, text/plain, */*",
+		"Accept-Language":    "zh,en;q=0.9,zh-CN;q=0.8",
+		"Connection":         "keep-alive",
+		"Content-Type":       "application/json",
+		"X-Requested-With":   "XMLHttpRequest",
+		"DNT":                "1",
+		"Origin":             "https://transmart.qq.com",
+		"Referer":            "https://transmart.qq.com/zh-CN/index",
+		"Sec-Fetch-Dest":     "empty",
+		"Sec-Fetch-Mode":     "cors",
+		"Sec-Fetch-Site":     "same-site",
+		"User-Agent":         "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:109.0) Gecko/20100101 Firefox/119.0",
+		"sec-ch-ua-mobile":   "?0",
+		"sec-ch-ua-platform": "macOS",
+	}, func(resp *http.Response, szUrl string) {
+		if data1, err := io.ReadAll(resp.Body); nil == err {
+			var m = map[string]interface{}{}
+			if Json.Unmarshal(data1, &m) == nil {
+				szRst = GetJQ2Str(m, ".auto_translation[0]")
+				if "" == szRst {
+					szRst = Fanyi4YoudaoPars1(sT, le)
+				}
+			}
+		} else {
+			fmt.Println(err)
+		}
+	})
+	return szRst
+}
+
+func Fanyi4YoudaoPars1(sT string, le string) string {
 	szRst := ""
 	x := "webdict"
 	v := sT
