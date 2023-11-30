@@ -42,7 +42,7 @@ func GetCurPubIp() string {
 	return szRst
 }
 
-func DoUrlCbk4byte(szUrl string, data []byte, hd map[string]string, cbk func(resp *http.Response, szUrl string)) string {
+func DoUrlCbk4byte4Redirect(szUrl string, data []byte, hd map[string]string, cbk func(resp *http.Response, szUrl string), Redirect bool) string {
 	szR := ""
 
 	szM := "GET"
@@ -51,6 +51,11 @@ func DoUrlCbk4byte(szUrl string, data []byte, hd map[string]string, cbk func(res
 	}
 	PipE.ErrCount = 0
 	PipE.ErrLimit = 999999999
+	if Redirect {
+		PipE.Client.CheckRedirect = func(req *http.Request, via []*http.Request) error {
+			return nil
+		}
+	}
 	PipE.DoGetWithClient4SetHd(PipE.Client, szUrl, szM, bytes.NewReader(data), func(resp *http.Response, err error, szU string) {
 		if nil == err && nil != resp {
 			defer resp.Body.Close()
@@ -62,6 +67,10 @@ func DoUrlCbk4byte(szUrl string, data []byte, hd map[string]string, cbk func(res
 		return hd
 	}, true)
 	return szR
+}
+
+func DoUrlCbk4byte(szUrl string, data []byte, hd map[string]string, cbk func(resp *http.Response, szUrl string)) string {
+	return DoUrlCbk4byte4Redirect(szUrl, data, hd, cbk, false)
 }
 
 // 通用的获取数据的方法
