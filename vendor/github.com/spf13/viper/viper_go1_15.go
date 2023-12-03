@@ -1,4 +1,5 @@
-//go:build !finder
+//go:build !go1.16 || !finder
+// +build !go1.16 !finder
 
 package viper
 
