@@ -8,8 +8,10 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"strings"
 )
 
+// 处理目录遍历
 func DoDirs(szDir string, doFile func(s string)) {
 	filepath.WalkDir(szDir, func(s string, d os.DirEntry, e error) error {
 		doFile(s)
@@ -17,6 +19,28 @@ func DoDirs(szDir string, doFile func(s string)) {
 	})
 }
 
+// 读取多个文件，按行返回
+func ReadFile4Line(a ...string) chan *string {
+	var out = make(chan *string)
+	go func() {
+		defer close(out)
+		for _, x := range a {
+			if FileExists(x) {
+				if fs, err := os.OpenFile(x, os.O_RDONLY, os.ModePerm); nil == err {
+					scanner := bufio.NewScanner(fs)
+					scanner.Buffer(make([]byte, MacLineSize), MacLineSize)
+					for scanner.Scan() {
+						value := strings.TrimSpace(scanner.Text())
+						out <- &value
+					}
+				}
+			}
+		}
+	}()
+	return out
+}
+
+// 文件转 16进制字符串
 func File2HexStr(s string) string {
 	if data, err := os.ReadFile(s); nil == err {
 		return fmt.Sprintf("%x", data)
@@ -24,6 +48,7 @@ func File2HexStr(s string) string {
 	return ""
 }
 
+// 16进制 字符串 转byte
 func HexStr2Bytes(s string) []byte {
 	if data, err := hex.DecodeString(s); nil == err {
 		return data
