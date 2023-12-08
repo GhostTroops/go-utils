@@ -31,12 +31,23 @@ func WaitFunc4Wg(wg *sync.WaitGroup, a ...func()) {
 
 // 并行执行方法，并将使用 wg 计数器
 // 同时传入参数parms
-func WaitFunc4WgParms(wg *sync.WaitGroup, parms []any, a ...func(x ...any)) {
+func WaitFunc4WgParms[T any](wg *sync.WaitGroup, parms []T, a ...func(x ...T)) {
 	for _, x := range a {
 		wg.Add(1)
-		go func(cbk func(...any)) {
+		go func(cbk func(...T)) {
 			defer wg.Done()
 			cbk(parms...)
+		}(x)
+	}
+}
+
+// 迭代所有的参数
+func WaitOneFunc4WgParms[T any](wg *sync.WaitGroup, cbk func(x T), parms ...T) {
+	for _, x := range parms {
+		wg.Add(1)
+		go func(p1 T) {
+			defer wg.Done()
+			cbk(p1)
 		}(x)
 	}
 }

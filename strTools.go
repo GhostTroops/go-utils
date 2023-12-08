@@ -180,6 +180,16 @@ func TransInt64ToN(id int64, szTemplate string) string {
 	return string(shortUrl)
 }
 
+func Join2Str(a [][]string) string {
+	var a1 []string
+	for _, x := range a {
+		for _, j := range x {
+			a1 = append(a1, j)
+		}
+	}
+	return strings.Join(a1, "")
+}
+
 // N 进制逆向计算
 func TransN2Int64(str string, szTemplate string) int64 {
 	n := int64(len(szTemplate))
