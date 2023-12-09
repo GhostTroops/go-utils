@@ -13,8 +13,8 @@ func IsPointer(x interface{}) bool {
 
 // for github.com/itchyny/gojq
 func GetJQ(source interface{}, path string) interface{} {
-	if IsPointer(source) {
-		source = reflect.ValueOf(source).Elem()
+	if m1, ok := source.(*map[string]interface{}); ok {
+		source = *m1
 	}
 	if ps, err := gojq.Parse(path); nil == err {
 		if data := ps.Run(source); nil != data {

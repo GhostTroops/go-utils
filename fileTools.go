@@ -5,11 +5,23 @@ import (
 	"encoding/csv"
 	"encoding/hex"
 	"fmt"
+	xj "github.com/hktalent/goxml2json"
+	"io"
 	"log"
 	"os"
 	"path/filepath"
 	"strings"
 )
+
+func Xml2Map(i io.Reader) *map[string]interface{} {
+	if j1, err := xj.Convert(i); nil == err {
+		var m1 = map[string]interface{}{}
+		if err := Json.Unmarshal(j1.Bytes(), &m1); nil == err {
+			return &m1
+		}
+	}
+	return nil
+}
 
 // 处理目录遍历
 func DoDirs(szDir string, doFile func(s string)) {

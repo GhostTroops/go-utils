@@ -18,6 +18,7 @@ require (
 	github.com/hktalent/PipelineHttp v0.0.0-20231203113740-b6691386054d
 	github.com/hktalent/bleve-mapping-ui v0.4.1
 	github.com/hktalent/go-update v0.0.0-20230526022740-3a2ce0d34057
+	github.com/hktalent/goxml2json v0.0.0-20221020101014-f91e9a0121fc
 	github.com/hktalent/htmlquery v0.0.0-20230303073607-1fbec5a16112
 	github.com/hktalent/websocket v0.0.0-20220908204337-b4a81b861976
 	github.com/itchyny/gojq v0.12.14

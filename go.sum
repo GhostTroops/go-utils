@@ -27,6 +27,8 @@ github.com/aws/aws-sdk-go v1.20.6/go.mod h1:KmX6BPdI08NWTb3/sm4ZGu5ShLoqVDhKgpiN
 github.com/aybabtme/rgbterm v0.0.0-20170906152045-cc83f3b3ce59/go.mod h1:q/89r3U2H7sSsE2t6Kca0lfwTK8JdoNGS/yzM/4iH5I=
 github.com/aymerick/douceur v0.2.0 h1:Mv+mAeH1Q+n9Fr+oyamOlAkUNPWPlA8PPGR0QAaYuPk=
 github.com/aymerick/douceur v0.2.0/go.mod h1:wlT5vV2O3h55X9m7iVYN0TBM0NH/MmbLnd30/FjWUq4=
+github.com/bitly/go-simplejson v0.5.0 h1:6IH+V8/tVMab511d5bn4M7EwGXZf9Hj6i2xSwkNEM+Y=
+github.com/bitly/go-simplejson v0.5.0/go.mod h1:cXHtHw4XUPsvGaxgjIAn8PhEWG9NfngEKAMDJEczWVA=
 github.com/bits-and-blooms/bitset v1.2.0/go.mod h1:gIdJ4wp64HaoK2YrL1Q5/N7Y16edYb8uY+O0FJTyyDA=
 github.com/bits-and-blooms/bitset v1.11.0 h1:RMyy2mBBShArUAhfVRZJ2xyBO58KCBCtZFShw3umo6k=
 github.com/bits-and-blooms/bitset v1.11.0/go.mod h1:7hO7Gc7Pp1vODcmWvKMRA9BNmbv6a/7QIWpPxHddWR8=
@@ -236,6 +238,8 @@ github.com/hktalent/bleve-mapping-ui v0.4.1 h1:oLpvSAhfQIFW6zQok5nYdQzSSwBsU17Ki
 github.com/hktalent/bleve-mapping-ui v0.4.1/go.mod h1:EnSNC/4MpgnuzdLchG0VqTfkLLpE9ird/0R0zN3A/o4=
 github.com/hktalent/go-update v0.0.0-20230526022740-3a2ce0d34057 h1:kEukLYHoqQ/IMzZ0+2ssg7Cc7itnTCb80KFKKzcASSM=
 github.com/hktalent/go-update v0.0.0-20230526022740-3a2ce0d34057/go.mod h1:etBkJC2MYn155jFX6Q6QPhoWWQeZD5/M2x4kBQeNhI8=
+github.com/hktalent/goxml2json v0.0.0-20221020101014-f91e9a0121fc h1:xCfbmpT1Qgmcm6p/qtlv6wt4CyPvOCLV3/PjfKXXdsI=
+github.com/hktalent/goxml2json v0.0.0-20221020101014-f91e9a0121fc/go.mod h1:ADjILrqfUYHa7t3yutaiNXwsVnxkMd1xXTLa8Dq4d4o=
 github.com/hktalent/htmlquery v0.0.0-20230303073607-1fbec5a16112 h1:60QrkBG37YipZbxv92uUZWhdp5ayJlIcveQHtgTbT24=
 github.com/hktalent/htmlquery v0.0.0-20230303073607-1fbec5a16112/go.mod h1:M8OJ9k8gWnndrlF3RtNhYAkF26xDKnvFm3ONrEg5l5c=
 github.com/hktalent/websocket v0.0.0-20220908204337-b4a81b861976 h1:oGE7u0adRuzpamtAkkOy65hevwyEtrszTAVz+USJz/k=
