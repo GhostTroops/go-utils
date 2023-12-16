@@ -7,7 +7,6 @@ import (
 	"os"
 	"runtime"
 	"strings"
-	"sync"
 )
 
 type RegFuncs struct {
@@ -16,13 +15,13 @@ type RegFuncs struct {
 
 // 并发执行所有func，并等待他们执行完
 func WaitFunc(a ...func()) {
-	var wg sync.WaitGroup
+	var wg = NewSizedWaitGroup(len(a))
 	WaitFunc4Wg(&wg, a...)
 	wg.Wait()
 }
 
 // 并行执行方法，并将使用 wg 计数器
-func WaitFunc4Wg(wg *sync.WaitGroup, a ...func()) {
+func WaitFunc4Wg(wg *SizedWaitGroup, a ...func()) {
 	for _, x := range a {
 		wg.Add(1)
 		go func(cbk func()) {
@@ -34,7 +33,7 @@ func WaitFunc4Wg(wg *sync.WaitGroup, a ...func()) {
 
 // 并行执行方法，并将使用 wg 计数器
 // 同时传入参数parms
-func WaitFunc4WgParms[T any](wg *sync.WaitGroup, parms []T, a ...func(x ...T)) {
+func WaitFunc4WgParms[T any](wg *SizedWaitGroup, parms []T, a ...func(x ...T)) {
 	for _, x := range a {
 		wg.Add(1)
 		go func(cbk func(...T)) {
@@ -56,7 +55,7 @@ func OutMap(m *map[string]interface{}) {
 		out.WriteTo(os.Stdout)
 	}
 }
-func WaitOneFunc4WgParmsChan[T any](wg *sync.WaitGroup, cbk func(x T), cT chan struct{}, parms ...T) {
+func WaitOneFunc4WgParmsChan[T any](wg *SizedWaitGroup, cbk func(x T), cT chan struct{}, parms ...T) {
 	for _, x := range parms {
 		cT <- struct{}{}
 		wg.Add(1)
@@ -71,7 +70,7 @@ func WaitOneFunc4WgParmsChan[T any](wg *sync.WaitGroup, cbk func(x T), cT chan s
 }
 
 // 迭代所有的参数
-func WaitOneFunc4WgParms[T any](wg *sync.WaitGroup, cbk func(x T), parms ...T) {
+func WaitOneFunc4WgParms[T any](wg *SizedWaitGroup, cbk func(x T), parms ...T) {
 	for _, x := range parms {
 		wg.Add(1)
 		go func(p1 T) {
