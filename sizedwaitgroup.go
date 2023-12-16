@@ -13,7 +13,7 @@ type SizedWaitGroup struct {
 	Size int
 
 	current chan struct{}
-	wg      sync.WaitGroup
+	*sync.WaitGroup
 }
 
 // New creates a SizedWaitGroup.
@@ -24,22 +24,18 @@ func NewSizedWaitGroup(limit int) SizedWaitGroup {
 	if limit > 0 {
 		size = limit
 	}
-	return SizedWaitGroup{
-		Size: size,
-
+	rt := SizedWaitGroup{
+		Size:    size,
 		current: make(chan struct{}, size),
-		wg:      sync.WaitGroup{},
 	}
+	rt.WaitGroup = &sync.WaitGroup{}
+	return rt
 }
 
-// Add increments the internal WaitGroup counter.
-// It can be blocking if the limit of spawned goroutines
-// has been reached. It will stop blocking when Done is
-// been called.
-//
-// See sync.WaitGroup documentation for more information.
-func (s *SizedWaitGroup) Add() {
-	s.AddWithContext(context.Background())
+func (s *SizedWaitGroup) Add(delta int) {
+	for i := 0; i < delta; i++ {
+		s.AddWithContext(context.Background())
+	}
 }
 
 // AddWithContext increments the internal WaitGroup counter.
@@ -57,7 +53,7 @@ func (s *SizedWaitGroup) AddWithContext(ctx context.Context) error {
 	case s.current <- struct{}{}:
 		break
 	}
-	s.wg.Add(1)
+	s.WaitGroup.Add(1)
 	return nil
 }
 
@@ -65,13 +61,13 @@ func (s *SizedWaitGroup) AddWithContext(ctx context.Context) error {
 // See sync.WaitGroup documentation for more information.
 func (s *SizedWaitGroup) Done() {
 	<-s.current
-	s.wg.Done()
+	s.WaitGroup.Done()
 }
 
 // Wait blocks until the SizedWaitGroup counter is zero.
 // See sync.WaitGroup documentation for more information.
 func (s *SizedWaitGroup) Wait() {
-	s.wg.Wait()
+	s.WaitGroup.Wait()
 }
 
 func (s *SizedWaitGroup) WaitLen() int {
