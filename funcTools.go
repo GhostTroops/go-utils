@@ -1,7 +1,10 @@
 package go_utils
 
 import (
+	"bytes"
+	"encoding/json"
 	"log"
+	"os"
 	"runtime"
 	"strings"
 	"sync"
@@ -37,6 +40,32 @@ func WaitFunc4WgParms[T any](wg *sync.WaitGroup, parms []T, a ...func(x ...T)) {
 		go func(cbk func(...T)) {
 			defer wg.Done()
 			cbk(parms...)
+		}(x)
+	}
+}
+
+// map format out
+func OutMap(m *map[string]interface{}) {
+	if data, err := Json.Marshal(m); nil == err {
+		var out bytes.Buffer
+		err = json.Indent(&out, data, "", "  ")
+		if err != nil {
+			log.Fatalln(err)
+		}
+
+		out.WriteTo(os.Stdout)
+	}
+}
+func WaitOneFunc4WgParmsChan[T any](wg *sync.WaitGroup, cbk func(x T), cT chan struct{}, parms ...T) {
+	for _, x := range parms {
+		cT <- struct{}{}
+		wg.Add(1)
+		go func(p1 T) {
+			defer func() {
+				wg.Done()
+				<-cT
+			}()
+			cbk(p1)
 		}(x)
 	}
 }
