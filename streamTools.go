@@ -7,6 +7,7 @@ import (
 )
 
 // 读取流，逐行 cbk
+// 为什么这样封装？因为基于buf的行受限长度
 func ReadStream4Line(r1 io.Reader, cbk func(*string)) {
 	var data []byte
 	var td = make([]byte, 10240)
