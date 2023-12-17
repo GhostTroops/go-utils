@@ -3,11 +3,14 @@ package go_utils
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 	"sync"
 )
 
 // 格式化 map 并返回 str
 func Map2FormatStr(m *map[string]interface{}) string {
+	lock.Lock()
+	defer lock.Unlock()
 	if data, err := Json.Marshal(m); nil == err {
 		var out bytes.Buffer
 		if nil == json.Indent(&out, data, "", "\t") {
@@ -24,4 +27,26 @@ func CheckNoRepeat4Onece(m *sync.Map, k interface{}) bool {
 	}
 	m.Store(k, true)
 	return false
+}
+
+/*
+移除空的、无效的值
+*/
+func RmNullMap(m *map[string]interface{}) *map[string]interface{} {
+	lock.Lock()
+	defer lock.Unlock()
+	if nil == m {
+		return nil
+	}
+	for k, v := range *m {
+		if m1, ok := v.(map[string]interface{}); ok {
+			(*m)[k] = RmNullMap(&m1)
+			continue
+		}
+		s1 := fmt.Sprintf("%v", v)
+		if nil == v || s1 == "null" || "nil" == s1 || "" == s1 {
+			delete(*m, k)
+		}
+	}
+	return m
 }
