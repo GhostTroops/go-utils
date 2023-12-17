@@ -9,8 +9,8 @@ import (
 
 // 格式化 map 并返回 str
 func Map2FormatStr(m *map[string]interface{}) string {
-	lock.Lock()
-	defer lock.Unlock()
+	var lk = GetLock("Map2FormatStr").Lock()
+	defer lk.Unlock()
 	if data, err := Json.Marshal(m); nil == err {
 		var out bytes.Buffer
 		if nil == json.Indent(&out, data, "", "\t") {
@@ -33,8 +33,8 @@ func CheckNoRepeat4Onece(m *sync.Map, k interface{}) bool {
 移除空的、无效的值
 */
 func RmNullMap(m *map[string]interface{}) *map[string]interface{} {
-	lock.Lock()
-	defer lock.Unlock()
+	var lk = GetLock("RmNullMap").Lock()
+	defer lk.Unlock()
 	if nil == m {
 		return nil
 	}
