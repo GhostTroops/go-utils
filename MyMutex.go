@@ -24,9 +24,10 @@ func GetLock(s string) *MyMutex {
 }
 
 func NewMyMutex(m1 *map[string]*MyMutex, Name string) *MyMutex {
-	r := MyMutex{m: m1, Name: Name}
+	r := MyMutex{Name: Name}
 	r.Mutex = &sync.Mutex{}
 	(*m1)[Name] = &r
+	r.m = m1
 	return &r
 }
 
@@ -38,6 +39,8 @@ func (r *MyMutex) Unlock() {
 	lock1.Lock()
 	defer lock1.Unlock()
 	defer r.Mutex.Unlock()
-	delete(*r.m, r.Name)
+	if nil != r.m {
+		delete(*r.m, r.Name)
+	}
 	r.m = nil
 }

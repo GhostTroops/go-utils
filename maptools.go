@@ -33,8 +33,6 @@ func CheckNoRepeat4Onece(m *sync.Map, k interface{}) bool {
 移除空的、无效的值
 */
 func RmNullMap(m *map[string]interface{}) *map[string]interface{} {
-	var lk = GetLock("RmNullMap").Lock()
-	defer lk.Unlock()
 	if nil == m {
 		return nil
 	}
