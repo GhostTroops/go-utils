@@ -12,8 +12,10 @@ func ReadStream4Line(r1 io.Reader, cbk func(*string)) {
 	var data []byte
 	var td = make([]byte, 10240)
 	var lSp = []byte("\n")
+	var i int
+	var err error
 	for {
-		if i, err := r1.Read(td); err == nil {
+		if i, err = r1.Read(td); err == nil {
 			if 0 < i {
 				if n := bytes.Index(td, lSp); -1 < n {
 					data = append(data, td[0:n]...)
@@ -30,6 +32,9 @@ func ReadStream4Line(r1 io.Reader, cbk func(*string)) {
 		} else if err == io.EOF {
 			break
 		} else {
+			if 0 < i {
+				data = append(data, td[0:i]...)
+			}
 			log.Println(err)
 		}
 	}

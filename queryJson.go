@@ -5,14 +5,19 @@ import (
 	"github.com/itchyny/gojq"
 	"github.com/simonnilsson/ask"
 	"reflect"
+	"sync"
 )
 
 func IsPointer(x interface{}) bool {
 	return reflect.TypeOf(x).Kind() == reflect.Ptr
 }
 
+var lock sync.Mutex
+
 // for github.com/itchyny/gojq
 func GetJQ(source interface{}, path string) interface{} {
+	lock.Lock()
+	defer lock.Unlock()
 	if m1, ok := source.(*map[string]interface{}); ok {
 		source = *m1
 	}
