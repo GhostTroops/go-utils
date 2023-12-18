@@ -7,6 +7,16 @@ import (
 	"sync"
 )
 
+func MergeObjs(i ...interface{}) *map[string]interface{} {
+	var m1 = map[string]interface{}{}
+	for _, x := range i {
+		if data, err := Json.Marshal(x); nil == err {
+			Json.Unmarshal(data, &m1)
+		}
+	}
+	return &m1
+}
+
 // 格式化 map 并返回 str
 func Map2FormatStr(m *map[string]interface{}) string {
 	var lk = GetLock("Map2FormatStr").Lock()
