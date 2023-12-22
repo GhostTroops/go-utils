@@ -4,9 +4,27 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"regexp"
+	"strings"
 	"sync"
 )
 
+var rSplt = regexp.MustCompile(`[,; ]`)
+
+// 移除不要的key
+func RmMap(m *map[string]interface{}, a ...string) *map[string]interface{} {
+	for _, x := range a {
+		r := rSplt.Split(x, -1)
+		for _, j := range r {
+			if j = strings.TrimSpace(j); "" != j {
+				delete(*m, j)
+			}
+		}
+	}
+	return m
+}
+
+// 多个对象合并
 func MergeObjs(i ...interface{}) *map[string]interface{} {
 	var m1 = map[string]interface{}{}
 	for _, x := range i {
@@ -46,6 +64,7 @@ func RmNullMap(m *map[string]interface{}) *map[string]interface{} {
 	if nil == m {
 		return nil
 	}
+	var a []string
 	for k, v := range *m {
 		if m1, ok := v.(map[string]interface{}); ok {
 			(*m)[k] = RmNullMap(&m1)
@@ -53,8 +72,11 @@ func RmNullMap(m *map[string]interface{}) *map[string]interface{} {
 		}
 		s1 := fmt.Sprintf("%v", v)
 		if nil == v || s1 == "null" || "nil" == s1 || "" == s1 {
-			delete(*m, k)
+			a = append(a, k)
 		}
+	}
+	for _, x := range a {
+		delete(*m, x)
 	}
 	return m
 }

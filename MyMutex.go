@@ -6,8 +6,9 @@ var lock1 sync.Mutex
 
 type MyMutex struct {
 	*sync.Mutex
-	Name string
-	m    *map[string]*MyMutex
+	Name   string
+	IsLock bool
+	m      *map[string]*MyMutex
 }
 
 var (
@@ -32,6 +33,10 @@ func NewMyMutex(m1 *map[string]*MyMutex, Name string) *MyMutex {
 }
 
 func (r *MyMutex) Lock() *MyMutex {
+	if r.IsLock {
+		return r
+	}
+	r.IsLock = true
 	r.Mutex.Lock()
 	return r
 }
@@ -42,5 +47,6 @@ func (r *MyMutex) Unlock() {
 	if nil != r.m {
 		delete(*r.m, r.Name)
 	}
+	r.IsLock = false
 	r.m = nil
 }

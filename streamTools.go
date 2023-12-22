@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"io"
 	"log"
+	"strings"
 )
 
 // 读取流，逐行 cbk
@@ -24,9 +25,11 @@ func ReadStream4Line(r1 io.Reader, cbk func(*string)) {
 					cbk(&line)
 					if n+1 < i {
 						data = td[n+1 : i]
+						td = data
 					}
 				} else {
 					data = append(data, td[0:i]...)
+					break
 				}
 			}
 		} else if err == io.EOF {
@@ -39,7 +42,8 @@ func ReadStream4Line(r1 io.Reader, cbk func(*string)) {
 		}
 	}
 	if nil != data && 0 < len(data) {
-		line := string(data)
-		cbk(&line)
+		for _, line := range strings.Split(string(data), "\n") {
+			cbk(&line)
+		}
 	}
 }
