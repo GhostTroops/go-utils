@@ -50,4 +50,5 @@ func ReadStream4Line(r1 io.Reader, cbk func(*string)) {
 			cbk(&line)
 		}
 	}
+	cbk(nil)
 }
