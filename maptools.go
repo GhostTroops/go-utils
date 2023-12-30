@@ -4,12 +4,22 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"reflect"
 	"regexp"
 	"strings"
 	"sync"
 )
 
 var rSplt = regexp.MustCompile(`[,; ]`)
+
+// copy map
+func copyMap(m map[string]string) map[string]string {
+	m2 := reflect.MakeMap(reflect.TypeOf(m))
+	for k, v := range m {
+		m2.SetMapIndex(reflect.ValueOf(k), reflect.ValueOf(v))
+	}
+	return m2.Interface().(map[string]string)
+}
 
 // 移除不要的key
 func RmMap(m *map[string]interface{}, a ...string) *map[string]interface{} {

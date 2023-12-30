@@ -39,6 +39,10 @@ func ReadStream4Line(r1 io.Reader, cbk func(*string)) {
 				data = append(data, td[0:i]...)
 			}
 			log.Println(err)
+			break
+			//if strings.Contains(fmt.Sprintf("%v", err), "already closed") {
+			//	break
+			//}
 		}
 	}
 	if nil != data && 0 < len(data) {
