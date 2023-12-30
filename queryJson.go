@@ -13,8 +13,8 @@ func IsPointer(x interface{}) bool {
 
 // for github.com/itchyny/gojq
 func GetJQ(source interface{}, path string) interface{} {
-	var lk = GetLock("GetJQ").Lock()
-	defer lk.Unlock()
+	//var lk = GetLock("GetJQ").Lock()
+	//defer lk.Unlock()
 	if m1, ok := source.(*map[string]interface{}); ok {
 		source = *m1
 	}

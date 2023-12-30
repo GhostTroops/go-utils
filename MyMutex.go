@@ -33,20 +33,19 @@ func NewMyMutex(m1 *map[string]*MyMutex, Name string) *MyMutex {
 }
 
 func (r *MyMutex) Lock() *MyMutex {
-	if r.IsLock {
-		return r
-	}
-	r.IsLock = true
 	r.Mutex.Lock()
+	r.IsLock = true
 	return r
 }
 func (r *MyMutex) Unlock() {
 	lock1.Lock()
 	defer lock1.Unlock()
-	defer r.Mutex.Unlock()
-	if nil != r.m {
-		delete(*r.m, r.Name)
+	r.Mutex.Unlock()
+	if r.IsLock {
+		if nil != r.m {
+			delete(*r.m, r.Name)
+		}
+		r.IsLock = false
+		r.m = nil
 	}
-	r.IsLock = false
-	r.m = nil
 }
