@@ -18,7 +18,7 @@ func ReadStream4Line(r1 io.Reader, cbk func(*string)) {
 	for {
 		if i, err = r1.Read(td); err == nil {
 			if 0 < i {
-				data = append(data, td[0:]...)
+				data = append(data, td[0:i]...)
 				a11 := bytes.Split(data, lSp)
 				if 1 < len(a11) {
 					for y, x9 := range a11 {
