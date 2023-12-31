@@ -18,18 +18,18 @@ func ReadStream4Line(r1 io.Reader, cbk func(*string)) {
 	for {
 		if i, err = r1.Read(td); err == nil {
 			if 0 < i {
-				if n := bytes.Index(td, lSp); -1 < n {
-					data = append(data, td[0:n]...)
-					line := string(data)
-					data = []byte{}
-					cbk(&line)
-					if n+1 < i {
-						data = td[n+1 : i]
-						td = data
+				data = append(data, td[0:]...)
+				a11 := bytes.Split(data, lSp)
+				if 1 < len(a11) {
+					for y, x9 := range a11 {
+						// 保留最后一个
+						if y == len(a11)-1 && '\n' != data[len(data)-1] {
+							data = x9
+							break
+						}
+						line := string(x9)
+						cbk(&line)
 					}
-				} else {
-					data = append(data, td[0:i]...)
-					break
 				}
 			}
 		} else if err == io.EOF {
