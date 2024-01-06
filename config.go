@@ -19,6 +19,7 @@ import (
 	"regexp"
 	"runtime"
 	"strings"
+	"sync"
 	"time"
 )
 
@@ -702,10 +703,15 @@ func GetSha1(a ...interface{}) string {
 	return hex.EncodeToString(bs) // fmt.Sprintf("%x", bs)
 }
 
-var Abs404 = "/scan4all404"
-var defaultInteractionDuration time.Duration = 180 * time.Second
+var (
+	Abs404                                   = "/scan4all404"
+	defaultInteractionDuration time.Duration = 180 * time.Second
+	trRpt                      sync.Mutex
+)
 
 func TestRepeat(a ...interface{}) bool {
+	trRpt.Lock()
+	defer trRpt.Unlock()
 	if nil == noRpt {
 		return false
 	}
