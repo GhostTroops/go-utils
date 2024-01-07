@@ -21,6 +21,26 @@ func RandondStr(length int) string {
 	return StringWithCharset(length, "qwertyuiop[]\\asdfghjkl;'zxcvbnm,./`1234567890-=~!@#$%^&*()_QWERTYUIOP{}|ASDFGHJKL:\"ZXCVBNM<>")
 }
 
+// 将字符串转换 为 unicode,例如 & -> \u0026
+func UnicodeEncode(s string) string {
+	var res string
+	for _, r := range s {
+		res += fmt.Sprintf("\\u%04X", r)
+	}
+	return res
+}
+
+// 字符转换 'open -a Calculator' to ${T(java.lang.Runtime).getRuntime().exec(new String(new byte[]{0x6f,0x70,0x65,0x6e,0x20,0x2d,0x61,0x20,0x43,0x61,0x6c,0x63,0x75,0x6c,0x61,0x74,0x6f,0x72}))}
+func Str2HexEncode(s string) string {
+	if "" == s {
+		return s
+	}
+	var res = ""
+	for _, c := range s {
+		res += fmt.Sprintf("0x%x,", c)
+	}
+	return res[0 : len(res)-1]
+}
 func GetMd5(data []byte) string {
 	// 创建一个新的 MD5 哈希器
 	h := md5.New()

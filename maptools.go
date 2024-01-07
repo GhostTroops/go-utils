@@ -55,6 +55,15 @@ func MergeObjs(i ...interface{}) *map[string]interface{} {
 	return &m1
 }
 
+func Map2Str(m *map[string]interface{}) string {
+	var lk = GetLock("Map2Str").Lock()
+	defer lk.Unlock()
+	if data, err := Json.Marshal(m); nil == err {
+		return string(data)
+	}
+	return ""
+}
+
 // 格式化 map 并返回 str
 func Map2FormatStr(m *map[string]interface{}) string {
 	var lk = GetLock("Map2FormatStr").Lock()
