@@ -65,7 +65,7 @@ func DoUrlCbk4byte4Redirect(szUrl string, data []byte, hd map[string]string, cbk
 		}
 	}
 	c11 := PipE.Client
-	if strings.HasPrefix(strings.trstrings.ToLower(szUrl), "http://") {
+	if strings.HasPrefix(strings.ToLower(szUrl), "http://") {
 		c11 = PipE.GetClient(nil)
 	}
 	PipE.DoGetWithClient4SetHd(c11, szUrl, szM, bytes.NewReader(data), func(resp *http.Response, err error, szU string) {
