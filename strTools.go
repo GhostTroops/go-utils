@@ -22,10 +22,20 @@ func RandondStr(length int) string {
 }
 
 // 将字符串转换 为 unicode,例如 & -> \u0026
+// log.Println(UnicodeEncode("javax.script.ScriptEngineManager"))
 func UnicodeEncode(s string) string {
 	var res string
 	for _, r := range s {
 		res += fmt.Sprintf("\\u%04X", r)
+	}
+	return res
+}
+
+// 字符串全部 url 编码
+func UrlAllEncode(s string) string {
+	var res string
+	for _, r := range s {
+		res += fmt.Sprintf("%%%02x", r)
 	}
 	return res
 }
