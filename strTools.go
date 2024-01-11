@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"crypto/md5"
 	"encoding/base64"
+	"encoding/hex"
 	"fmt"
 	"github.com/andybalholm/brotli"
 	"hash/fnv"
@@ -36,6 +37,22 @@ func UrlAllEncode(s string) string {
 	var res string
 	for _, r := range s {
 		res += fmt.Sprintf("%%%02x", r)
+	}
+	return res
+}
+
+func Hex2bytes(s string) []byte {
+	byteArray, err := hex.DecodeString(s)
+	if err != nil {
+		fmt.Println("Hex2bytes Error decoding hex string:", err)
+		return nil
+	}
+	return byteArray
+}
+func Str2Hex(s string) string {
+	var res = ""
+	for _, c := range s {
+		res += fmt.Sprintf("%x,", c)
 	}
 	return res
 }

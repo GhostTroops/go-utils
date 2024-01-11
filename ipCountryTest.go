@@ -26,7 +26,7 @@ func init() {
 			if strings.HasSuffix(x.Name(), ".txt") {
 				if data := GetEmbedPay(IpDbs, "ipdb/"+x.Name()); nil != data {
 					a := strings.Split(strings.TrimSpace(string(data)), "\n")
-					k1 := strings.Split(strings.Split(x.Name(), "/")[1], ".")[0]
+					k1 := strings.Split(x.Name(), ".")[0]
 					var a1 = CtIps[k1]
 					for _, x := range a {
 						if _, n1, err := net.ParseCIDR(x); nil == err {
