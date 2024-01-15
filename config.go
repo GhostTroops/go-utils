@@ -612,9 +612,9 @@ func DoCmd(args ...string) (string, error) {
 	return string(outStr + "\n" + errStr), err
 }
 
-func doFile(config *embed.FS, s fs.DirEntry, szPath string) {
-	os.MkdirAll(szPath, os.ModePerm)
-	szPath = szPath + "/" + s.Name()
+func doFile(config *embed.FS, s fs.DirEntry, szPath, szRoot string) {
+	os.MkdirAll(szRoot+szPath, os.ModePerm)
+	szPath = szRoot + szPath + "/" + s.Name()
 	if FileExists(szPath) {
 		return
 	}
@@ -624,14 +624,14 @@ func doFile(config *embed.FS, s fs.DirEntry, szPath string) {
 		}
 	}
 }
-func doDir(config *embed.FS, s fs.DirEntry, szPath string) {
+func doDir(config *embed.FS, s fs.DirEntry, szPath, szRoot string) {
 	szPath = szPath + "/" + s.Name()
 	if x1, err := config.ReadDir(szPath); nil == err {
 		for _, x2 := range x1 {
 			if x2.IsDir() {
-				doDir(config, x2, szPath)
+				doDir(config, x2, szPath, szRoot)
 			} else {
-				doFile(config, x2, szPath)
+				doFile(config, x2, szPath, szRoot)
 			}
 		}
 	} else {
@@ -642,14 +642,14 @@ func doDir(config *embed.FS, s fs.DirEntry, szPath string) {
 var UserHomeDir string = "./"
 
 // 将 config 释放 到 szPath 目录中
-func ExtEmbedFiles(config *embed.FS, szPath string) {
+func ExtEmbedFiles(config *embed.FS, szPath, szRoot string) {
 	if nil != config {
 		if x1, err := config.ReadDir(szPath); nil == err {
 			for _, x2 := range x1 {
 				if x2.IsDir() {
-					doDir(config, x2, szPath)
+					doDir(config, x2, szPath, szRoot)
 				} else {
-					doFile(config, x2, szPath)
+					doFile(config, x2, szPath, szRoot)
 				}
 			}
 		}
@@ -673,7 +673,7 @@ func Init1(config *embed.FS) {
 
 	//log.Println("wait for init config files ... ")
 	//释放config目录到本地
-	ExtEmbedFiles(config, szPath)
+	ExtEmbedFiles(config, szPath, "")
 	InitConfigFile()
 	Init2()
 	log.Println("init config files is over .")
