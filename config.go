@@ -614,12 +614,12 @@ func DoCmd(args ...string) (string, error) {
 
 func doFile(config *embed.FS, s fs.DirEntry, szPath, szRoot string) {
 	os.MkdirAll(szRoot+szPath, os.ModePerm)
-	szPath = szRoot + szPath + "/" + s.Name()
-	if FileExists(szPath) {
+	szPathN := szRoot + szPath + "/" + s.Name()
+	if FileExists(szPathN) {
 		return
 	}
-	if data, err := config.ReadFile(szPath); nil == err {
-		if err := ioutil.WriteFile(szPath, data, os.ModePerm); nil == err {
+	if data, err := config.ReadFile(szPath + "/" + s.Name()); nil == err {
+		if err := os.WriteFile(szPathN, data, os.ModePerm); nil == err {
 			//log.Println("write ok: ", szPath)
 		}
 	}
