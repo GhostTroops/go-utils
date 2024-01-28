@@ -31,6 +31,18 @@ func copyMap(m map[string]string) map[string]string {
 	return m2.Interface().(map[string]string)
 }
 
+// 修改struct 对象 私有成员
+func ModifyObj(o interface{}, fld string, v1 interface{}) {
+	v := reflect.ValueOf(o).Elem()
+	f := v.FieldByName(fld)
+	if f.IsValid() && f.CanSet() {
+		fv := reflect.ValueOf(v1)
+		if fv.Type().AssignableTo(f.Type()) {
+			f.Set(fv)
+		}
+	}
+}
+
 // 移除不要的key
 func RmMap(m *map[string]interface{}, a ...string) *map[string]interface{} {
 	for _, x := range a {
