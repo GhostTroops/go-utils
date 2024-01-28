@@ -1,7 +1,7 @@
 package main
 
 import (
-	util "github.com/hktalent/go-utils"
+	util "github.com/GhostTroops/go-utils"
 	"log"
 	"strings"
 )

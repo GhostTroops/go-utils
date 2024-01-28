@@ -2,7 +2,7 @@ package lib
 
 import (
 	"bytes"
-	utils "github.com/hktalent/go-utils"
+	utils "github.com/GhostTroops/go-utils"
 	"github.com/hktalent/websocket"
 	"log"
 	"time"

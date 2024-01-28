@@ -1,4 +1,4 @@
-module github.com/hktalent/go-utils
+module github.com/GhostTroops/go-utils
 
 go 1.21.4
 

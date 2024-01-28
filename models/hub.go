@@ -3,8 +3,8 @@ package lib
 import (
 	"errors"
 	"fmt"
-	util "github.com/hktalent/go-utils"
-	"github.com/hktalent/go-utils/models"
+	util "github.com/GhostTroops/go-utils"
+	"github.com/GhostTroops/go-utils/models"
 	"log"
 )
 

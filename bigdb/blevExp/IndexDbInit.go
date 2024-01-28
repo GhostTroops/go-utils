@@ -2,10 +2,10 @@ package blevExp
 
 import (
 	"embed"
+	util "github.com/GhostTroops/go-utils"
 	"github.com/blevesearch/bleve/v2/search"
 	"github.com/gin-gonic/gin"
 	bleveMappingUI "github.com/hktalent/bleve-mapping-ui"
-	util "github.com/hktalent/go-utils"
 	"log"
 	"net/http"
 	"strings"

@@ -4,7 +4,7 @@ package blevExp
 //go:generate go fmt .
 
 import (
-	util "github.com/hktalent/go-utils"
+	util "github.com/GhostTroops/go-utils"
 	"io"
 	"log"
 	"net/http"
