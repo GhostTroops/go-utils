@@ -371,6 +371,7 @@ func ReadStdIn(out chan *string) {
 }
 
 func ReadReader(out chan *string, reader io.Reader) {
+	defer close(out)
 	if nil != reader {
 		scanner := bufio.NewScanner(reader)
 		scanner.Buffer(make([]byte, MacLineSize), MacLineSize)
@@ -378,6 +379,5 @@ func ReadReader(out chan *string, reader io.Reader) {
 			value := strings.TrimSpace(scanner.Text())
 			out <- &value
 		}
-		close(out)
 	}
 }
