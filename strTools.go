@@ -49,6 +49,13 @@ func Hex2bytes(s string) []byte {
 	}
 	return byteArray
 }
+func Bytes2Hex(s []byte) string {
+	var s1 = ""
+	for _, c := range s {
+		s1 += fmt.Sprintf("\\x%x", c)
+	}
+	return s1
+}
 func Str2Hex(s string) string {
 	var res = ""
 	for _, c := range s {
