@@ -826,15 +826,11 @@ func DoInit(config *embed.FS) {
 	Init1(config)
 	rand.Seed(time.Now().UnixNano())
 	fnInit = append(fnInitHd, fnInit...)
-	var wg sync.WaitGroup
+	log.Println("start doInit")
 	for _, x := range fnInit {
-		wg.Add(1)
-		go func(f1 func()) {
-			defer wg.Done()
-			f1()
-		}(x)
+		x()
 	}
-	wg.Wait()
+	log.Println("end doInit")
 	fnInit = nil
 	//PrintCaller()
 }
