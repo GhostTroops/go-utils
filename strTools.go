@@ -32,6 +32,13 @@ func UnicodeEncode(s string) string {
 	return res
 }
 
+func GetReaderData(i io.Reader) []byte {
+	if data, err := io.ReadAll(i); nil == err {
+		return data
+	}
+	return nil
+}
+
 // 字符串全部 url 编码
 func UrlAllEncode(s string) string {
 	var res string
