@@ -76,6 +76,15 @@ func Map2Str(m *map[string]interface{}) string {
 	return ""
 }
 
+func Any2Str(m interface{}) string {
+	var lk = GetLock("Any2Str").Lock()
+	defer lk.Unlock()
+	if data, err := Json.Marshal(m); nil == err {
+		return string(data)
+	}
+	return ""
+}
+
 // 格式化 map 并返回 str
 func Map2FormatStr(m *map[string]interface{}) string {
 	var lk = GetLock("Map2FormatStr").Lock()
