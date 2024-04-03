@@ -3,6 +3,7 @@ package go_utils
 import (
 	zip1 "archive/zip"
 	"bytes"
+	"compress/gzip"
 	"log"
 )
 
