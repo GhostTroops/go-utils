@@ -11,6 +11,7 @@ import (
 	"math/big"
 	"net"
 	"net/http"
+	"strconv"
 	"strings"
 )
 
@@ -308,7 +309,12 @@ func Str2BigInt(s string, base int) *big.Int {
 	bi.SetString(s, base)
 	return bi
 }
-
+func Str2Int(s string) int {
+	if i, err := strconv.Atoi(s); nil == err {
+		return i
+	}
+	return 0
+}
 func FullIPv6(ip net.IP) string {
 	dst := make([]byte, hex.EncodedLen(len(ip)))
 	_ = hex.Encode(dst, ip)
