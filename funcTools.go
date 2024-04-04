@@ -70,6 +70,50 @@ func WaitOneFunc4WgParmsChan[T any](wg *SizedWaitGroup, cbk func(x T), cT chan s
 	}
 }
 
+// 通用的、常规小工具参数接收和处理
+// 接收命令行 os.Args[1:]
+// 接收管道命令，按行输入
+func DoCommontools4Chan() chan *string {
+	var a []string
+	var out = make(chan *string)
+	if 1 < len(os.Args) {
+		a = os.Args[1:]
+		go func() {
+			for _, x := range a {
+				out <- &x
+			}
+			close(out)
+		}()
+	} else {
+		// ReadStdIn 内 close
+		go ReadStdIn(out) // 必须 移步
+	}
+	return out
+}
+
+// 通用的、常规小工具参数接收和处理
+// 接收命令行 os.Args[1:]
+// 接收管道命令，按行输入
+func DoCommontools(cbk func(string, *SizedWaitGroup), cTs ...*chan struct{}) {
+	var out = DoCommontools4Chan()
+	var wg = NewSizedWaitGroup(2000)
+	bC := nil != cTs && 0 < len(cTs)
+	for x := range out {
+		if bC {
+			*cTs[0] <- struct{}{}
+		}
+		WaitFunc4WgParms(&wg, []any{*x}, func(x2 ...any) {
+			if bC {
+				defer func() {
+					<-*cTs[0]
+				}()
+			}
+			cbk(x2[0].(string), &wg)
+		})
+	}
+	wg.Wait()
+}
+
 // 迭代所有的参数
 func WaitOneFunc4WgParms[T any](wg *SizedWaitGroup, cbk func(x T), parms ...T) {
 	for _, x := range parms {
