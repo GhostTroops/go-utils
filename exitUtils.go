@@ -43,7 +43,7 @@ func NewExit() *Exit {
 					fn1()
 				}
 			}
-			os.Exit(0)
+			//os.Exit(0)
 		}()
 	}()
 	return gExit
