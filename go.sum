@@ -232,6 +232,8 @@ github.com/hbakhtiyor/strsim v0.0.0-20190107154042-4d2bbb273edf h1:umfGUaWdFP2s6
 github.com/hbakhtiyor/strsim v0.0.0-20190107154042-4d2bbb273edf/go.mod h1:V99KdStnMHZsvVOwIvhfcUzYgYkRZeQWUtumtL+SKxA=
 github.com/hktalent/PipelineHttp v0.0.0-20231203113740-b6691386054d h1:/VrN+1I6SDFJ/8ko3DpSGpPv76La78wkZuHfcwHcEP0=
 github.com/hktalent/PipelineHttp v0.0.0-20231203113740-b6691386054d/go.mod h1:E4eoNEoSTeXXGwh/T5EQoatJgLA8TcVgKojOngUaQrM=
+github.com/hktalent/PipelineHttp v0.0.0-20240515054255-b77788d12f52 h1:DKTVTGJsUorm5A8FLRoDP5pm0lLX7mLs8QUwO7Fiw1w=
+github.com/hktalent/PipelineHttp v0.0.0-20240515054255-b77788d12f52/go.mod h1:E4eoNEoSTeXXGwh/T5EQoatJgLA8TcVgKojOngUaQrM=
 github.com/hktalent/bleve-mapping-ui v0.4.1 h1:oLpvSAhfQIFW6zQok5nYdQzSSwBsU17KitZDIbnyMpM=
 github.com/hktalent/bleve-mapping-ui v0.4.1/go.mod h1:EnSNC/4MpgnuzdLchG0VqTfkLLpE9ird/0R0zN3A/o4=
 github.com/hktalent/go-update v0.0.0-20230526022740-3a2ce0d34057 h1:kEukLYHoqQ/IMzZ0+2ssg7Cc7itnTCb80KFKKzcASSM=

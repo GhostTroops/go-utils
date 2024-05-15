@@ -16,7 +16,7 @@ require (
 	github.com/gin-gonic/gin v1.10.0
 	github.com/go-ping/ping v1.1.0
 	github.com/hbakhtiyor/strsim v0.0.0-20190107154042-4d2bbb273edf
-	github.com/hktalent/PipelineHttp v0.0.0-20231203113740-b6691386054d
+	github.com/hktalent/PipelineHttp v0.0.0-20240515054255-b77788d12f52
 	github.com/hktalent/bleve-mapping-ui v0.4.1
 	github.com/hktalent/go-update v0.0.0-20230526022740-3a2ce0d34057
 	github.com/hktalent/goxml2json v0.0.0-20221020101014-f91e9a0121fc
