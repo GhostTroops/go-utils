@@ -441,7 +441,7 @@ func GetVal4Any[T any](key string) T {
 
 // 判断文件是否存在
 func FileExists(s string) bool {
-	if _, err := os.Stat(s); err == nil {
+	if _, err := os.Stat(s); !os.IsNotExist(err) {
 		return true
 	}
 	return false

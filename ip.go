@@ -136,6 +136,7 @@ func GetIpInfo2(ip string) *map[string]interface{} {
 func GetIpInfo(s string) *map[string]interface{} {
 	m1 := func() *map[string]interface{} {
 		var m = &map[string]interface{}{}
+		// Cookie: BAIDUID=FFA6422C7077C2875A952E842F52B05F:FG=1
 		DoUrlCbk("https://opendata.baidu.com/api.php?query="+s+"&resource_id=6006&format=json", "", map[string]string{
 			"Cookie":          "BAIDUID=AD297683AEA2BE6DF0794437E0AE9E08:FG=1",
 			"User-Agent":      "VideoGo/1897687 CFNetwork/1410.0.3 Darwin/22.6.0",

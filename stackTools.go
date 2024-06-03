@@ -16,10 +16,10 @@ func NewFIFOStack[T any]() *FIFOStack[T] {
 }
 
 // 入栈操作
-func (s *FIFOStack[T]) Push(value T) {
+func (s *FIFOStack[T]) Push(value ...T) {
 	s.lk.Lock()
 	defer s.lk.Unlock()
-	s.data = append(s.data, value)
+	s.data = append(s.data, value...)
 }
 func (s *FIFOStack[T]) Len() int {
 	return len(s.data)
