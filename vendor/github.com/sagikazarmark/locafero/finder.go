@@ -27,7 +27,7 @@ type Finder struct {
 	// It provides the capability to search for entries with depth,
 	// meaning it can target deeper locations within the directory structure.
 	//
-	// It also supports glob syntax (as defined by [filepat.Match]), offering greater flexibility in search patterns.
+	// It also supports glob syntax (as defined by [filepath.Match]), offering greater flexibility in search patterns.
 	//
 	// Examples:
 	//   - config.yaml

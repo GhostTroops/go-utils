@@ -1,9 +1,15 @@
 package go_utils
 
 import (
+	"fmt"
 	"testing"
 )
 
+func TestXx1(t *testing.T) {
+	//fmt.Println(Trans62ToInt64("55tvh9H3P8X"))
+	fmt.Println(GETCurIp4QqApi())
+
+}
 func TestTransInt64To62(t *testing.T) {
 	type args struct {
 		id int64

@@ -106,6 +106,44 @@ func GetIpLocation(x string) string {
 
 var ht1 = PipE.GetClient(nil)
 
+func DoBody2(szUrl string, body io.ReadCloser, cbk func(*map[string]interface{}) error) {
+	var err error
+	var data []byte
+	if data, err = io.ReadAll(body); nil == err {
+		var m = map[string]interface{}{}
+		if err = Json.Unmarshal(data, &m); nil == err {
+			err = cbk(&m)
+		}
+	}
+	if nil != err {
+		log.Println(szUrl, err, string(data))
+	}
+}
+
+/*
+获取当前ip
+*/
+func GETCurIp4QqApi() string {
+	var szIp = ""
+	PipE.DoGetWithClient4SetHd(PipE.GetClient4Http2(), "https://otheve.beacon.qq.com/analytics/v2_upload?appkey=0WEB04SGH543EALS", "POST", nil, func(resp *http.Response, err error, szU string) {
+		DoBody2(szU, resp.Body, func(m1 *map[string]interface{}) error {
+			if nil != m1 {
+				if s1, ok := (*m1)["srcGatewayIp"].(string); ok {
+					szIp = s1
+				}
+			}
+			return nil
+		})
+	}, func() map[string]string {
+		return map[string]string{
+			"Accept":       "application/json",
+			"Content-Type": "application/json;charset=utf-8",
+			"Origin":       "app://.",
+			"User-Agent":   "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) QQ/6.9.33-23384 Chrome/120.0.6099.56 Electron/28.0.0 Safari/537.36 OS/darwin,x64,23.5.0,Darwin Kernel Version 23.5.0: Wed May  1 20:09:52 PDT 2024; root:xnu-10063.121.3~5/RELEASE_X86_64",
+		}
+	}, true)
+	return szIp
+}
 func GetIpInfo2(ip string) *map[string]interface{} {
 	var err error
 	var ipInfo = map[string]interface{}{}

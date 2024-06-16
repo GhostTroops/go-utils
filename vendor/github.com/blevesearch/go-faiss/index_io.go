@@ -107,8 +107,10 @@ func ReadIndexFromBuffer(buf []byte, ioflags int) (*IndexImpl, error) {
 }
 
 const (
-	IOFlagMmap     = C.FAISS_IO_FLAG_MMAP
-	IOFlagReadOnly = C.FAISS_IO_FLAG_READ_ONLY
+	IOFlagMmap         = C.FAISS_IO_FLAG_MMAP
+	IOFlagReadOnly     = C.FAISS_IO_FLAG_READ_ONLY
+	IOFlagReadMmap     = C.FAISS_IO_FLAG_READ_MMAP | C.FAISS_IO_FLAG_ONDISK_IVF
+	IOFlagSkipPrefetch = C.FAISS_IO_FLAG_SKIP_PREFETCH
 )
 
 // ReadIndex reads an index from a file.

@@ -42,7 +42,8 @@ func GetReaderData(i io.Reader) []byte {
 // 字符串全部 url 编码
 func UrlAllEncode(s string) string {
 	var res string
-	for _, r := range s {
+	data := []byte(s)
+	for _, r := range data {
 		res += fmt.Sprintf("%%%02x", r)
 	}
 	return res

@@ -244,6 +244,8 @@ type Conn struct {
 	isServer    bool
 	subprotocol string
 
+	wtLock sync.Mutex
+
 	// Write fields
 	mu            chan struct{} // used as mutex to protect write to conn
 	writeBuf      []byte        // frame is constructed in this buffer.
@@ -306,6 +308,7 @@ func newConn(conn net.Conn, isServer bool, readBufferSize, writeBufferSize int, 
 	mu := make(chan struct{}, 1)
 	mu <- struct{}{}
 	c := &Conn{
+		wtLock:                 sync.Mutex{},
 		isServer:               isServer,
 		br:                     br,
 		conn:                   conn,
@@ -756,7 +759,8 @@ func (c *Conn) WritePreparedMessage(pm *PreparedMessage) error {
 // WriteMessage is a helper method for getting a writer using NextWriter,
 // writing the message and closing the writer.
 func (c *Conn) WriteMessage(messageType int, data []byte) error {
-
+	c.wtLock.Lock()
+	defer c.wtLock.Unlock()
 	if c.isServer && (c.newCompressionWriter == nil || !c.enableWriteCompression) {
 		// Fast path with no allocations and single frame.
 

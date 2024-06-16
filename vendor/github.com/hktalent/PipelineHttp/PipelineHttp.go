@@ -311,7 +311,7 @@ func (r *PipelineHttp) DoGetWithClient4SetHd(client *http.Client, szUrl string, 
 		r.Close()
 		return
 	}
-	if !r.UseHttp2 && nil != resp && 200 != resp.StatusCode {
+	if !r.UseHttp2 && strings.HasPrefix(szUrl, "https://") && nil != resp && 200 != resp.StatusCode {
 		r.UseHttp2 = true
 		if a1 := resp.Header["Alt-Svc"]; 0 < len(a1) && strings.Contains(a1[0], "h3=\"") || strings.HasPrefix(resp.Proto, "HTTP/3") {
 			r.Client = r.GetClient4Http3()

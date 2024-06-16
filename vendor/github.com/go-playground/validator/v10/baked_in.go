@@ -64,8 +64,9 @@ var (
 	// defines a common or complex set of validation(s) to simplify
 	// adding validation to structs.
 	bakedInAliases = map[string]string{
-		"iscolor":      "hexcolor|rgb|rgba|hsl|hsla",
-		"country_code": "iso3166_1_alpha2|iso3166_1_alpha3|iso3166_1_alpha_numeric",
+		"iscolor":         "hexcolor|rgb|rgba|hsl|hsla",
+		"country_code":    "iso3166_1_alpha2|iso3166_1_alpha3|iso3166_1_alpha_numeric",
+		"eu_country_code": "iso3166_1_alpha2_eu|iso3166_1_alpha3_eu|iso3166_1_alpha_numeric_eu",
 	}
 
 	// bakedInValidators is the default map of ValidationFunc
@@ -133,6 +134,7 @@ var (
 		"urn_rfc2141":                   isUrnRFC2141, // RFC 2141
 		"file":                          isFile,
 		"filepath":                      isFilePath,
+		"base32":                        isBase32,
 		"base64":                        isBase64,
 		"base64url":                     isBase64URL,
 		"base64rawurl":                  isBase64RawURL,
@@ -216,8 +218,11 @@ var (
 		"datetime":                      isDatetime,
 		"timezone":                      isTimeZone,
 		"iso3166_1_alpha2":              isIso3166Alpha2,
+		"iso3166_1_alpha2_eu":           isIso3166Alpha2EU,
 		"iso3166_1_alpha3":              isIso3166Alpha3,
+		"iso3166_1_alpha3_eu":           isIso3166Alpha3EU,
 		"iso3166_1_alpha_numeric":       isIso3166AlphaNumeric,
+		"iso3166_1_alpha_numeric_eu":    isIso3166AlphaNumericEU,
 		"iso3166_2":                     isIso31662,
 		"iso4217":                       isIso4217,
 		"iso4217_numeric":               isIso4217Numeric,
@@ -230,7 +235,8 @@ var (
 		"credit_card":                   isCreditCard,
 		"cve":                           isCveFormat,
 		"luhn_checksum":                 hasLuhnChecksum,
-		"mongodb":                       isMongoDB,
+		"mongodb":                       isMongoDBObjectId,
+		"mongodb_connection_string":     isMongoDBConnectionString,
 		"cron":                          isCron,
 		"spicedb":                       isSpiceDB,
 	}
@@ -685,7 +691,7 @@ func isEthereumAddress(fl FieldLevel) bool {
 	return ethAddressRegex.MatchString(address)
 }
 
-// isEthereumAddressChecksum is the validation function for validating if the field's value is a valid checksumed Ethereum address.
+// isEthereumAddressChecksum is the validation function for validating if the field's value is a valid checksummed Ethereum address.
 func isEthereumAddressChecksum(fl FieldLevel) bool {
 	address := fl.Field().String()
 
@@ -1397,6 +1403,11 @@ func isPostcodeByIso3166Alpha2Field(fl FieldLevel) bool {
 	}
 
 	return reg.MatchString(field.String())
+}
+
+// isBase32 is the validation function for validating if the current field's value is a valid base 32.
+func isBase32(fl FieldLevel) bool {
+	return base32Regex.MatchString(fl.Field().String())
 }
 
 // isBase64 is the validation function for validating if the current field's value is a valid base 64.
@@ -2758,14 +2769,26 @@ func isTimeZone(fl FieldLevel) bool {
 
 // isIso3166Alpha2 is the validation function for validating if the current field's value is a valid iso3166-1 alpha-2 country code.
 func isIso3166Alpha2(fl FieldLevel) bool {
-	val := fl.Field().String()
-	return iso3166_1_alpha2[val]
+	_, ok := iso3166_1_alpha2[fl.Field().String()]
+	return ok
+}
+
+// isIso3166Alpha2EU is the validation function for validating if the current field's value is a valid iso3166-1 alpha-2 European Union country code.
+func isIso3166Alpha2EU(fl FieldLevel) bool {
+	_, ok := iso3166_1_alpha2_eu[fl.Field().String()]
+	return ok
 }
 
 // isIso3166Alpha3 is the validation function for validating if the current field's value is a valid iso3166-1 alpha-3 country code.
 func isIso3166Alpha3(fl FieldLevel) bool {
-	val := fl.Field().String()
-	return iso3166_1_alpha3[val]
+	_, ok := iso3166_1_alpha3[fl.Field().String()]
+	return ok
+}
+
+// isIso3166Alpha3EU is the validation function for validating if the current field's value is a valid iso3166-1 alpha-3 European Union country code.
+func isIso3166Alpha3EU(fl FieldLevel) bool {
+	_, ok := iso3166_1_alpha3_eu[fl.Field().String()]
+	return ok
 }
 
 // isIso3166AlphaNumeric is the validation function for validating if the current field's value is a valid iso3166-1 alpha-numeric country code.
@@ -2787,19 +2810,45 @@ func isIso3166AlphaNumeric(fl FieldLevel) bool {
 	default:
 		panic(fmt.Sprintf("Bad field type %T", field.Interface()))
 	}
-	return iso3166_1_alpha_numeric[code]
+
+	_, ok := iso3166_1_alpha_numeric[code]
+	return ok
+}
+
+// isIso3166AlphaNumericEU is the validation function for validating if the current field's value is a valid iso3166-1 alpha-numeric European Union country code.
+func isIso3166AlphaNumericEU(fl FieldLevel) bool {
+	field := fl.Field()
+
+	var code int
+	switch field.Kind() {
+	case reflect.String:
+		i, err := strconv.Atoi(field.String())
+		if err != nil {
+			return false
+		}
+		code = i % 1000
+	case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
+		code = int(field.Int() % 1000)
+	case reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64:
+		code = int(field.Uint() % 1000)
+	default:
+		panic(fmt.Sprintf("Bad field type %T", field.Interface()))
+	}
+
+	_, ok := iso3166_1_alpha_numeric_eu[code]
+	return ok
 }
 
 // isIso31662 is the validation function for validating if the current field's value is a valid iso3166-2 code.
 func isIso31662(fl FieldLevel) bool {
-	val := fl.Field().String()
-	return iso3166_2[val]
+	_, ok := iso3166_2[fl.Field().String()]
+	return ok
 }
 
 // isIso4217 is the validation function for validating if the current field's value is a valid iso4217 currency code.
 func isIso4217(fl FieldLevel) bool {
-	val := fl.Field().String()
-	return iso4217[val]
+	_, ok := iso4217[fl.Field().String()]
+	return ok
 }
 
 // isIso4217Numeric is the validation function for validating if the current field's value is a valid iso4217 numeric currency code.
@@ -2815,7 +2864,9 @@ func isIso4217Numeric(fl FieldLevel) bool {
 	default:
 		panic(fmt.Sprintf("Bad field type %T", field.Interface()))
 	}
-	return iso4217_numeric[code]
+
+	_, ok := iso4217_numeric[code]
+	return ok
 }
 
 // isBCP47LanguageTag is the validation function for validating if the current field's value is a valid BCP 47 language tag, as parsed by language.Parse
@@ -2882,10 +2933,16 @@ func digitsHaveLuhnChecksum(digits []string) bool {
 	return (sum % 10) == 0
 }
 
-// isMongoDB is the validation function for validating if the current field's value is valid mongoDB objectID
-func isMongoDB(fl FieldLevel) bool {
+// isMongoDBObjectId is the validation function for validating if the current field's value is valid MongoDB ObjectID
+func isMongoDBObjectId(fl FieldLevel) bool {
 	val := fl.Field().String()
-	return mongodbRegex.MatchString(val)
+	return mongodbIdRegex.MatchString(val)
+}
+
+// isMongoDBConnectionString is the validation function for validating if the current field's value is valid MongoDB Connection String
+func isMongoDBConnectionString(fl FieldLevel) bool {
+	val := fl.Field().String()
+	return mongodbConnectionRegex.MatchString(val)
 }
 
 // isSpiceDB is the validation function for validating if the current field's value is valid for use with Authzed SpiceDB in the indicated way
