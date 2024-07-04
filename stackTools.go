@@ -36,6 +36,11 @@ func (s *FIFOStack[T]) Push(value ...T) {
 func (s *FIFOStack[T]) Len() int {
 	return len(s.data)
 }
+func (s *FIFOStack[T]) Clean() {
+	s.lk.Lock()
+	defer s.lk.Unlock()
+	s.data = []T{}
+}
 
 // 出栈操作
 func (s *FIFOStack[T]) Pop() (T, error) {
