@@ -79,8 +79,13 @@ func Map2Str(m interface{}) string {
 func Any2Str(m interface{}) string {
 	var lk = GetLock("Any2Str").Lock()
 	defer lk.Unlock()
-	if data, err := Json.Marshal(m); nil == err {
-		return string(data)
+
+	var buf bytes.Buffer
+	// 创建 Encoder 并绑定缓冲区
+	encoder := json.NewEncoder(&buf)
+	encoder.SetEscapeHTML(false)
+	if err := encoder.Encode(m); nil == err {
+		return buf.String()
 	}
 	return ""
 }
